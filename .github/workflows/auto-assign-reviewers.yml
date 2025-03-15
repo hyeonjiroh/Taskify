@@ -26,4 +26,4 @@ jobs:
       - name: Run reviewer assignment script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: node scripts/select-reviewers.js
+        run: node scripts/assign-reviewers.js
