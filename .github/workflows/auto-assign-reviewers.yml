@@ -1,0 +1,51 @@
+name: Auto Assign PR Reviewers
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  assign-reviewers:
+    runs-on: ubuntu-latest
+
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: Pick random reviewers
+        run: |
+          # 리뷰어 후보 목록
+          REVIEWERS=("codeit-kkm" "hyeonjiroh" "ARON-Y" "LEEHAEHYUK" "jihye5081") 
+
+          # PR 작성자 가져오기
+          PR_AUTHOR="${{ github.actor }}"
+
+          # PR 작성자를 리뷰어 목록에서 제외
+          FILTERED_REVIEWERS=()
+          for user in "${REVIEWERS[@]}"; do
+            if [[ "$user" != "$PR_AUTHOR" ]]; then
+              FILTERED_REVIEWERS+=("$user")
+            fi
+          done
+
+          # 최소 2명 이상 있어야 랜덤 선택 가능
+          if [[ "${#FILTERED_REVIEWERS[@]}" -lt 2 ]]; then
+            echo "리뷰어가 2명 이상 필요합니다."
+            exit 1
+          fi
+
+          # 랜덤으로 2명 선택
+          SELECTED_REVIEWERS=($(shuf -e "${FILTERED_REVIEWERS[@]}" -n 2))
+
+          # 선택된 리뷰어 출력
+          echo "Selected reviewers: ${SELECTED_REVIEWERS[*]}"
+          echo "SELECTED_REVIEWERS=${SELECTED_REVIEWERS[*]}" >> $GITHUB_ENV
+
+      - name: Assign reviewers
+        uses: hmarr/auto-approve-action@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr edit ${{ github.event.pull_request.number }} --add-reviewer ${SELECTED_REVIEWERS[*]}
