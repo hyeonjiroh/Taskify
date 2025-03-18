@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Taskify
 
-## Getting Started
+코드잇 스프린트 13기 Part 3 과정에서 5팀이 진행한 중급 프로젝트 **Taskify** 레포지토리입니다.
 
-First, run the development server:
+## ✅ 컨벤션
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### 타입
+
+- **feat** : 새로운 기능 추가
+- **fix** : 버그 수정
+- **docs** : 문서 내용 변경
+- **style** : 코드 스타일 변경(코드 포메팅, 코드 변경이 없는 경우)
+- **design** : 사용자 UI 디자인 변경(CSS 등)
+- **refactor** : 코드 리팩토링
+- **test** : 테스트 코드 작성
+- **build** : 빌드 파일 수정
+- **ci** : CI 설정 파일 수정
+- **perf** : 성능 개선
+- **chore** : 빌드 수정, 패키지 매니저 설정, 운영 코드 변경이 없는 경우
+- **rename** : 파일명 혹은 폴더명을 수정한 경우
+- **remove** : 파일 삭제만 한 경우
+
+### 커밋 메세지
+
+```
+타입: 요약
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 브랜치명
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+타입/#이슈번호/내용
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 이슈 제목
 
-## Learn More
+```
+[타입] 내용
+```
 
-To learn more about Next.js, take a look at the following resources:
+### PR 제목
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+타입: #이슈번호/내용
+```
