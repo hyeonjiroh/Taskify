@@ -1,3 +1,9 @@
+"use client";
+
+import useWindowSize from "@/hooks/useWindowSize";
+
 export default function Home() {
-  return <div>Taskify</div>;
+  const { width } = useWindowSize();
+
+  return <div>{width}</div>;
 }
