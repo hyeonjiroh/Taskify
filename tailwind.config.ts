@@ -55,6 +55,11 @@ const config: Config = {
           DEFAULT: "#E876EA",
         },
       },
+      screens: {
+        mobile: "375px",
+        tablet: "768px",
+        pc: "1200px",
+      },
     },
   },
   plugins: [],
