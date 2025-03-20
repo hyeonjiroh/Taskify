@@ -21,8 +21,8 @@
 ├── 📂 app                        # Next.js app 디렉토리
 │   │
 │   ├── 📂 page-path              # 각 페이지 경로에 해당하는 컴포넌트
-│   │
-│   ├── 📂 components             # 컴포넌트 관리
+│
+├── 📂 components                 # 컴포넌트 관리
 │       │
 │       ├── 📂 common             # 공통 컴포넌트 관리
 │       │   │
