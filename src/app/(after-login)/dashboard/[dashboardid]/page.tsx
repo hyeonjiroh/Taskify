@@ -1,3 +1,5 @@
-export default function Page() {
-  return <div>/dashboard/dashboardid</div>;
+"use client";
+
+export default function Page({ params }: { params: { dashboardid: string } }) {
+  return <div>/dashboard/{params.dashboardid}</div>;
 }
