@@ -1,7 +1,7 @@
 const BREAKPOINTS = {
-  MOBILE: 375,
-  TABLET: 768,
   PC: 1200,
+  TABLET: 768,
+  MOBILE: 375,
 } as const;
 
 export default BREAKPOINTS;
