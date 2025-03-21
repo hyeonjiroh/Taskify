@@ -12,7 +12,6 @@ interface InputProps {
   placeholder?: string;
   value?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-  disabled?: boolean;
   width?: string;
   height?: "sm" | "md" | "lg" | "xl";
   hasIcon?: "left" | "right";
@@ -28,7 +27,6 @@ const Input = ({
   placeholder,
   value,
   onChange,
-  disabled = false,
   width = "full",
   height = "xl",
   hasIcon,
@@ -53,7 +51,6 @@ const Input = ({
       "w-full": width === "full",
       [inputStyles.leftIcon]: hasIcon === "left",
       [inputStyles.rightIcon]: hasIcon === "right",
-      [inputStyles.disabled]: disabled,
       [inputStyles.error]: error,
     })
   );
@@ -74,7 +71,6 @@ const Input = ({
           placeholder={placeholder}
           value={value}
           onChange={onChange}
-          disabled={disabled}
         />
         {hasIcon && iconPath && (
           <Image
