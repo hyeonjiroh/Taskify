@@ -1,6 +1,9 @@
+"use client";
+
 import useWindowSize from "@/lib/hooks/useWindowSize";
 import BREAKPOINTS from "@/lib/constants/breakpoint";
 import { useDashboardStore } from "@/lib/hooks/useDashboardStore";
+import { useRouter } from "next/navigation";
 import { Dashboard } from "@/lib/types";
 import Image from "next/image";
 import CrownIcon from "../../../../public/icon/crown.svg";
@@ -14,12 +17,17 @@ export default function SideMenuItem({
   const dashboardId = useDashboardStore((state) => state.dashboardId);
   const isCurrent = String(id) === dashboardId;
 
+  const router = useRouter();
+
   const { width } = useWindowSize();
   const isMobile = width < BREAKPOINTS.TABLET;
 
   return (
     <button
       type="button"
+      onClick={() => {
+        router.push(`/dashboard/${id}`);
+      }}
       className="flex items-center p-4 rounded hover:bg-violet-8 tablet:px-[10px] tablet:py-2 pc:p-3"
       style={isCurrent ? { background: "#f1effd" } : {}}
       disabled={isCurrent}
@@ -32,7 +40,7 @@ export default function SideMenuItem({
           ></div>
         </div>
         {!isMobile && (
-          <div className="flex items-center tablet:gap-1 pc:gap-[6px] overflow-hidden">
+          <div className="flex items-center overflow-hidden tablet:gap-1 pc:gap-[6px]">
             <div className="font-medium text-lg truncate text-gray-600 pc:text-2lg">
               {title}
             </div>

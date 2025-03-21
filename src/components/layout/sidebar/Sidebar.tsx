@@ -7,6 +7,7 @@ import SmallLogo from "../../../../public/logo/logo_small.svg";
 import LargeLogo from "../../../../public/logo/logo_large.svg";
 import AddButton from "../../../../public/icon/add_box.svg";
 import SideMenuList from "./SideMenuList";
+import Link from "next/link";
 
 export default function Sidebar() {
   const { width } = useWindowSize();
@@ -18,12 +19,14 @@ export default function Sidebar() {
         type="button"
         className="flex justify-center items-center pc:justify-start"
       >
-        <Image
-          src={isMobile ? SmallLogo : LargeLogo}
-          width={isMobile ? 24 : 110}
-          height={isMobile ? 30 : 34}
-          alt=""
-        />
+        <Link href="/">
+          <Image
+            src={isMobile ? SmallLogo : LargeLogo}
+            width={isMobile ? 24 : 110}
+            height={isMobile ? 30 : 34}
+            alt=""
+          />
+        </Link>
       </button>
       <div className="flex flex-col items-center gap-[22px] tablet:gap-[15px] tablet:items-stretch pc:gap-[16px]">
         <div className="flex justify-between">
@@ -32,7 +35,7 @@ export default function Sidebar() {
               Dash Boards
             </div>
           )}
-          <button type="button">
+          <button type="button" className="rounded hover:bg-violet-8">
             <Image src={AddButton} width={20} height={20} alt="" />
           </button>
         </div>
