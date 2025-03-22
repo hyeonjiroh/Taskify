@@ -5,10 +5,10 @@ import LargeLogo from "../../../../public/logo/logo_large.svg";
 
 export default function LogoButton({
   isMobile,
-  isHome,
+  variant,
 }: {
   isMobile: boolean;
-  isHome: boolean;
+  variant: "purple" | "white";
 }) {
   return (
     <button
@@ -20,7 +20,7 @@ export default function LogoButton({
           src={isMobile ? SmallLogo : LargeLogo}
           width={isMobile ? 24 : 110}
           height={isMobile ? 30 : 34}
-          className={isHome ? "invert brightness-0" : ""}
+          className={variant === "white" ? "invert brightness-0" : ""}
           alt=""
         />
       </Link>
