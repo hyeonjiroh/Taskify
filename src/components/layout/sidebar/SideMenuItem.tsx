@@ -1,5 +1,3 @@
-"use client";
-
 import useWindowSize from "@/lib/hooks/useWindowSize";
 import BREAKPOINTS from "@/lib/constants/breakpoint";
 import { useDashboardStore } from "@/lib/hooks/useDashboardStore";
