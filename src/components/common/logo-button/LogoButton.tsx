@@ -3,7 +3,13 @@ import Image from "next/image";
 import SmallLogo from "../../../../public/logo/logo_small.svg";
 import LargeLogo from "../../../../public/logo/logo_large.svg";
 
-export default function LogoButton({ isMobile }: { isMobile: boolean }) {
+export default function LogoButton({
+  isMobile,
+  isHome,
+}: {
+  isMobile: boolean;
+  isHome: boolean;
+}) {
   return (
     <button
       type="button"
@@ -14,6 +20,7 @@ export default function LogoButton({ isMobile }: { isMobile: boolean }) {
           src={isMobile ? SmallLogo : LargeLogo}
           width={isMobile ? 24 : 110}
           height={isMobile ? 30 : 34}
+          className={isHome ? "invert brightness-0" : ""}
           alt=""
         />
       </Link>

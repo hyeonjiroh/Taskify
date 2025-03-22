@@ -12,7 +12,7 @@ export default function Sidebar() {
 
   return (
     <div className="flex flex-col gap-10 tablet:gap-[57px] pc:gap-14">
-      <LogoButton isMobile={isMobile} />
+      <LogoButton isMobile={isMobile} isHome={false} />
       <div className="flex flex-col items-center gap-[22px] tablet:gap-[15px] tablet:items-stretch pc:gap-[16px]">
         <div className="flex justify-between">
           {!isMobile && (
