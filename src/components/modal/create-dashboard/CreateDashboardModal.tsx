@@ -2,15 +2,10 @@
 
 import Modal from "@/components/common/modal/Modal";
 
-export default function CreateDashboardModal({
-  onClose,
-}: {
-  onClose: () => void;
-}) {
+export default function CreateDashboardModal() {
   return (
-    <Modal>
-      <button onClick={onClose}>x</button>
-      <div>Modal Content</div>
+    <Modal isMenu={true}>
+      <div>Modal Contentㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</div>
     </Modal>
   );
 }

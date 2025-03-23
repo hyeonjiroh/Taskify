@@ -5,6 +5,7 @@ export default function SideMenuList() {
   const { dashboards, totalCount, cursorId } = mock;
   const items: Dashboard[] = dashboards;
 
+  // 해당 값들 사용하게 되면 지울 테스트 코드들
   console.log(totalCount);
   console.log(cursorId);
 

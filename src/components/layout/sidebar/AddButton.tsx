@@ -1,6 +1,6 @@
-import Image from "next/image";
-import AddButtonIcon from "../../../../public/icon/add_box.svg";
 import { useModalStore } from "@/lib/hooks/useModalStore";
+import Image from "next/image";
+import AddButtonIcon from "../../../../public/icon/add_box_icon.svg";
 
 export default function AddButton() {
   const { openModal } = useModalStore();
