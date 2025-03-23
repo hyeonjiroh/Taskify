@@ -10,11 +10,13 @@ export default function Modal({
   variant,
   modalTitle,
   buttonName,
+  isDisabled = true,
 }: {
   children: ReactNode;
   variant: "form" | "page";
   modalTitle?: string;
   buttonName?: string;
+  isDisabled?: boolean;
 }) {
   const isForm = variant === "form";
 
@@ -32,7 +34,7 @@ export default function Modal({
         {isForm ? (
           <div className="flex gap-[7px] tablet:gap-2">
             <CancelButton />
-            <SubmitButton name={buttonName!} />
+            <SubmitButton name={buttonName!} isDisabled={isDisabled} />
           </div>
         ) : (
           ""
