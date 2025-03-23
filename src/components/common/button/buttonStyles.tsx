@@ -13,10 +13,3 @@ export const radiusStyles = {
   sm: "rounded",
   lg: "rounded-lg",
 };
-
-export const fontStyles = {
-  xs: "text-xs leading-[18px]",
-  md: "text-md",
-  lg: "text-lg",
-  "2lg": "text-2lg",
-};

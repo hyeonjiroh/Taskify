@@ -5,29 +5,23 @@ import {
   variantStyles,
   disabledStyles,
   radiusStyles,
-  fontStyles,
 } from "@/components/common/button/buttonStyles";
 import { twMerge } from "tailwind-merge";
 import clsx from "clsx";
 
-interface ButtonProps {
+interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
   variant: "purple" | "whiteViolet" | "whiteGray";
   disabled?: boolean;
-  width?: string;
-  height?: string;
   radius?: "sm" | "lg";
-  fontSize?: "xs" | "md" | "lg" | "2lg";
   onClick?: () => void;
   children: ReactNode;
 }
 
 const Button = ({
   variant = "purple",
+  className,
   disabled = false,
-  width,
-  height,
   radius = "lg",
-  fontSize = "lg",
   onClick,
   children,
   ...props
@@ -35,16 +29,15 @@ const Button = ({
   const buttonStyles = twMerge(
     clsx(
       baseStyles,
+      className,
       disabled ? disabledStyles : variantStyles[variant],
-      radiusStyles[radius],
-      fontStyles[fontSize]
+      radiusStyles[radius]
     )
   );
 
   return (
     <button
       className={buttonStyles}
-      style={{ width, height }}
       onClick={disabled ? undefined : onClick}
       disabled={disabled}
       {...props}
