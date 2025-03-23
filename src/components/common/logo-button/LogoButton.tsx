@@ -1,29 +1,43 @@
-import Link from "next/link";
+import { useDashboardStore } from "@/lib/hooks/useDashboardStore";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import SmallLogo from "../../../../public/logo/logo_small.svg";
 import LargeLogo from "../../../../public/logo/logo_large.svg";
 
 export default function LogoButton({
-  isMobile,
   variant,
+  isMobile,
 }: {
+  variant: "white" | "purple";
   isMobile: boolean;
-  variant: "purple" | "white";
 }) {
+  const router = useRouter();
+
+  const setDashboardId = useDashboardStore((state) => state.setDashboardId);
+
+  const navigateToHome = () => {
+    router.push("/");
+  };
+
+  const navigateToMyDashboard = () => {
+    router.push("/mydashboard");
+    setDashboardId(null);
+  };
+
+  const isHome = variant === "white";
+
   return (
     <button
       type="button"
-      className="flex justify-center items-center pc:justify-start"
+      onClick={isHome ? navigateToHome : navigateToMyDashboard}
     >
-      <Link href="/">
-        <Image
-          src={isMobile ? SmallLogo : LargeLogo}
-          width={isMobile ? 24 : 110}
-          height={isMobile ? 30 : 34}
-          className={variant === "white" ? "invert brightness-0" : ""}
-          alt=""
-        />
-      </Link>
+      <Image
+        src={isMobile ? SmallLogo : LargeLogo}
+        width={isMobile ? 24 : 110}
+        height={isMobile ? 30 : 34}
+        className={isHome ? "invert brightness-0" : ""}
+        alt=""
+      />
     </button>
   );
 }

@@ -3,7 +3,7 @@ import { create } from "zustand";
 
 type DashboardState = {
   dashboardId: string | null;
-  setDashboardId: (id: string) => void;
+  setDashboardId: (id: string | null) => void;
 };
 
 export const useDashboardStore = create<DashboardState>((set) => ({

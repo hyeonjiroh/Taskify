@@ -1,19 +1,19 @@
-export function getColorName(hex: string): string {
-  switch (hex) {
-    case "#7AC555":
-      return "green";
+export function getHEXCode(color: string): string {
+  switch (color) {
+    case "green":
+      return "#7AC555";
       break;
-    case "#760DDE":
-      return "purple";
+    case "purple":
+      return "#760DDE";
       break;
-    case "#FFA500":
-      return "orange";
+    case "orange":
+      return "#FFA500";
       break;
-    case "#76A6EA":
-      return "blue";
+    case "blue":
+      return "#76A6EA";
       break;
-    case "#E876EA":
-      return "pink";
+    case "pink":
+      return "#E876EA";
       break;
     default:
       return "";
