@@ -17,6 +17,7 @@ interface ButtonProps {
   fontSize?: "xs" | "md" | "lg" | "2lg"; //12px, 14px, 16px, 18px
   textColor?: "violet" | "gray"; //버튼 색이 white일 때만 사용
   onClick?: () => void;
+  className: string;
   children: ReactNode;
 }
 
@@ -29,6 +30,7 @@ const Button = ({
   fontSize = "lg",
   textColor = "violet",
   onClick,
+  className = "",
   children,
 }: ButtonProps) => {
   // 동적으로 클래스 조합
@@ -38,7 +40,7 @@ const Button = ({
       : variant === "purple"
         ? variantStyles.purple
         : variantStyles.white(textColor)
-  } ${radiusStyles[radius]} ${fontStyles[fontSize]}`;
+  } ${radiusStyles[radius]} ${fontStyles[fontSize]} ${className}`;
 
   return (
     <button

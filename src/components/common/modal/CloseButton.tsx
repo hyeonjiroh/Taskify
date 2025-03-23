@@ -1,5 +1,3 @@
-"use client";
-
 import { useIsMobile } from "@/lib/hooks/useCheckViewport";
 import { useModalStore } from "@/lib/hooks/useModalStore";
 import Image from "next/image";
@@ -10,7 +8,11 @@ export default function CloseButton() {
   const isMobile = useIsMobile();
 
   return (
-    <button type="button" onClick={closeModal}>
+    <button
+      type="button"
+      onClick={closeModal}
+      className="rounded-full hover:bg-gray-300"
+    >
       <Image
         src={CloseButtonIcon}
         width={isMobile ? 24 : 32}
