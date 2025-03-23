@@ -1,11 +1,9 @@
-import { useIsMobile } from "@/lib/hooks/useCheckViewport";
 import { useModalStore } from "@/lib/hooks/useModalStore";
 import Image from "next/image";
 import CloseButtonIcon from "../../../../public/icon/close_icon.svg";
 
-export default function CloseButton() {
+export default function CloseButton({ isMobile }: { isMobile: boolean }) {
   const { closeModal } = useModalStore();
-  const isMobile = useIsMobile();
 
   return (
     <button
