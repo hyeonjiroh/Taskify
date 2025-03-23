@@ -1,4 +1,3 @@
-// lib/store/useDashboardStore.ts
 import { create } from "zustand";
 
 type DashboardState = {

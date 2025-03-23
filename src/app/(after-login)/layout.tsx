@@ -1,7 +1,13 @@
+"use client";
+
 import Sidebar from "@/components/layout/sidebar/Sidebar";
+import CreateDashboardModal from "@/components/modal/create-dashboard/CreateDashboardModal";
+import { useModalStore } from "@/lib/hooks/useModalStore";
 import { ReactNode } from "react";
 
 export default function Layout({ children }: { children: ReactNode }) {
+  const { isOpen, closeModal } = useModalStore();
+
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
@@ -14,6 +20,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         {/* page content */}
         {children}
       </div>
+      {isOpen && <CreateDashboardModal onClose={closeModal} />}
     </div>
   );
 }
