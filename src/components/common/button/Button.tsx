@@ -5,49 +5,42 @@ import {
   variantStyles,
   disabledStyles,
   radiusStyles,
-  fontStyles,
-} from "./buttonStyles";
+} from "@/components/common/button/buttonStyles";
+import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
-interface ButtonProps {
-  variant: "purple" | "white"; //버튼 스타일
-  disabled?: boolean; //비활성화 여부
-  width?: string;
-  height?: string;
-  radius?: "sm" | "lg"; //둥글기 (4px 혹은 8px)
-  fontSize?: "xs" | "md" | "lg" | "2lg"; //12px, 14px, 16px, 18px
-  textColor?: "violet" | "gray"; //버튼 색이 white일 때만 사용
+interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
+  variant: "purple" | "whiteViolet" | "whiteGray";
+  disabled?: boolean;
+  radius?: "sm" | "lg";
   onClick?: () => void;
-  className: string;
   children: ReactNode;
 }
 
 const Button = ({
-  variant,
+  variant = "purple",
+  className,
   disabled = false,
-  width,
-  height,
   radius = "lg",
-  fontSize = "lg",
-  textColor = "violet",
   onClick,
-  className = "",
   children,
+  ...props
 }: ButtonProps) => {
-  // 동적으로 클래스 조합
-  const buttonStyles = `${baseStyles} ${
-    disabled
-      ? disabledStyles
-      : variant === "purple"
-        ? variantStyles.purple
-        : variantStyles.white(textColor)
-  } ${radiusStyles[radius]} ${fontStyles[fontSize]} ${className}`;
+  const buttonStyles = twMerge(
+    clsx(
+      baseStyles,
+      className,
+      disabled ? disabledStyles : variantStyles[variant],
+      radiusStyles[radius]
+    )
+  );
 
   return (
     <button
       className={buttonStyles}
-      style={{ width, height }}
-      onClick={disabled ? undefined : onClick} // 비활성화 시 클릭 불가
+      onClick={disabled ? undefined : onClick}
       disabled={disabled}
+      {...props}
     >
       {children}
     </button>

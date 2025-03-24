@@ -6,9 +6,8 @@ export default function CancelButton() {
 
   return (
     <Button
-      variant="white"
+      variant="whiteGray"
       className="flex-1 h-[54px] text-md tablet:text-lg"
-      textColor="gray"
       onClick={closeModal}
     >
       취소
