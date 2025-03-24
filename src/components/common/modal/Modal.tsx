@@ -26,7 +26,13 @@ export default function Modal({
 
   return createPortal(
     <div className="flex justify-center items-center fixed top-0 left-0 w-full h-full p-6 bg-black/70">
-      <div className="flex flex-col gap-8 max-h-[80vh] px-4 py-5 tablet:p-8 rounded border-none bg-white">
+      <div
+        className={
+          isForm
+            ? "flex flex-col gap-8 max-h-[80vh] px-4 py-6 tablet:p-8 rounded border-none bg-white"
+            : "flex flex-col gap-2 max-h-[80vh] p-4 tablet:px-8 tablet:py-6 rounded border-none bg-white tablet:gap-6"
+        }
+      >
         <div
           className={
             !isForm && isMobile

@@ -9,7 +9,7 @@ export default function MenuButton({ isMobile }: { isMobile: boolean }) {
 
   const openModifyModal = () => {
     closeModal();
-    openModal("modifyDashboard");
+    openModal("editTask");
   };
 
   return (

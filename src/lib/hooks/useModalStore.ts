@@ -1,6 +1,14 @@
 import { create } from "zustand";
 
-export type ModalKey = "createDashboard" | "modifyDashboard" | null;
+export type ModalKey =
+  | "createDashboard"
+  | "taskDetail"
+  | "editTask"
+  | "createTask"
+  | "addColumn"
+  | "editColumn"
+  | "invite"
+  | null;
 
 type ModalState = {
   currentModal: ModalKey;
