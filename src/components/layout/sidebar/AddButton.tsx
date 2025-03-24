@@ -8,7 +8,7 @@ export default function AddButton() {
   return (
     <button
       type="button"
-      onClick={() => openModal("createDashboard")}
+      onClick={() => openModal("editColumn")}
       className="rounded hover:bg-violet-8"
     >
       <Image src={AddButtonIcon} width={20} height={20} alt="" />

@@ -1,9 +1,9 @@
 import { useState } from "react";
+import { useModalStore } from "@/lib/hooks/useModalStore";
 import Modal from "@/components/common/modal/Modal";
 import Input from "@/components/common/input/Input";
-import { useModalStore } from "@/lib/hooks/useModalStore";
 
-export default function AddColumnModal() {
+export default function CreateDashboardModal() {
   // 해당 폼이 유효성 검사 후 제출 가능해질 때 해당 state 값이 true가 되도록 하기
   const [isFormValid, setIsFormValid] = useState(false);
   const { closeModal } = useModalStore();
@@ -17,7 +17,6 @@ export default function AddColumnModal() {
 
   return (
     <Modal
-      variant={"form"}
       modalTitle={"새 컬럼 생성"}
       buttonName="생성"
       buttonClick={buttonClick}

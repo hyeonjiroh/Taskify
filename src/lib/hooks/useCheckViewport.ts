@@ -8,7 +8,7 @@ export const BREAKPOINTS = {
 
 export function useIsMobile() {
   const { width } = useWindowSize();
-  return width < BREAKPOINTS.TABLET;
+  return width > 0 && width < BREAKPOINTS.TABLET;
 }
 
 export function useIsTablet() {
