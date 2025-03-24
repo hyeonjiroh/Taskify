@@ -13,7 +13,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className="font-pretandard">{children}</body>
+      <body className="font-pretandard">
+        <main>{children}</main>
+        <div id="modal-root"></div>
+      </body>
     </html>
   );
 }

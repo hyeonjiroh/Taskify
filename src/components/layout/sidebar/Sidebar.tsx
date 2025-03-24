@@ -1,14 +1,10 @@
-"use client";
-
-import useWindowSize from "@/lib/hooks/useWindowSize";
-import BREAKPOINTS from "@/lib/constants/breakpoint";
+import { useIsMobile } from "@/lib/hooks/useCheckViewport";
 import LogoButton from "@/components/common/logo-button/LogoButton";
 import AddButton from "./AddButton";
 import SideMenuList from "./SideMenuList";
 
 export default function Sidebar() {
-  const { width } = useWindowSize();
-  const isMobile = width < BREAKPOINTS.TABLET;
+  const isMobile = useIsMobile();
 
   return (
     <div className="flex flex-col gap-[39px] tablet:gap-[57px] pc:gap-14">

@@ -1,7 +1,19 @@
-import Sidebar from "@/components/layout/sidebar/Sidebar";
+"use client";
+
 import { ReactNode } from "react";
+import Sidebar from "@/components/layout/sidebar/Sidebar";
+import { useModalStore } from "@/lib/hooks/useModalStore";
+import CreateDashboardModal from "@/components/modal/create-dashboard/CreateDashboardModal";
+import EditTaskModal from "@/components/modal/edit-task/EditTaskModal";
+import TaskDetail from "@/components/modal/task-detail/TaskDetail";
+import CreateTaskModal from "@/components/modal/create-task/CreateTaskModal";
+import AddColumnModal from "@/components/modal/add-column/AddColumnModal";
+import EditColumnModal from "@/components/modal/editColumn/EditColumnModal";
+import InviteModal from "@/components/modal/invite/InviteModal";
 
 export default function Layout({ children }: { children: ReactNode }) {
+  const { currentModal } = useModalStore();
+
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
@@ -14,6 +26,13 @@ export default function Layout({ children }: { children: ReactNode }) {
         {/* page content */}
         {children}
       </div>
+      {currentModal === "createDashboard" && <CreateDashboardModal />}
+      {currentModal === "taskDetail" && <TaskDetail />}
+      {currentModal === "editTask" && <EditTaskModal />}
+      {currentModal === "createTask" && <CreateTaskModal />}
+      {currentModal === "addColumn" && <AddColumnModal />}
+      {currentModal === "editColumn" && <EditColumnModal />}
+      {currentModal === "invite" && <InviteModal />}
     </div>
   );
 }

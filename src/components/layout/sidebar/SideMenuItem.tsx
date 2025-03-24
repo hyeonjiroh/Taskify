@@ -1,10 +1,9 @@
-import useWindowSize from "@/lib/hooks/useWindowSize";
-import BREAKPOINTS from "@/lib/constants/breakpoint";
+import { useIsMobile } from "@/lib/hooks/useCheckViewport";
 import { useDashboardStore } from "@/lib/hooks/useDashboardStore";
 import { useRouter } from "next/navigation";
 import { Dashboard } from "@/lib/types";
 import Image from "next/image";
-import CrownIcon from "../../../../public/icon/crown.svg";
+import CrownIcon from "../../../../public/icon/crown_icon.svg";
 
 export default function SideMenuItem({
   id,
@@ -17,8 +16,7 @@ export default function SideMenuItem({
 
   const router = useRouter();
 
-  const { width } = useWindowSize();
-  const isMobile = width < BREAKPOINTS.TABLET;
+  const isMobile = useIsMobile();
 
   return (
     <button
