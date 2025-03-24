@@ -41,9 +41,12 @@ export default function SideMenuItem({
               {title}
             </div>
             {createdByMe && (
-              <div className="min-w-[15px] h-[12px] relative pc:min-w-[18px] pc:h-[14px]">
-                <Image src={CrownIcon} fill alt="" />
-              </div>
+              <Image
+                src={CrownIcon}
+                width={isMobile ? 15 : 18}
+                height={isMobile ? 12 : 14}
+                alt=""
+              />
             )}
           </div>
         )}

@@ -26,13 +26,23 @@ export default function Layout({ children }: { children: ReactNode }) {
         {/* page content */}
         {children}
       </div>
-      {currentModal === "createDashboard" && <CreateDashboardModal />}
-      {currentModal === "taskDetail" && <TaskDetail />}
-      {currentModal === "editTask" && <EditTaskModal />}
-      {currentModal === "createTask" && <CreateTaskModal />}
-      {currentModal === "addColumn" && <AddColumnModal />}
-      {currentModal === "editColumn" && <EditColumnModal />}
-      {currentModal === "invite" && <InviteModal />}
+      {currentModal === "createDashboard" && (
+        <CreateDashboardModal modalType={currentModal} />
+      )}
+      {currentModal === "taskDetail" && <TaskDetail modalType={currentModal} />}
+      {currentModal === "editTask" && (
+        <EditTaskModal modalType={currentModal} />
+      )}
+      {currentModal === "createTask" && (
+        <CreateTaskModal modalType={currentModal} />
+      )}
+      {currentModal === "addColumn" && (
+        <AddColumnModal modalType={currentModal} />
+      )}
+      {currentModal === "editColumn" && (
+        <EditColumnModal modalType={currentModal} />
+      )}
+      {currentModal === "invite" && <InviteModal modalType={currentModal} />}
     </div>
   );
 }

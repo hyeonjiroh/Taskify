@@ -1,9 +1,13 @@
 import { useState } from "react";
+import { ModalKey, useModalStore } from "@/lib/hooks/useModalStore";
 import Modal from "@/components/common/modal/Modal";
 import Input from "@/components/common/input/Input";
-import { useModalStore } from "@/lib/hooks/useModalStore";
 
-export default function EditTaskModal() {
+export default function EditTaskModal({
+  modalType,
+}: {
+  modalType: Exclude<ModalKey, null>;
+}) {
   // 해당 폼이 유효성 검사 후 제출 가능해질 때 해당 state 값이 true가 되도록 하기
   const [isFormValid, setIsFormValid] = useState(false);
   const { closeModal } = useModalStore();
@@ -17,7 +21,7 @@ export default function EditTaskModal() {
 
   return (
     <Modal
-      variant={"form"}
+      variant={modalType}
       modalTitle={"할 일 수정"}
       buttonName="수정"
       buttonClick={buttonClick}
