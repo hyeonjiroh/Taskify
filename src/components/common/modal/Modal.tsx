@@ -1,32 +1,38 @@
 import { ReactNode } from "react";
-import { ModalKey } from "@/lib/hooks/useModalStore";
+import { useModalStore } from "@/lib/hooks/useModalStore";
+import { useAlertStore } from "@/lib/hooks/useAlertStore";
 import { createPortal } from "react-dom";
 import { useIsMobile } from "@/lib/hooks/useCheckViewport";
+import Button from "@/components/common/button/Button";
 import MenuButton from "./MenuButton";
 import CloseButton from "./CloseButton";
-import CancelButton from "./CancelButton";
-import DeleteButton from "./DeleteButton";
-import SubmitButton from "./SubmitButton";
 import clsx from "clsx";
 
 export default function Modal({
   children,
-  variant,
   modalTitle,
   buttonName,
   buttonClick,
   buttonDisabled = true,
 }: {
   children: ReactNode;
-  variant: Exclude<ModalKey, null>;
   modalTitle: string;
   buttonName?: string;
   buttonClick?: () => void;
   buttonDisabled?: boolean;
 }) {
+  const { currentModal, closeModal } = useModalStore();
+  const { openAlert } = useAlertStore();
+
+  const deleteColumn = () => {
+    closeModal();
+    openAlert("deleteColumn");
+  };
+
   const isMobile = useIsMobile();
-  const isPage = variant === "taskDetail";
-  const isEditColumn = variant === "editColumn";
+
+  const isPage = currentModal === "taskDetail";
+  const isEditColumn = currentModal === "editColumn";
 
   return createPortal(
     <div className="flex justify-center items-center fixed top-0 left-0 w-full h-full p-6 bg-black/70">
@@ -56,12 +62,23 @@ export default function Modal({
         <div className="overflow-y-auto scrollbar-hide">{children}</div>
         {!isPage && (
           <div className="flex gap-[7px] tablet:gap-2">
-            {isEditColumn ? <DeleteButton /> : <CancelButton />}
-            <SubmitButton
-              name={buttonName!}
-              onClick={buttonClick!}
-              isDisabled={buttonDisabled}
-            />
+            {/* Cancel Button or Delete Button */}
+            <Button
+              variant="whiteGray"
+              className="flex-1 h-[54px] text-md tablet:text-lg"
+              onClick={isEditColumn ? deleteColumn : closeModal}
+            >
+              {isEditColumn ? "삭제" : "취소"}
+            </Button>
+            {/* Submit Button */}
+            <Button
+              variant="purple"
+              onClick={buttonClick}
+              className="flex-1 h-[54px] text-md tablet:text-lg"
+              disabled={buttonDisabled}
+            >
+              {buttonName}
+            </Button>
           </div>
         )}
       </div>

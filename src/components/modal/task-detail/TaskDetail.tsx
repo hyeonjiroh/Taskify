@@ -1,13 +1,8 @@
-import { ModalKey } from "@/lib/hooks/useModalStore";
 import Modal from "@/components/common/modal/Modal";
 
-export default function TaskDetail({
-  modalType,
-}: {
-  modalType: Exclude<ModalKey, null>;
-}) {
+export default function TaskDetail() {
   return (
-    <Modal variant={modalType} modalTitle={"새로운 일정 관리 Taskify"}>
+    <Modal modalTitle={"새로운 일정 관리 Taskify"}>
       <div className="">
         <div className="flex flex-col gap-4 tablet:flex-row-reverse tablet:gap-[13px] pc:gap-[14px]">
           {/* Card Info */}
