@@ -1,13 +1,15 @@
 import { create } from "zustand";
 
+export type ModalKey = "createDashboard" | "modifyDashboard" | null;
+
 type ModalState = {
-  isOpen: boolean;
-  openModal: () => void;
+  currentModal: ModalKey;
+  openModal: (key: Exclude<ModalKey, null>) => void;
   closeModal: () => void;
 };
 
 export const useModalStore = create<ModalState>((set) => ({
-  isOpen: false,
-  openModal: () => set({ isOpen: true }),
-  closeModal: () => set({ isOpen: false }),
+  currentModal: null,
+  openModal: (key) => set({ currentModal: key }),
+  closeModal: () => set({ currentModal: null }),
 }));

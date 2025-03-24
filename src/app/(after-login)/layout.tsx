@@ -4,9 +4,10 @@ import { ReactNode } from "react";
 import Sidebar from "@/components/layout/sidebar/Sidebar";
 import { useModalStore } from "@/lib/hooks/useModalStore";
 import CreateDashboardModal from "@/components/modal/create-dashboard/CreateDashboardModal";
+import ModifyDashboardModal from "@/components/modal/modify-dashboard/ModifyDashboardModal";
 
 export default function Layout({ children }: { children: ReactNode }) {
-  const { isOpen } = useModalStore();
+  const { currentModal } = useModalStore();
 
   return (
     <div className="flex min-h-screen">
@@ -20,7 +21,8 @@ export default function Layout({ children }: { children: ReactNode }) {
         {/* page content */}
         {children}
       </div>
-      {isOpen && <CreateDashboardModal />}
+      {currentModal === "createDashboard" && <CreateDashboardModal />}
+      {currentModal === "modifyDashboard" && <ModifyDashboardModal />}
     </div>
   );
 }

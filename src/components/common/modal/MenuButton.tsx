@@ -1,9 +1,16 @@
 import { useState } from "react";
+import { useModalStore } from "@/lib/hooks/useModalStore";
 import Image from "next/image";
 import MenuButtonIcon from "../../../../public/icon/menu_icon.svg";
 
 export default function MenuButton({ isMobile }: { isMobile: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
+  const { openModal, closeModal } = useModalStore();
+
+  const openModifyModal = () => {
+    closeModal();
+    openModal("modifyDashboard");
+  };
 
   return (
     <button
@@ -20,7 +27,10 @@ export default function MenuButton({ isMobile }: { isMobile: boolean }) {
       />
       {isOpen && (
         <div className="flex flex-col justify-between absolute top-8 right-0 p-[6px] rounded-md bg-white border border-gray-400">
-          <button className="w-[81px] h-8 rounded font-normal text-md text-gray-800 hover:text-violet hover:bg-violet-8">
+          <button
+            onClick={openModifyModal}
+            className="w-[81px] h-8 rounded font-normal text-md text-gray-800 hover:text-violet hover:bg-violet-8"
+          >
             수정하기
           </button>
           <button className="w-[81px] h-8 rounded font-normal text-md text-gray-800 hover:text-violet hover:bg-violet-8">

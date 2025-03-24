@@ -7,7 +7,7 @@ export default function CancelButton() {
   return (
     <Button
       variant="white"
-      className="w-[114px] h-[54px] text-md tablet:w-[256px] tablet:text-lg"
+      className="flex-1 h-[54px] text-md tablet:text-lg"
       textColor="gray"
       onClick={closeModal}
     >
