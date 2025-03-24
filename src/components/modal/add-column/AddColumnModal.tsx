@@ -11,6 +11,7 @@ export default function AddColumnModal() {
   // 활성화된 모달 버튼 클릭 시 실행할 함수
   const buttonClick = () => {
     alert("Hi"); // 이 부분 바꿔주시면 됩니다
+    setIsFormValid(false); // 이 코드는 배포할 때 문제가 있어서 임시로 넣어놓은 코드라 삭제하시면 됩니다
     closeModal();
   };
 
