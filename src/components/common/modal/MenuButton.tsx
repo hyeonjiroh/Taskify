@@ -3,7 +3,7 @@ import { useModalStore } from "@/lib/hooks/useModalStore";
 import Image from "next/image";
 import MenuButtonIcon from "../../../../public/icon/menu_icon.svg";
 
-export default function MenuButton({ isMobile }: { isMobile: boolean }) {
+export default function MenuButton() {
   const [isOpen, setIsOpen] = useState(false);
   const { openModal, closeModal } = useModalStore();
 
@@ -20,9 +20,7 @@ export default function MenuButton({ isMobile }: { isMobile: boolean }) {
     >
       <Image
         src={MenuButtonIcon}
-        width={isMobile ? 20 : 28}
-        height={isMobile ? 20 : 28}
-        className="rounded-full hover:bg-gray-300"
+        className="w-[20px] h-[20px] rounded-full hover:bg-gray-300 tablet:w-[28px] tablet:h-[28px]"
         alt=""
       />
       {isOpen && (

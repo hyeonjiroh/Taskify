@@ -20,14 +20,14 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <div className="w-[67px] px-[14px] py-5 bg-white tablet:w-[160px] tablet:px-[13px] pc:w-[300px] pc:px-3">
+      <div className="w-[67px] px-[14px] py-5 border border-gray-400 bg-white tablet:w-[160px] tablet:px-[13px] pc:w-[300px] pc:px-3">
         <Sidebar />
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col w-screen">
         {/* Navigation Bar */}
-        <div>after-login-navigation</div>
+        <div className="bg-blue h-[60px] tablet:h-[60px]"></div>
         {/* page content */}
-        {children}
+        <div className="h-screen bg-gray-200">{children}</div>
       </div>
 
       {/* Modal */}
