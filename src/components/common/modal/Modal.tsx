@@ -10,14 +10,14 @@ import CloseButton from "./CloseButton";
 import clsx from "clsx";
 
 export default function Modal({
-  children,
   button,
+  children,
 }: {
-  children: ReactNode;
   button?: {
     onConfirm: () => void;
     disabled: boolean;
   };
+  children: ReactNode;
 }) {
   const { currentModal, closeModal } = useModalStore();
   const { openAlert } = useAlertStore();

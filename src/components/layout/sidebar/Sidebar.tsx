@@ -1,3 +1,5 @@
+"use client";
+
 import { useIsMobile } from "@/lib/hooks/useCheckViewport";
 import LogoButton from "@/components/common/logo-button/LogoButton";
 import AddButton from "./AddButton";

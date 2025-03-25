@@ -1,3 +1,5 @@
+"use client";
+
 import { useIsMobile } from "@/lib/hooks/useCheckViewport";
 import { useDashboardStore } from "@/lib/hooks/useDashboardStore";
 import { useRouter } from "next/navigation";
