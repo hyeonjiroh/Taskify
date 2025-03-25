@@ -1,6 +1,8 @@
 import LogoButton from "@/components/common/logo-button/LogoButton";
 
-export default function Navbar() {
+type NavType = "home" | "user" | "dashboard";
+
+export default function Navbar({ variant }: { variant: NavType }) {
   return (
     <div>
       <div>

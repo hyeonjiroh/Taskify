@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
-import check from "@/app/check_color.svg";
+import CheckIcon from "../../../../public/icon/check_icon.svg";
 
 const COLORS = [
   { name: "green", code: "#7AC555" },
@@ -37,7 +37,7 @@ const ColorPalette = ({ onSelect }: ColorPaletteProps) => {
               className="absolute left-0 top-0 h-full w-full"
               width={24}
               height={24}
-              src={check.src}
+              src={CheckIcon}
               alt="체크 표시"
             />
           )}
