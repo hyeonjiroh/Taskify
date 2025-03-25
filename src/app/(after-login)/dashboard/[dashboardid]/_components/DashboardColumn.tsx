@@ -13,8 +13,8 @@ export default function dashboardColumn({ id, title }: DashboardColumn) {
               <div>{title}</div>
             </div>
             <div className="flex justify-center items-center w-5 h-5 rounded bg-gray-300">
-              {/* 해당 컬럼 카드 개수 표시 */}
-              <div className="font-medium text-xs text-gray-600">0</div>
+              {/* 해당 컬럼 카드 개수 표시로 나중에 변경 */}
+              <div className="font-medium text-xs text-gray-600">{id}</div>
             </div>
           </div>
           <EditColumnButton />

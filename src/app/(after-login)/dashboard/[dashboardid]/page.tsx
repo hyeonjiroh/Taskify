@@ -6,6 +6,8 @@ export default function Page({ params }: { params: { dashboardid: string } }) {
   const { data } = mock;
   const items: DashboardColumn[] = data;
 
+  console.log(params.dashboardid); // vercel 배포 때문에 추가한 나중에 삭제할 코드
+
   return (
     <div className="flex flex-col px-3 overflow-y-auto scrollbar-hide tablet:p-0 pc:flex-row pc:h-full pc:overflow-x-auto">
       {items.map((item) => (
