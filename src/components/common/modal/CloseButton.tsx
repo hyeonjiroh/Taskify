@@ -2,7 +2,7 @@ import { useModalStore } from "@/lib/hooks/useModalStore";
 import Image from "next/image";
 import CloseButtonIcon from "../../../../public/icon/close_icon.svg";
 
-export default function CloseButton({ isMobile }: { isMobile: boolean }) {
+export default function CloseButton() {
   const { closeModal } = useModalStore();
 
   return (
@@ -13,8 +13,7 @@ export default function CloseButton({ isMobile }: { isMobile: boolean }) {
     >
       <Image
         src={CloseButtonIcon}
-        width={isMobile ? 24 : 32}
-        height={isMobile ? 24 : 32}
+        className="w-[24px] h-[24px] tablet:w-[32px] tablet:h-[32px]"
         alt=""
       />
     </button>

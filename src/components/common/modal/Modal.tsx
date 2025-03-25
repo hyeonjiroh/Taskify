@@ -55,8 +55,8 @@ export default function Modal({
             {modalTitle}
           </div>
           <div className="flex items-center justify-end gap-4 tablet:gap-6">
-            {isPage && <MenuButton isMobile={isMobile} />}
-            <CloseButton isMobile={isMobile} />
+            {isPage && <MenuButton />}
+            <CloseButton />
           </div>
         </div>
         <div className="overflow-y-auto scrollbar-hide">{children}</div>
