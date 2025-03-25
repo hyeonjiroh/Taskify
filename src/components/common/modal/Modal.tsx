@@ -3,6 +3,7 @@ import { useModalStore } from "@/lib/hooks/useModalStore";
 import { useAlertStore } from "@/lib/hooks/useAlertStore";
 import { createPortal } from "react-dom";
 import { useIsMobile } from "@/lib/hooks/useCheckViewport";
+import { modalTitle, buttonName } from "./modalData";
 import Button from "@/components/common/button/Button";
 import MenuButton from "./MenuButton";
 import CloseButton from "./CloseButton";
@@ -10,29 +11,33 @@ import clsx from "clsx";
 
 export default function Modal({
   children,
-  modalTitle,
-  buttonName,
-  buttonClick,
-  buttonDisabled = true,
+  button,
 }: {
   children: ReactNode;
-  modalTitle: string;
-  buttonName?: string;
-  buttonClick?: () => void;
-  buttonDisabled?: boolean;
+  button?: {
+    onConfirm: () => void;
+    disabled: boolean;
+  };
 }) {
   const { currentModal, closeModal } = useModalStore();
   const { openAlert } = useAlertStore();
+
+  const isMobile = useIsMobile();
+
+  const isPage = currentModal === "taskDetail";
+  const isEditColumn = currentModal === "editColumn";
+
+  const handleConfirm = () => {
+    button?.onConfirm();
+    closeModal();
+  };
 
   const deleteColumn = () => {
     closeModal();
     openAlert("deleteColumn");
   };
 
-  const isMobile = useIsMobile();
-
-  const isPage = currentModal === "taskDetail";
-  const isEditColumn = currentModal === "editColumn";
+  if (!currentModal) return null;
 
   return createPortal(
     <div className="flex justify-center items-center fixed top-0 left-0 w-full h-full p-6 bg-black/70">
@@ -52,7 +57,7 @@ export default function Modal({
           }
         >
           <div className="font-bold text-xl text-gray-800 tablet:text-2xl">
-            {modalTitle}
+            {modalTitle[currentModal]}
           </div>
           <div className="flex items-center justify-end gap-4 tablet:gap-6">
             {isPage && <MenuButton />}
@@ -73,11 +78,11 @@ export default function Modal({
             {/* Submit Button */}
             <Button
               variant="purple"
-              onClick={buttonClick}
+              onClick={handleConfirm}
               className="flex-1 h-[54px] text-md tablet:text-lg"
-              disabled={buttonDisabled}
+              disabled={button?.disabled}
             >
-              {buttonName}
+              {buttonName[currentModal]}
             </Button>
           </div>
         )}
