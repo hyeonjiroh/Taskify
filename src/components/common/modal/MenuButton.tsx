@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useModalStore } from "@/lib/hooks/useModalStore";
+import { useModalStore } from "@/lib/store/useModalStore";
 import Image from "next/image";
 import MenuButtonIcon from "../../../../public/icon/menu_icon.svg";
 

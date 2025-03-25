@@ -1,6 +1,6 @@
 "use client";
 
-import { useModalStore } from "@/lib/hooks/useModalStore";
+import { useModalStore } from "@/lib/store/useModalStore";
 import Image from "next/image";
 import EditIcon from "../../../../../../public/icon/setting_icon.svg";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useIsMobile } from "@/lib/hooks/useCheckViewport";
-import { useDashboardStore } from "@/lib/hooks/useDashboardStore";
+import { useDashboardStore } from "@/lib/store/useDashboardStore";
 import { useRouter } from "next/navigation";
 import { Dashboard } from "@/lib/types";
 import Image from "next/image";

@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import { useModalStore } from "@/lib/hooks/useModalStore";
-import { useAlertStore } from "@/lib/hooks/useAlertStore";
+import { useModalStore } from "@/lib/store/useModalStore";
+import { useAlertStore } from "@/lib/store/useAlertStore";
 import { createPortal } from "react-dom";
 import { useIsMobile } from "@/lib/hooks/useCheckViewport";
 import { modalTitle, buttonName } from "./modalData";

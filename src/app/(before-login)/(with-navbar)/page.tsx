@@ -1,3 +1,54 @@
 export default function Home() {
-  return <div>Taskify</div>;
+  return (
+    // 다시 되돌려놓기
+    <div className="text-blue bg-violet-8">
+      <div>Top</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+      <div>Taskify</div>
+    </div>
+  );
 }

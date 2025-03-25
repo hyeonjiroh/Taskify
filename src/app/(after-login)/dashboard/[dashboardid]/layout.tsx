@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useDashboardStore } from "@/lib/hooks/useDashboardStore";
+import { useDashboardStore } from "@/lib/store/useDashboardStore";
 
 export default function DashboardLayout({
   children,

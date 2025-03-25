@@ -1,6 +1,6 @@
 "use client";
 
-import { useModalStore } from "@/lib/hooks/useModalStore";
+import { useModalStore } from "@/lib/store/useModalStore";
 import Button from "@/components/common/button/Button";
 import Image from "next/image";
 import AddIcon from "../../../../../../public/icon/add_icon.svg";

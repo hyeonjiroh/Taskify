@@ -1,5 +1,5 @@
 import { createPortal } from "react-dom";
-import { useAlertStore } from "@/lib/hooks/useAlertStore";
+import { useAlertStore } from "@/lib/store/useAlertStore";
 import { alertMessages } from "./alertData";
 import Button from "@/components/common/button/Button";
 import clsx from "clsx";

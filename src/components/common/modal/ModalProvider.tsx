@@ -1,6 +1,6 @@
 "use client";
 
-import { useModalStore } from "@/lib/hooks/useModalStore";
+import { useModalStore } from "@/lib/store/useModalStore";
 import CreateDashboardModal from "@/components/modal/create-dashboard/CreateDashboardModal";
 import EditTaskModal from "@/components/modal/edit-task/EditTaskModal";
 import TaskDetail from "@/components/modal/task-detail/TaskDetail";
