@@ -1,5 +1,6 @@
 import { createPortal } from "react-dom";
 import { useAlertStore } from "@/lib/hooks/useAlertStore";
+import { alertMessages } from "./alertData";
 import Button from "@/components/common/button/Button";
 import clsx from "clsx";
 
@@ -9,13 +10,6 @@ export default function Alert({ onConfirm }: { onConfirm?: () => void }) {
   const handleConfirm = () => {
     closeAlert();
     onConfirm?.();
-  };
-
-  const alertMessages: Record<string, string> = {
-    passwordMismatch: "비밀번호가 일치하지 않습니다.",
-    emailDuplicated: "이미 사용 중인 이메일입니다.",
-    signupSuccess: "가입이 완료되었습니다!",
-    deleteColumn: "컬럼의 모든 카드가 삭제됩니다.",
   };
 
   if (!currentAlert) return null;

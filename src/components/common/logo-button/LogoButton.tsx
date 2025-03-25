@@ -1,3 +1,6 @@
+"use client";
+
+import { useIsMobile } from "@/lib/hooks/useCheckViewport";
 import { useDashboardStore } from "@/lib/hooks/useDashboardStore";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -6,11 +9,10 @@ import LargeLogo from "../../../../public/logo/logo_large.svg";
 
 export default function LogoButton({
   variant,
-  isMobile,
 }: {
   variant: "white" | "purple";
-  isMobile: boolean;
 }) {
+  const isMobile = useIsMobile();
   const router = useRouter();
 
   const setDashboardId = useDashboardStore((state) => state.setDashboardId);

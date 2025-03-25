@@ -1,3 +1,5 @@
+"use client";
+
 import useWindowSize from "@/lib/hooks/useGetViewport";
 
 export const BREAKPOINTS = {

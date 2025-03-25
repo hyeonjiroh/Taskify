@@ -2,7 +2,7 @@ import Modal from "@/components/common/modal/Modal";
 
 export default function TaskDetail() {
   return (
-    <Modal modalTitle={"새로운 일정 관리 Taskify"}>
+    <Modal>
       <div className="">
         <div className="flex flex-col gap-4 tablet:flex-row-reverse tablet:gap-[13px] pc:gap-[14px]">
           {/* Card Info */}
