@@ -1,6 +1,6 @@
 import { BASE_URL } from "@/lib/constants/urls";
 
-export async function fetchDashboards(token: string) {
+export async function fetchDashboardList(token: string) {
   const res = await fetch(
     `${BASE_URL}/dashboards?navigationMethod=pagination&page=1&size=10`,
     {
@@ -62,6 +62,24 @@ export async function fetchDashboardColumn({
   id: string;
 }) {
   const res = await fetch(`${BASE_URL}/columns?dashboardId=${id}`, {
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    cache: "no-store",
+  });
+
+  return res.json();
+}
+
+export async function fetchTaskCardList({
+  token,
+  id,
+}: {
+  token: string;
+  id: number;
+}) {
+  const res = await fetch(`${BASE_URL}/cards?size=10&columnId=${id}`, {
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${token}`,

@@ -18,17 +18,6 @@ export interface DashboardDetail {
   createdByMe: boolean;
 }
 
-export interface DashboardMember {
-  id: number;
-  email: string;
-  nickname: string;
-  profileImageUrl: string | null;
-  createdAt: string;
-  updatedAt: string;
-  isOwner: boolean;
-  userId: number;
-}
-
 export interface DashboardColumn {
   id: number;
   title: string;
@@ -38,7 +27,7 @@ export interface DashboardColumn {
   updatedAt: string;
 }
 
-export interface DashboardMember {
+export interface DashboardTask {
   id: number;
   email: string;
   nickname: string;
@@ -47,4 +36,23 @@ export interface DashboardMember {
   updatedAt: string;
   isOwner: boolean;
   userId: number;
+}
+
+export interface TaskCardList {
+  id: number;
+  title: string;
+  description: string;
+  tags: string[];
+  dueDate: string;
+  assignee: {
+    id: number;
+    nickname: string;
+    profileImageUrl: string | null;
+  };
+  imageUrl: string | null;
+  teamId: string;
+  dashboardId: number;
+  columnId: number;
+  createdAt: string;
+  updatedAt: string;
 }

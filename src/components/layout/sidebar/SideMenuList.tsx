@@ -1,10 +1,11 @@
 import { DashboardList } from "@/lib/types";
-import { fetchDashboards } from "@/lib/apis/dashboard";
+import { fetchDashboardList } from "@/lib/apis/dashboard";
 import { TOKEN_1 } from "@/lib/constants/tokens";
 import SideMenuItem from "./SideMenuItem";
 
 export default async function SideMenuList() {
-  const { dashboards, totalCount, cursorId } = await fetchDashboards(TOKEN_1);
+  const { dashboards, totalCount, cursorId } =
+    await fetchDashboardList(TOKEN_1);
   const items: DashboardList[] = dashboards;
 
   // 해당 값들 사용하게 되면 지울 테스트 코드들
