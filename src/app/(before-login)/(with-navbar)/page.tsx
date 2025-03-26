@@ -192,7 +192,14 @@ export default function Home() {
         </div>
         <div>
           <h4
-            className={`font-bold leading-[1] mt-[90px] ${isMobile ? "text-[22px] mb-[42px]" : "text-[28px] mb-[36px]"}`}
+            className={twMerge(
+              clsx({
+                "font-bold leading-[1] mt-[90px]": true,
+                "text-[22px] text-center mb-[42px]": isMobile,
+                "text-[28px] text-center mb-[36px]": isTablet,
+                "text-[28px] mb-[36px]": isPC,
+              })
+            )}
           >
             생산성을 높이는 다양한 설정 ⚡
           </h4>
