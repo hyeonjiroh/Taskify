@@ -1,4 +1,4 @@
-import { useIsPC, useIsMobile } from "@/lib/hooks/useCheckViewport";
+import { useIsMobile } from "@/lib/hooks/useCheckViewport";
 import { DashboardMember } from "@/lib/types";
 import UserIcon from "@/components/common/user-icon/UserIcon";
 
