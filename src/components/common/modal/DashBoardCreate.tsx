@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { createPortal } from "react-dom";
 import ColorPalette from "@/components/common/color-palette/ColorPalette";
 import Button from "@/components/common/button/Button";
+import { useIsMobile } from "@/lib/hooks/useCheckViewport";
+import clsx from "clsx";
 
 type DashboardModalProps = {
   isOpen: boolean;
@@ -13,6 +16,7 @@ const DashboardModal = ({ isOpen, onClose }: DashboardModalProps) => {
   const [selectedColor, setSelectedColor] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const isMobile = useIsMobile();
 
   const handleCreateDashboard = async () => {
     if (!dashboardName || !selectedColor) return;
@@ -38,9 +42,16 @@ const DashboardModal = ({ isOpen, onClose }: DashboardModalProps) => {
 
   if (!isOpen) return null;
 
-  return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/50">
-      <div className="bg-white p-6 rounded-2xl w-96 shadow-lg">
+  return createPortal(
+    <div className="flex justify-center items-center fixed top-0 left-0 w-full h-full p-6 bg-black/70">
+      <div
+        className={clsx(
+          "flex flex-col max-h-[80vh] px-4 rounded border-none bg-white",
+          isMobile
+            ? "gap-2 max-w-[327px] py-4 tablet:px-8 tablet:gap-6 tablet:w-auto tablet:py-6"
+            : "gap-8 max-w-[327px] py-6 tablet:w-auto tablet:p-8"
+        )}
+      >
         <h2 className="text-xl font-bold mb-4">대시보드 생성</h2>
 
         <input
@@ -74,8 +85,25 @@ const DashboardModal = ({ isOpen, onClose }: DashboardModalProps) => {
           </Button>
         </div>
       </div>
+    </div>,
+    document.body
+  );
+};
+
+const DashboardPage = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  return (
+    <div className="p-6">
+      <Button variant="purple" onClick={() => setIsModalOpen(true)}>
+        +
+      </Button>
+      <DashboardModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 };
 
-export default DashboardModal;
+export default DashboardPage;
