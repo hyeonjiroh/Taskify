@@ -40,7 +40,10 @@ export default async function Layout({
         </div>
         <div className="flex items-center">
           <div className="pr-4 tablet:pr-8 pc:pr-10">
-            <DashboardMenu />
+            <DashboardMenu
+              isOwner={dashboardData.createdByMe}
+              currentId={params.dashboardid}
+            />
           </div>
           <div className="pr-3 tablet:pr-6 pc:pr-8">
             <MemberList data={memberData} />
