@@ -53,3 +53,21 @@ export async function fetchDashboardMember({
 
   return res.json();
 }
+
+export async function fetchDashboardColumn({
+  token,
+  id,
+}: {
+  token: string;
+  id: string;
+}) {
+  const res = await fetch(`${BASE_URL}/columns?dashboardId=${id}`, {
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    cache: "no-store",
+  });
+
+  return res.json();
+}
