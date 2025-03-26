@@ -3,7 +3,7 @@
 import { useIsMobile } from "@/lib/hooks/useCheckViewport";
 import { useDashboardStore } from "@/lib/store/useDashboardStore";
 import { useRouter } from "next/navigation";
-import { Dashboard } from "@/lib/types";
+import { DashboardList } from "@/lib/types";
 import Image from "next/image";
 import CrownIcon from "../../../../public/icon/crown_icon.svg";
 
@@ -12,7 +12,7 @@ export default function SideMenuItem({
   title,
   color,
   createdByMe,
-}: Dashboard) {
+}: DashboardList) {
   const dashboardId = useDashboardStore((state) => state.dashboardId);
   const isCurrent = String(id) === dashboardId;
 

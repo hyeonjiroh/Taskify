@@ -1,4 +1,4 @@
-export interface Dashboard {
+export interface DashboardList {
   id: number;
   title: string;
   color: string;
