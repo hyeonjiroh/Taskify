@@ -2,14 +2,22 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useDashboardStore } from "@/lib/store/useDashboardStore";
 import { useIsMobile } from "@/lib/hooks/useCheckViewport";
 import UserIcon from "@/components/common/user-icon/UserIcon";
 import ROUTE from "@/lib/constants/route";
 
 export default function UserMenu() {
   const [isOpen, setIsOpen] = useState(false);
-  const router = useRouter();
   const isMobile = useIsMobile();
+  const router = useRouter();
+
+  const setDashboardId = useDashboardStore((state) => state.setDashboardId);
+
+  const handleMypage = () => {
+    router.push(ROUTE.MYPAGE);
+    setDashboardId(null);
+  };
 
   const handleLogout = () => {
     alert("로그아웃"); // 로그아웃 API 요청 넣기
@@ -30,9 +38,7 @@ export default function UserMenu() {
       {isOpen && (
         <div className="flex flex-col justify-between absolute top-[42px] right-0 p-[6px] rounded-md bg-white border border-gray-400 tablet:right-[-8px]">
           <button
-            onClick={() => {
-              router.push(ROUTE.MYPAGE);
-            }}
+            onClick={handleMypage}
             className="w-[81px] h-8 rounded font-normal text-md text-gray-800 hover:text-violet hover:bg-violet-8"
           >
             내 정보
