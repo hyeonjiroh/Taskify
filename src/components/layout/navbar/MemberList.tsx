@@ -1,14 +1,12 @@
-import { useIsPC, useIsMobile } from "@/lib/hooks/useCheckViewport";
+import { useIsPC } from "@/lib/hooks/useCheckViewport";
 import { DashboardMember } from "@/lib/types";
 import MemberIcon from "./MemberIcon";
-import UserIcon from "@/components/common/user-icon/UserIcon";
 
 export default function MemberList() {
   const { members, totalCount } = mock;
   const items: DashboardMember[] = members;
 
   const isPC = useIsPC();
-  const isMobile = useIsMobile();
 
   const maxVisible = isPC ? 5 : 3;
   const visibleItems = items.slice(0, maxVisible);
