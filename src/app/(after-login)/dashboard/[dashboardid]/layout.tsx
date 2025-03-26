@@ -5,6 +5,7 @@ import { useDashboardStore } from "@/lib/store/useDashboardStore";
 import { useIsPC } from "@/lib/hooks/useCheckViewport";
 import DashboardMenu from "@/components/layout/navbar/DashboardMenu";
 import UserMenu from "@/components/layout/navbar/UserMenu";
+import MemberList from "@/components/layout/navbar/MemberList";
 
 export default function Layout({
   children,
@@ -29,8 +30,11 @@ export default function Layout({
           {isPC ? "내 대시보드" : ""}
         </div>
         <div className="flex items-center">
-          <div className="pr-4 tablet:pr-8 pc:pr-9">
+          <div className="pr-4 tablet:pr-8 pc:pr-10">
             <DashboardMenu />
+          </div>
+          <div className="pr-3 tablet:pr-6 pc:pr-8">
+            <MemberList />
           </div>
           <div className="pl-3 border-l border-gray-400 tablet:pl-8">
             <UserMenu />

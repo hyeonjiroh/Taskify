@@ -7,9 +7,9 @@ interface UserIconProps {
 }
 
 const iconSize: Record<string, string> = {
-  sm: "w-[26px] h-[26px]",
-  md: "w-[34px] h-[34px]",
-  lg: "w-[38px] h-[38px]",
+  sm: "w-[26px] h-[26px] text-xs",
+  md: "w-[34px] h-[34px] text-md",
+  lg: "w-[38px] h-[38px] text-lg",
 };
 
 const UserIcon: React.FC<UserIconProps> = ({ name, size }) => {
@@ -18,7 +18,7 @@ const UserIcon: React.FC<UserIconProps> = ({ name, size }) => {
   return (
     <div
       className={clsx(
-        "rounded-full flex items-center justify-center bg-[#A3C4A2] text-white text-lg font-semibold border-2 border-white",
+        "rounded-full flex items-center justify-center bg-[#A3C4A2] text-white font-semibold border-2 border-white",
         iconSize[size]
       )}
     >
