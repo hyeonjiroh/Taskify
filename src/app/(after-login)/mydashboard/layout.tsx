@@ -1,3 +1,4 @@
+import DashboardMenu from "@/components/layout/navbar/DashboardMenu";
 import UserMenu from "@/components/layout/navbar/UserMenu";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -8,7 +9,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           내 대시보드
         </div>
         <div className="flex items-center">
-          <div>관리 초대</div>
+          <div className="pr-4 tablet:pr-8 pc:pr-9">
+            <DashboardMenu />
+          </div>
           <div className="pl-4 border-l border-gray-400 tablet:pl-8">
             <UserMenu />
           </div>

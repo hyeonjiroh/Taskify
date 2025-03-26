@@ -13,10 +13,9 @@ export default function MenuButton() {
   };
 
   return (
-    <button
-      type="button"
+    <div
       onClick={() => setIsOpen((prev) => !prev)}
-      className="relative"
+      className="relative cursor-pointer"
     >
       <Image
         src={MenuButtonIcon}
@@ -36,6 +35,6 @@ export default function MenuButton() {
           </button>
         </div>
       )}
-    </button>
+    </div>
   );
 }

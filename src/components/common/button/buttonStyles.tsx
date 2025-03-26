@@ -1,5 +1,5 @@
 export const baseStyles =
-  "box-border flex items-center justify-center px-4 font-medium transition-colors duration-100";
+  "box-border flex items-center justify-center font-medium transition-colors duration-100";
 
 export const variantStyles = {
   purple: "bg-violet text-white hover:bg-violet-700",

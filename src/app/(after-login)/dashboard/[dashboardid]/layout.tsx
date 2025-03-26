@@ -2,7 +2,8 @@
 
 import { useEffect } from "react";
 import { useDashboardStore } from "@/lib/store/useDashboardStore";
-import { useIsMobile, useIsPC } from "@/lib/hooks/useCheckViewport";
+import { useIsPC } from "@/lib/hooks/useCheckViewport";
+import DashboardMenu from "@/components/layout/navbar/DashboardMenu";
 import UserMenu from "@/components/layout/navbar/UserMenu";
 
 export default function Layout({
@@ -28,7 +29,9 @@ export default function Layout({
           {isPC ? "내 대시보드" : ""}
         </div>
         <div className="flex items-center">
-          <div>관리 초대</div>
+          <div className="pr-4 tablet:pr-8 pc:pr-9">
+            <DashboardMenu />
+          </div>
           <div className="pl-3 border-l border-gray-400 tablet:pl-8">
             <UserMenu />
           </div>

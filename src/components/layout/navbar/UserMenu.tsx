@@ -17,10 +17,9 @@ export default function UserMenu() {
   };
 
   return (
-    <button
-      type="button"
+    <div
       onClick={() => setIsOpen((prev) => !prev)}
-      className="flex items-center gap-3 relative"
+      className="flex items-center gap-3 relative cursor-pointer"
     >
       <div>
         <UserIcon name="Test" size={isMobile ? "md" : "lg"} />
@@ -46,6 +45,6 @@ export default function UserMenu() {
           </button>
         </div>
       )}
-    </button>
+    </div>
   );
 }

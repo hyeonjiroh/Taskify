@@ -40,6 +40,7 @@ export default function LogoButton({
         height={isMobile ? 30 : 34}
         className={isHome ? "invert brightness-0" : ""}
         alt=""
+        priority
       />
     </button>
   );
