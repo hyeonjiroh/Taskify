@@ -1,3 +1,5 @@
+"use client";
+
 import { useIsPC } from "@/lib/hooks/useCheckViewport";
 import { DashboardMember } from "@/lib/types";
 import MemberIcon from "./MemberIcon";

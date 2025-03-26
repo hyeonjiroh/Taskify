@@ -1,11 +1,8 @@
-"use client";
-
-import { useEffect } from "react";
-import { useDashboardStore } from "@/lib/store/useDashboardStore";
-import { useIsPC } from "@/lib/hooks/useCheckViewport";
+import DashboardIdSetter from "./_components/DashboardIdSetter";
+import DashboardName from "@/components/layout/navbar/DashboardName";
 import DashboardMenu from "@/components/layout/navbar/DashboardMenu";
-import UserMenu from "@/components/layout/navbar/UserMenu";
 import MemberList from "@/components/layout/navbar/MemberList";
+import UserMenu from "@/components/layout/navbar/UserMenu";
 
 export default function Layout({
   children,
@@ -14,21 +11,11 @@ export default function Layout({
   children: React.ReactNode;
   params?: { dashboardid?: string };
 }) {
-  const isPC = useIsPC();
-  const setDashboardId = useDashboardStore((state) => state.setDashboardId);
-
-  useEffect(() => {
-    if (params?.dashboardid) {
-      setDashboardId(params.dashboardid);
-    }
-  }, [params?.dashboardid, setDashboardId]);
-
   return (
     <>
+      {params?.dashboardid && <DashboardIdSetter id={params.dashboardid} />}
       <div className="flex justify-between items-center shrink-0 h-[60px] pl-4 pr-2 border-b border-gray-400 tablet:h-[70px] tablet:pl-10 tablet:pr-8 pc:pl-10 pc:pr-20">
-        <div className="font-bold text-lg text-gray-800 tablet:text-xl">
-          {isPC ? "내 대시보드" : ""}
-        </div>
+        <DashboardName />
         <div className="flex items-center">
           <div className="pr-4 tablet:pr-8 pc:pr-10">
             <DashboardMenu />
