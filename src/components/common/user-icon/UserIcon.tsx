@@ -1,30 +1,29 @@
 import React from "react";
+import clsx from "clsx";
 
 interface UserIconProps {
   name: string;
-  isClickable?: boolean;
-  onClick?: () => void;
+  size: "sm" | "md" | "lg";
 }
 
-const UserIcon: React.FC<UserIconProps> = ({
-  name,
-  isClickable = true,
-  onClick,
-}) => {
+const iconSize: Record<string, string> = {
+  sm: "w-[26px] h-[26px]",
+  md: "w-[34px] h-[34px]",
+  lg: "w-[38px] h-[38px]",
+};
+
+const UserIcon: React.FC<UserIconProps> = ({ name, size }) => {
   const initial = name.charAt(0).toUpperCase();
 
   return (
-    <button
-      onClick={isClickable ? onClick : undefined}
-      disabled={!isClickable}
-      className={`
-        w-[38px] h-[38px] rounded-full flex items-center justify-center
-        bg-[#A3C4A2] text-black text-lg font-medium border-2 border-white
-        ${isClickable ? "cursor-pointer hover:opacity-80" : "cursor-not-allowed opacity-50"}
-      `}
+    <div
+      className={clsx(
+        "rounded-full flex items-center justify-center bg-[#A3C4A2] text-white text-lg font-semibold border-2 border-white",
+        iconSize[size]
+      )}
     >
       {initial}
-    </button>
+    </div>
   );
 };
 
