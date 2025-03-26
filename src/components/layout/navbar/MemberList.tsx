@@ -1,9 +1,18 @@
+"use client";
+
 import { useIsPC } from "@/lib/hooks/useCheckViewport";
 import { DashboardMember } from "@/lib/types";
 import MemberIcon from "./MemberIcon";
 
-export default function MemberList() {
-  const { members, totalCount } = mock;
+type MemberListProps = {
+  data: {
+    members: DashboardMember[];
+    totalCount: number;
+  };
+};
+
+export default function MemberList({ data }: MemberListProps) {
+  const { members, totalCount } = data;
   const items: DashboardMember[] = members;
 
   const isPC = useIsPC();
@@ -28,70 +37,3 @@ export default function MemberList() {
     </div>
   );
 }
-
-// API 연결 시 삭제
-const mock = {
-  members: [
-    {
-      id: 18919,
-      email: "test@gmail.com",
-      nickname: "test",
-      profileImageUrl: null,
-      createdAt: "2025-03-21T18:19:11.393Z",
-      updatedAt: "2025-03-21T18:19:11.393Z",
-      isOwner: true,
-      userId: 5292,
-    },
-    {
-      id: 18918,
-      email: "test@gmail.com",
-      nickname: "hyeonji",
-      profileImageUrl: null,
-      createdAt: "2025-03-21T18:19:11.393Z",
-      updatedAt: "2025-03-21T18:19:11.393Z",
-      isOwner: true,
-      userId: 5292,
-    },
-    {
-      id: 18919,
-      email: "test@gmail.com",
-      nickname: "test",
-      profileImageUrl: null,
-      createdAt: "2025-03-21T18:19:11.393Z",
-      updatedAt: "2025-03-21T18:19:11.393Z",
-      isOwner: true,
-      userId: 5292,
-    },
-    {
-      id: 18918,
-      email: "test@gmail.com",
-      nickname: "hyeonji",
-      profileImageUrl: null,
-      createdAt: "2025-03-21T18:19:11.393Z",
-      updatedAt: "2025-03-21T18:19:11.393Z",
-      isOwner: true,
-      userId: 5292,
-    },
-    {
-      id: 18919,
-      email: "test@gmail.com",
-      nickname: "test",
-      profileImageUrl: null,
-      createdAt: "2025-03-21T18:19:11.393Z",
-      updatedAt: "2025-03-21T18:19:11.393Z",
-      isOwner: true,
-      userId: 5292,
-    },
-    {
-      id: 18918,
-      email: "test@gmail.com",
-      nickname: "hyeonji",
-      profileImageUrl: null,
-      createdAt: "2025-03-21T18:19:11.393Z",
-      updatedAt: "2025-03-21T18:19:11.393Z",
-      isOwner: true,
-      userId: 5292,
-    },
-  ],
-  totalCount: 6,
-};

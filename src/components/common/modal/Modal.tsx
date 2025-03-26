@@ -45,8 +45,8 @@ export default function Modal({
         className={clsx(
           "flex flex-col max-h-[80vh] px-4 rounded border-none bg-white",
           isPage
-            ? "gap-2 max-w-[327px] py-4 tablet:px-8 tablet:gap-6 tablet:w-auto tablet:py-6"
-            : "gap-8 max-w-[327px] py-6 tablet:w-auto tablet:p-8"
+            ? "gap-2 max-w-[327px] py-4 tablet:px-8 tablet:gap-6 tablet:max-w-[1200px] tablet:py-6"
+            : "gap-8 max-w-[327px] py-6 tablet:max-w-[1200px] tablet:p-8"
         )}
       >
         <div
