@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import Sidebar from "@/components/layout/sidebar/Sidebar";
+import Sidebar from "@/components/layout/sidebar";
 
 import ModalProvider from "@/components/common/modal/ModalProvider";
 import AlertProvider from "@/components/common/alert/AlertProvider";

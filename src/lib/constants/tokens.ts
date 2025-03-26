@@ -1,0 +1,6 @@
+// 임시 토큰
+export const TOKEN_1 =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTI5MiwidGVhbUlkIjoiMTMtNSIsImlhdCI6MTc0Mjg4NDYwOCwiaXNzIjoic3AtdGFza2lmeSJ9.txZU-y_IrL8xCFe8_op-6RwUzhYgiKioCuaYWGDAJ6U";
+
+export const TOKEN_2 =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NTI5MywidGVhbUlkIjoiMTMtNSIsImlhdCI6MTc0Mjg4NTAzMSwiaXNzIjoic3AtdGFza2lmeSJ9.b2j0qVf8sAF1EMC6OiLjlSEkufX5CvjVNkgJNMYckpo";

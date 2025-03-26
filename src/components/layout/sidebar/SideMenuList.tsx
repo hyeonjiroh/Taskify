@@ -1,8 +1,10 @@
 import { Dashboard } from "@/lib/types";
+import { fetchDashboards } from "@/lib/apis/dashboard";
+import { TOKEN_1 } from "@/lib/constants/tokens";
 import SideMenuItem from "./SideMenuItem";
 
-export default function SideMenuList() {
-  const { dashboards, totalCount, cursorId } = mock;
+export default async function SideMenuList() {
+  const { dashboards, totalCount, cursorId } = await fetchDashboards(TOKEN_1);
   const items: Dashboard[] = dashboards;
 
   // 해당 값들 사용하게 되면 지울 테스트 코드들
@@ -17,38 +19,3 @@ export default function SideMenuList() {
     </div>
   );
 }
-
-// API 연결 시 삭제
-const mock = {
-  dashboards: [
-    {
-      id: 13655,
-      title: "연간 계획",
-      color: "#FFA500",
-      userId: 5293,
-      createdAt: "2025-03-21T19:27:03.787Z",
-      updatedAt: "2025-03-21T19:27:03.787Z",
-      createdByMe: false,
-    },
-    {
-      id: 13654,
-      title: "주간 계획",
-      color: "#E876EA",
-      userId: 5292,
-      createdAt: "2025-03-21T19:28:19.684Z",
-      updatedAt: "2025-03-21T19:28:19.684Z",
-      createdByMe: true,
-    },
-    {
-      id: 13653,
-      title: "프로젝트",
-      color: "#760DDE",
-      userId: 5292,
-      createdAt: "2025-03-21T19:27:03.787Z",
-      updatedAt: "2025-03-21T19:27:03.787Z",
-      createdByMe: true,
-    },
-  ],
-  totalCount: 3,
-  cursorId: null,
-};
