@@ -7,9 +7,12 @@ export default function MemberList() {
   const items: DashboardMember[] = members;
 
   const isPC = useIsPC();
-
   const maxVisible = isPC ? 5 : 3;
-  const visibleItems = items.slice(0, maxVisible);
+
+  const hasOverflow = totalCount > maxVisible;
+  const visibleCount = hasOverflow ? maxVisible - 1 : maxVisible;
+
+  const visibleItems = items.slice(0, visibleCount);
   const hiddenCount = totalCount - visibleItems.length;
 
   return (
