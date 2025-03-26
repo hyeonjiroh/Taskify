@@ -25,7 +25,7 @@ export default function Layout({
 
   return (
     <>
-      <div className="flex justify-between items-center shrink-0 h-[60px] pl-[16.5px] pr-2 border-b border-gray-400 tablet:h-[70px] tablet:pl-10 tablet:pr-8 pc:pl-10 pc:pr-20">
+      <div className="flex justify-between items-center shrink-0 h-[60px] pl-4 pr-2 border-b border-gray-400 tablet:h-[70px] tablet:pl-10 tablet:pr-8 pc:pl-10 pc:pr-20">
         <div className="font-bold text-lg text-gray-800 tablet:text-xl">
           {isPC ? "내 대시보드" : ""}
         </div>
