@@ -1,12 +1,7 @@
 "use client";
 
 import useWindowSize from "@/lib/hooks/useGetViewport";
-
-export const BREAKPOINTS = {
-  PC: 1200,
-  TABLET: 768,
-  MOBILE: 375,
-} as const;
+import BREAKPOINTS from "../constants/breakpoints";
 
 export function useIsMobile() {
   const { width } = useWindowSize();

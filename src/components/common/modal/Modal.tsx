@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import { useModalStore } from "@/lib/hooks/useModalStore";
-import { useAlertStore } from "@/lib/hooks/useAlertStore";
+import { useModalStore } from "@/lib/store/useModalStore";
+import { useAlertStore } from "@/lib/store/useAlertStore";
 import { createPortal } from "react-dom";
 import { useIsMobile } from "@/lib/hooks/useCheckViewport";
 import { modalTitle, buttonName } from "./modalData";
@@ -45,8 +45,8 @@ export default function Modal({
         className={clsx(
           "flex flex-col max-h-[80vh] px-4 rounded border-none bg-white",
           isPage
-            ? "gap-2 py-4 tablet:px-8 tablet:gap-6 tablet:py-6"
-            : "gap-8 py-6 tablet:p-8"
+            ? "gap-2 max-w-[327px] py-4 tablet:px-8 tablet:gap-6 tablet:w-auto tablet:py-6"
+            : "gap-8 max-w-[327px] py-6 tablet:w-auto tablet:p-8"
         )}
       >
         <div
