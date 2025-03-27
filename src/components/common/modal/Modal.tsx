@@ -18,7 +18,7 @@ export default function Modal({
     onConfirm: () => void;
     disabled: boolean;
   };
-  taskTitle: string;
+  taskTitle?: string;
   children: ReactNode;
 }) {
   const { currentModal, closeModal } = useModalStore();
