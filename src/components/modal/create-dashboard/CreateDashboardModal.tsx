@@ -1,9 +1,8 @@
 import { useState } from "react";
 import Modal from "@/components/common/modal/Modal";
 import Input from "@/components/common/input/Input";
-import {
-  ColorPalette,
-  ColorCode
+import ColorPalette, {
+  ColorCode,
 } from "@/components/common/color-palette/ColorPalette";
 
 export default function CreateDashboardModal() {
