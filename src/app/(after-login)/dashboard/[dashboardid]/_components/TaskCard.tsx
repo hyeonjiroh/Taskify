@@ -4,7 +4,7 @@ import { TaskCardList } from "@/lib/types";
 import { useTaskStore } from "@/lib/store/useTaskStore";
 import { useModalStore } from "@/lib/store/useModalStore";
 import UserIcon from "@/components/common/user-icon/UserIcon";
-import { formatDate } from "@/lib/utils/dataUtils";
+import { formatDate } from "@/lib/utils/dateUtils";
 import Image from "next/image";
 import CalendarIcon from "../../../../../../public/icon/calendar_icon.svg";
 
