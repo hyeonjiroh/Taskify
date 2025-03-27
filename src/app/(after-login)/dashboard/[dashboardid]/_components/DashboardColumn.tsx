@@ -22,10 +22,9 @@ export default async function dashboardColumn({ id, title }: DashboardColumn) {
           <div className="flex gap-3 items-center">
             <div className="flex gap-2 items-center">
               <div className="w-2 h-2 rounded-full bg-violet"></div>
-              <div>{title}</div>
+              <div className="font-bold text-lg tablet:text-2lg">{title}</div>
             </div>
             <div className="flex justify-center items-center w-5 h-5 rounded bg-gray-300">
-              {/* 해당 컬럼 카드 개수 표시로 나중에 변경 */}
               <div className="font-medium text-xs text-gray-600">
                 {totalCount}
               </div>
@@ -35,11 +34,11 @@ export default async function dashboardColumn({ id, title }: DashboardColumn) {
         </div>
         <div className="flex flex-col gap-[10px] tablet:gap-4">
           <AddTaskButton />
+          {items.map((item) => (
+            <TaskCard key={item.id} {...item} />
+          ))}
         </div>
       </div>
-      {items.map((item) => (
-        <TaskCard key={item.id} {...item} />
-      ))}
     </div>
   );
 }
