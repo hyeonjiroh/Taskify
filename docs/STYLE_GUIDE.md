@@ -5,8 +5,8 @@
 | `text-3xl`               | `32px`   | `42px`      |
 | `text-2xl`               | `24px`   | `32px`      |
 | `text-xl`                | `20px`   | `32px`      |
-| `text-lg`                | `18px`   | `26px`      |
-| `text-2lg`               | `16px`   | `26px`      |
+| `text-2lg`               | `18px`   | `26px`      |
+| `text-lg`                | `16px`   | `26px`      |
 | `text-md`                | `14px`   | `24px`      |
 | `text-sm`                | `13px`   | `22px`      |
 | `text-xs `               | `12px`   | `20px`      |

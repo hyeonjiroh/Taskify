@@ -1,5 +1,5 @@
 import { DashboardList } from "@/lib/types";
-import { fetchDashboards } from "@/lib/apis/dashboard";
+import { fetchDashboardList } from "@/lib/apis/dashboardsApi";
 import { TOKEN_1 } from "@/lib/constants/tokens";
 import DashboardMenu from "@/components/layout/navbar/DashboardMenu";
 import UserMenu from "@/components/layout/navbar/UserMenu";
@@ -10,7 +10,7 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   // 가장 첫 번째 페이지 리스트 불러오도록 나중에 수정
-  const { dashboards } = await fetchDashboards(TOKEN_1);
+  const { dashboards } = await fetchDashboardList(TOKEN_1);
 
   const firstDashboardId = dashboards[0]?.id;
 
