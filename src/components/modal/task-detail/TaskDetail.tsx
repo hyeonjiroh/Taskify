@@ -1,6 +1,23 @@
+import { useEffect, useState } from "react";
+import { TaskCardDetail } from "@/lib/types";
+import { fetchTaskCardDetail } from "@/lib/apis/taskcard";
+import { TOKEN_1 } from "@/lib/constants/tokens";
 import Modal from "@/components/common/modal/Modal";
 
-export default function TaskDetail() {
+export default function TaskDetail({ taskId }: { taskId: number }) {
+  const [data, setData] = useState<TaskCardDetail | null>(null);
+
+  useEffect(() => {
+    const getData = async () => {
+      const res = await fetchTaskCardDetail({ token: TOKEN_1, id: taskId });
+      setData(res);
+    };
+
+    getData();
+  }, [taskId]);
+
+  if (!data) return null;
+
   return (
     <Modal>
       <div className="">
@@ -10,7 +27,9 @@ export default function TaskDetail() {
           {/* Card Content */}
           <div className="flex flex-col gap-6 pc:gap-4">
             {/* 카드 본문 */}
-            <div className="rounded bg-blue w-[290px] h-[168px] tablet:w-[420px] tablet:h-[246px] pc:w-[445.25px] pc:h-[260px]"></div>
+            <div className="rounded bg-blue w-[290px] h-[168px] tablet:w-[420px] tablet:h-[246px] pc:w-[445.25px] pc:h-[260px]">
+              {data.description}
+            </div>
             {/* 코멘트 */}
             <div></div>
           </div>

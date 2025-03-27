@@ -56,3 +56,22 @@ export interface TaskCardList {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface TaskCardDetail {
+  id: number;
+  title: string;
+  description: string;
+  tags: string[];
+  dueDate: string;
+  assignee: {
+    id: number;
+    nickname: string;
+    profileImageUrl: string | null;
+  };
+  imageUrl: string | null;
+  teamId: string;
+  columnId: number;
+  dashboardId: number;
+  createdAt: string;
+  updatedAt: string;
+}
