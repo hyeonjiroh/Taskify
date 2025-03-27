@@ -18,6 +18,17 @@ export interface DashboardDetail {
   createdByMe: boolean;
 }
 
+export interface DashboardMember {
+  id: number;
+  email: string;
+  nickname: string;
+  profileImageUrl: string | null;
+  createdAt: string;
+  updatedAt: string;
+  isOwner: boolean;
+  userId: number;
+}
+
 export interface DashboardColumn {
   id: number;
   title: string;
