@@ -7,6 +7,7 @@ import { formatDate } from "@/lib/utils/dateUtils";
 import UserIcon from "@/components/common/user-icon/UserIcon";
 import Image from "next/image";
 import CalendarIcon from "../../../../../../public/icon/calendar_icon.svg";
+import TagList from "@/components/common/tag/TagList";
 
 export default function TaskCard({
   id,
@@ -49,7 +50,9 @@ export default function TaskCard({
             {title}
           </div>
           <div className="flex flex-col gap-[6px] tablet:flex-row tablet:gap-4 pc:flex-col pc:gap-2">
-            <div className="h-[26px] bg-violet-8 tablet:h-[28px]">{tags}</div>
+            <div className="h-[26px] bg-violet-8 tablet:h-[28px]">
+              <TagList tags={tags} />
+            </div>
             <div className="flex justify-between flex-1 items-center">
               <div className="flex items-center gap-1 tablet:gap-[6px]">
                 <Image

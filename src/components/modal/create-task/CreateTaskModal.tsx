@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Modal from "@/components/common/modal/Modal";
+import TagInput from "@/components/common/input/TagInput";
 import Input from "@/components/common/input/Input";
 
 export default function CreateDashboardModal() {
@@ -20,7 +21,8 @@ export default function CreateDashboardModal() {
       }}
     >
       <div>
-        <Input label="test" width="520px" />
+        <TagInput label="태그" />
+        <Input width="520px" label="인풋" placeholder="입력하세요" />
       </div>
     </Modal>
   );
