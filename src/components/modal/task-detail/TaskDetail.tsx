@@ -23,7 +23,7 @@ export default function TaskDetail() {
     getData();
   }, [selectedTaskId]);
 
-  if (!data) return null;
+  if (!data) return;
 
   return (
     <Modal>

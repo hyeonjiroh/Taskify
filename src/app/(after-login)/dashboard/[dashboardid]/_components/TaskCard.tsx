@@ -3,8 +3,8 @@
 import { TaskCardList } from "@/lib/types";
 import { useTaskStore } from "@/lib/store/useTaskStore";
 import { useModalStore } from "@/lib/store/useModalStore";
-import UserIcon from "@/components/common/user-icon/UserIcon";
 import { formatDate } from "@/lib/utils/dateUtils";
+import UserIcon from "@/components/common/user-icon/UserIcon";
 import Image from "next/image";
 import CalendarIcon from "../../../../../../public/icon/calendar_icon.svg";
 
@@ -17,7 +17,7 @@ export default function TaskCard({
   imageUrl,
 }: TaskCardList) {
   const date = formatDate(dueDate, false);
-  const { currentModal, openModal } = useModalStore();
+  const { openModal } = useModalStore();
   const { setSelectedTaskId } = useTaskStore();
 
   const openTaskDetailModal = () => {
