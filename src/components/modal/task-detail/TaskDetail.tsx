@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { TaskCardDetail } from "@/lib/types";
 import { useTaskStore } from "@/lib/store/useTaskStore";
-import { fetchTaskCardDetail } from "@/lib/apis/cards";
+import { fetchTaskCardDetail } from "@/lib/apis/cardsApi";
 import { TOKEN_1 } from "@/lib/constants/tokens";
 import Modal from "@/components/common/modal/Modal";
 

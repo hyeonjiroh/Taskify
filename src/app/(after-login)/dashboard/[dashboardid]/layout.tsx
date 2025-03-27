@@ -1,6 +1,6 @@
 import DashboardIdSetter from "./_components/DashboardIdSetter";
 import { DashboardDetail } from "@/lib/types";
-import { fetchDashboard } from "@/lib/apis/dashboards";
+import { fetchDashboard } from "@/lib/apis/dashboardsApi";
 import { fetchDashboardMember } from "@/lib/apis/members";
 import { TOKEN_1 } from "@/lib/constants/tokens";
 import DashboardMenu from "@/components/layout/navbar/DashboardMenu";
