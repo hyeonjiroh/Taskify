@@ -9,8 +9,6 @@ export default function TaskDetail() {
   const { selectedTaskId } = useTaskStore();
   const [data, setData] = useState<TaskCardDetail | null>(null);
 
-  if (!selectedTaskId) return;
-
   useEffect(() => {
     if (!selectedTaskId) return;
 
