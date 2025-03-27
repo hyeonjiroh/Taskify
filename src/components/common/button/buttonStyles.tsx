@@ -13,3 +13,9 @@ export const radiusStyles = {
   sm: "rounded",
   lg: "rounded-lg",
 };
+
+export const sizeStyles = {
+  sm: "h-9",
+  md: "h-11",
+  lg: "h-13",
+};
