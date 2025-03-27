@@ -17,5 +17,5 @@ export const radiusStyles = {
 export const sizeStyles = {
   sm: "h-9",
   md: "h-11",
-  lg: "h-13",
+  lg: "h-[52px]",
 };
