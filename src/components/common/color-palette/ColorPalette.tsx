@@ -1,7 +1,7 @@
 import Image from "next/image";
 import CheckIcon from "../../../../public/icon/check_icon.svg";
 
-const COLORS = [
+export const COLORS = [
   { name: "green", code: "#7AC555" },
   { name: "purple", code: "#760DDE" },
   { name: "orange", code: "#FFA500" },
