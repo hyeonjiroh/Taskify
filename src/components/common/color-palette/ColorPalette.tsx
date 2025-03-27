@@ -21,7 +21,10 @@ export type ColorCode =
   | "#76A6EA"
   | "#E876EA";
 
-export const ColorPalette = ({ onSelect, selectedColor }: ColorPaletteProps) => {
+export const ColorPalette = ({
+  onSelect,
+  selectedColor,
+}: ColorPaletteProps) => {
   return (
     <div className="flex gap-2">
       {COLORS.map(({ name, code }) => (
