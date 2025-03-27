@@ -1,6 +1,5 @@
 export const modalTitle: Record<string, string> = {
   createDashboard: "새로운 대시보드",
-  taskDetail: "새로운 일정 관리 Taskify",
   editTask: "할 일 수정",
   createTask: "할 일 생성",
   addColumn: "새 컬럼 생성",

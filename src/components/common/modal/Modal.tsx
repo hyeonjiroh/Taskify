@@ -11,12 +11,14 @@ import clsx from "clsx";
 
 export default function Modal({
   button,
+  taskTitle,
   children,
 }: {
   button?: {
     onConfirm: () => void;
     disabled: boolean;
   };
+  taskTitle?: string;
   children: ReactNode;
 }) {
   const { currentModal, closeModal } = useModalStore();
@@ -57,7 +59,7 @@ export default function Modal({
           }
         >
           <div className="font-bold text-xl text-gray-800 tablet:text-2xl">
-            {modalTitle[currentModal]}
+            {isPage ? taskTitle : modalTitle[currentModal]}
           </div>
           <div className="flex items-center justify-end gap-4 tablet:gap-6">
             {isPage && <MenuButton />}

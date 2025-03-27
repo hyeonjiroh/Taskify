@@ -4,8 +4,10 @@ import { useTaskStore } from "@/lib/store/useTaskStore";
 import { fetchTaskCardDetail } from "@/lib/apis/cardsApi";
 import { TOKEN_1 } from "@/lib/constants/tokens";
 import Modal from "@/components/common/modal/Modal";
+import TaskInfoSection from "./TaskInfoSection";
+import TaskContentSection from "./TaskContentSection";
 
-export default function TaskDetail() {
+export default function TaskDetailModal() {
   const { selectedTaskId } = useTaskStore();
   const [data, setData] = useState<TaskCardDetail | null>(null);
 
@@ -23,24 +25,27 @@ export default function TaskDetail() {
     getData();
   }, [selectedTaskId]);
 
-  if (!selectedTaskId) return null;
-  if (!data) return null;
+  if (!selectedTaskId) return;
+  if (!data) return;
+
+  const { id, title, description, tags, dueDate, assignee, imageUrl } = data;
+
+  // vercel 배포를 위해 임시로 작성한 코드
+  console.log(`${id} 값은 코멘트 api 요청할 때 사용하시면 됩니다!`);
 
   return (
-    <Modal>
-      <div className="">
-        <div className="flex flex-col gap-4 tablet:flex-row-reverse tablet:gap-[13px] pc:gap-[14px]">
-          {/* Card Info */}
-          <div className="rounded border h-16 border-gray-400 tablet:w-[181px] tablet:h-[155px] pc:w-[200px] pc:h-[155px]"></div>
-          {/* Card Content */}
-          <div className="flex flex-col gap-6 pc:gap-4">
-            {/* 카드 본문 */}
-            <div className="rounded bg-blue w-[290px] h-[168px] tablet:w-[420px] tablet:h-[246px] pc:w-[445.25px] pc:h-[260px]">
-              {data.description}
-            </div>
-            {/* 코멘트 */}
-            <div></div>
-          </div>
+    <Modal taskTitle={title}>
+      <div className="flex flex-col gap-4 tablet:flex-row-reverse tablet:gap-[13px] pc:gap-[24px]">
+        <TaskInfoSection dueDate={dueDate} assignee={assignee} />
+        <div className="flex flex-col gap-4">
+          <TaskContentSection
+            title={title}
+            description={description}
+            tags={tags}
+            imageUrl={imageUrl}
+          />
+          {/* 코멘트 부분 여기에 추가해주시면 됩니다 */}
+          <div></div>
         </div>
       </div>
     </Modal>
