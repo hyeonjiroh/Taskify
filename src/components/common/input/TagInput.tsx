@@ -3,8 +3,15 @@
 import { useState } from "react";
 import TagList from "../tag/TagList";
 
-export default function TagInput({ label }: { label: string }) {
-  const [tags, setTags] = useState<string[]>([]);
+export default function TagInput({
+  label,
+  tags,
+  setTags,
+}: {
+  label: string;
+  tags: string[];
+  setTags: (tags: string[]) => void;
+}) {
   const [inputValue, setInputValue] = useState("");
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

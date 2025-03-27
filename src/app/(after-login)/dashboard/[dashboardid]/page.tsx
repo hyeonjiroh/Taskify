@@ -1,7 +1,7 @@
 import { DashboardColumn } from "@/lib/types";
 import { fetchColumnList } from "@/lib/apis/columnsApi";
 import { TOKEN_1 } from "@/lib/constants/tokens";
-import Column from "./_components/DashboardColumn";
+import Column from "./_components/Column";
 import AddColumnButton from "./_components/AddColumnButton";
 
 export default async function Page({
