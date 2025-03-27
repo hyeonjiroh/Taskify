@@ -1,5 +1,5 @@
 import { DashboardColumn, TaskCardList } from "@/lib/types";
-import { fetchTaskCardList } from "@/lib/apis/dashboard";
+import { fetchTaskCardList } from "@/lib/apis/cards";
 import { TOKEN_1 } from "@/lib/constants/tokens";
 import EditColumnButton from "./EditColumnButton";
 import AddTaskButton from "./AddTaskButton";

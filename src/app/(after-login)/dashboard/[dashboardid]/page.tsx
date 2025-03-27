@@ -1,5 +1,5 @@
 import { DashboardColumn } from "@/lib/types";
-import { fetchDashboardColumn } from "@/lib/apis/dashboard";
+import { fetchColumnList } from "@/lib/apis/columns";
 import { TOKEN_1 } from "@/lib/constants/tokens";
 import Column from "./_components/DashboardColumn";
 import AddColumnButton from "./_components/AddColumnButton";
@@ -9,7 +9,7 @@ export default async function Page({
 }: {
   params: { dashboardid: string };
 }) {
-  const { data } = await fetchDashboardColumn({
+  const { data } = await fetchColumnList({
     token: TOKEN_1,
     id: params.dashboardid,
   });

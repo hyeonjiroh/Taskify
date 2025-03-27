@@ -1,5 +1,5 @@
 import { DashboardList } from "@/lib/types";
-import { fetchDashboardList } from "@/lib/apis/dashboard";
+import { fetchDashboardList } from "@/lib/apis/dashboards";
 import { TOKEN_1 } from "@/lib/constants/tokens";
 import SideMenuItem from "./SideMenuItem";
 
