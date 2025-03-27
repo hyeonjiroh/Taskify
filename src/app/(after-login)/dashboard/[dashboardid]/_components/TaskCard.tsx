@@ -1,8 +1,8 @@
 "use client";
 
 import { TaskCardList } from "@/lib/types";
+import { useTaskStore } from "@/lib/store/useTaskStore";
 import { useModalStore } from "@/lib/store/useModalStore";
-import TaskDetail from "@/components/modal/task-detail/TaskDetail";
 import UserIcon from "@/components/common/user-icon/UserIcon";
 import { formatDate } from "@/lib/utils/dataUtils";
 import Image from "next/image";
@@ -18,11 +18,17 @@ export default function TaskCard({
 }: TaskCardList) {
   const date = formatDate(dueDate, false);
   const { currentModal, openModal } = useModalStore();
+  const { setSelectedTaskId } = useTaskStore();
+
+  const openTaskDetailModal = () => {
+    setSelectedTaskId(id);
+    openModal("taskDetail");
+  };
 
   return (
     <>
       <div
-        onClick={() => openModal("taskDetail")}
+        onClick={openTaskDetailModal}
         className="flex flex-col gap-1 bg-white rounded-md border border-gray-400 p-3 cursor-pointer tablet:flex-row tablet:items-center tablet:gap-5 tablet:p-5 pc:flex-col pc:items-stretch pc:gap-4 pc:px-5 pc:py-4"
       >
         {imageUrl && (
@@ -58,7 +64,6 @@ export default function TaskCard({
           </div>
         </div>
       </div>
-      {currentModal === "taskDetail" && <TaskDetail taskId={id} />}
     </>
   );
 }

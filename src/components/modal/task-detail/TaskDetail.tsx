@@ -1,20 +1,27 @@
 import { useEffect, useState } from "react";
 import { TaskCardDetail } from "@/lib/types";
+import { useTaskStore } from "@/lib/store/useTaskStore";
 import { fetchTaskCardDetail } from "@/lib/apis/cards";
 import { TOKEN_1 } from "@/lib/constants/tokens";
 import Modal from "@/components/common/modal/Modal";
 
-export default function TaskDetail({ taskId }: { taskId: number }) {
+export default function TaskDetail() {
+  const { selectedTaskId } = useTaskStore();
   const [data, setData] = useState<TaskCardDetail | null>(null);
+
+  if (!selectedTaskId) return;
 
   useEffect(() => {
     const getData = async () => {
-      const res = await fetchTaskCardDetail({ token: TOKEN_1, id: taskId });
+      const res = await fetchTaskCardDetail({
+        token: TOKEN_1,
+        id: selectedTaskId,
+      });
       setData(res);
     };
 
     getData();
-  }, [taskId]);
+  }, [selectedTaskId]);
 
   if (!data) return null;
 
