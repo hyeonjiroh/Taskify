@@ -39,7 +39,7 @@ export default function Home() {
   );
   const settingCommon1 = `flex justify-center items-center bg-gray-700 rounded-tl-[8px] rounded-tr-[8px] ${isMobile ? "w-[343px] h-[236px]" : "w-[378px] h-[260px]"}`;
   const settingCommon2 = `flex flex-col bg-gray-900 rounded-bl-[8px] rounded-br-[8px] ${isMobile ? "w-[343px] h-[112px]" : "w-[378px] h-[124px]"}`;
-  const settingTitle = `font-bold text-21g leading-[1] ml-[32px] ${isMobile ? "mt-[27px]" : "mt-[33px]"}`;
+  const settingTitle = `font-bold text-2lg leading-[1] ml-[32px] ${isMobile ? "mt-[27px]" : "mt-[33px]"}`;
   const settingText = "font-medium text-lg leading-[1] ml-[32px] mt-[18px]";
   const footerImg = `${isMobile ? "w-[16px] h-[16px]" : "w-[20px] h-[20px]"}`;
 
@@ -95,9 +95,9 @@ export default function Home() {
                 "gap-[10px] font-medium": true,
                 "w-[235px] h-[46px] px-[87px] py-[5px] text-md mt-[101px]":
                   isMobile,
-                "w-[280px] h-[54px] px-[101px] py-[9px] text-21g mt-[109px]":
+                "w-[280px] h-[54px] px-[101px] py-[9px] text-2lg mt-[109px]":
                   isTablet,
-                "w-[280px] h-[54px] px-[101px] py-[9px] text-21g mt-[111px]":
+                "w-[280px] h-[54px] px-[101px] py-[9px] text-2lg mt-[111px]":
                   isPC,
               })
             )}
