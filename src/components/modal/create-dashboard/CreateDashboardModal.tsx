@@ -1,26 +1,66 @@
 import { useState } from "react";
 import Modal from "@/components/common/modal/Modal";
 import Input from "@/components/common/input/Input";
+import ColorPalette, { ColorCode } from "@/components/common/color-palette/ColorPalette";
 
 export default function CreateDashboardModal() {
-  // 해당 폼이 유효성 검사 후 제출 가능해질 때 해당 state 값이 true가 되도록 하기
+  const [dashboardName, setDashboardName] = useState("");
+  const [selectedColor, setSelectedColor] = useState<ColorCode | "">("");
   const [isFormValid, setIsFormValid] = useState(false);
 
-  // 활성화된 모달 버튼 클릭 시 실행할 함수
-  const buttonClick = () => {
-    alert("Hi"); // 이 부분 바꿔주시면 됩니다
-    setIsFormValid(false); // 이 코드는 배포할 때 문제가 있어서 임시로 넣어놓은 코드라 삭제하시면 됩니다
+  const validateForm = (name: string, color: ColorCode | "") => {
+    setIsFormValid(Boolean(name.trim()) && Boolean(color?.trim()));
+  };
+
+  const onDashboardNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setDashboardName(value);
+    validateForm(value, selectedColor);
+  };
+
+  const onColorSelect = (color: ColorCode | "") => {
+    setSelectedColor(() => {
+      validateForm(dashboardName, color);
+      return color;
+    });
+  };
+
+  const createDashboard = () => {
+    alert(`대시보드 생성됨: 이름 - ${dashboardName}, 색상 - ${selectedColor}`);
+    setDashboardName("");
+    setSelectedColor("");
+    setIsFormValid(false);
   };
 
   return (
     <Modal
       button={{
-        onConfirm: buttonClick,
+        onConfirm: createDashboard,
         disabled: !isFormValid,
       }}
     >
-      <div>
-        <Input label="test" width="520px" />
+      <div className="w-[520px] p-6 bg-white rounded-lg shadow-lg">
+        <div className="mb-6">
+          <h2 className="text-xl font-bold text-gray-900">새로운 대시보드</h2>
+        </div>
+
+        <div className="mb-4">
+          <Input
+            label="대시보드 이름"
+            value={dashboardName}
+            placeholder="대시보드 이름을 입력하세요"
+            onChange={onDashboardNameChange}
+            width="100%"
+          />
+        </div>
+
+        <div className="mb-6">
+          <p className="text-md font-medium text-gray-700 mb-2">색상 선택</p>
+          <ColorPalette
+            onSelect={onColorSelect}
+            selectedColor={selectedColor}
+          />
+        </div>
       </div>
     </Modal>
   );
