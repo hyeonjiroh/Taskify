@@ -1,10 +1,13 @@
 import { useState } from "react";
 import Modal from "@/components/common/modal/Modal";
-import Input from "@/components/common/input/Input";
+import TagInput from "@/components/common/input/TagInput";
 
 export default function CreateDashboardModal() {
   // 해당 폼이 유효성 검사 후 제출 가능해질 때 해당 state 값이 true가 되도록 하기
   const [isFormValid, setIsFormValid] = useState(false);
+
+  // TagInput 컴포넌트에 전달할 state
+  const [tags, setTags] = useState<string[]>([]);
 
   // 활성화된 모달 버튼 클릭 시 실행할 함수
   const buttonClick = () => {
@@ -20,7 +23,8 @@ export default function CreateDashboardModal() {
       }}
     >
       <div>
-        <Input label="test" width="520px" />
+        {/* 아래는 임시로 넣어본 TagInput 코드입니다 */}
+        <TagInput label="태그" tags={tags} setTags={setTags} />
       </div>
     </Modal>
   );

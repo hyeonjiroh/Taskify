@@ -1,5 +1,5 @@
 "use client";
-import { ChangeEvent } from "react";
+import { ChangeEvent, KeyboardEvent } from "react";
 import { inputStyles } from "@/components/common/input/inputStyles";
 import { usePasswordVisibility } from "@/components/common/input/usePasswordVisibility";
 import Image from "next/image";
@@ -12,6 +12,7 @@ interface InputProps {
   placeholder?: string;
   value?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
   width?: string;
   height?: "sm" | "md" | "lg" | "xl";
   hasIcon?: "left" | "right";
@@ -27,6 +28,7 @@ const Input = ({
   placeholder,
   value,
   onChange,
+  onKeyDown,
   width = "full",
   height = "xl",
   hasIcon,
@@ -71,6 +73,7 @@ const Input = ({
           placeholder={placeholder}
           value={value}
           onChange={onChange}
+          onKeyDown={onKeyDown}
         />
         {hasIcon && iconPath && (
           <Image

@@ -3,7 +3,7 @@
 import { useModalStore } from "@/lib/store/useModalStore";
 import CreateDashboardModal from "@/components/modal/create-dashboard/CreateDashboardModal";
 import EditTaskModal from "@/components/modal/edit-task/EditTaskModal";
-import TaskDetail from "@/components/modal/task-detail/TaskDetail";
+import TaskDetail from "@/components/modal/task-detail/TaskDetailModal";
 import CreateTaskModal from "@/components/modal/create-task/CreateTaskModal";
 import AddColumnModal from "@/components/modal/add-column/AddColumnModal";
 import EditColumnModal from "@/components/modal/editColumn/EditColumnModal";

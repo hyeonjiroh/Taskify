@@ -5,7 +5,7 @@ import EditColumnButton from "./EditColumnButton";
 import AddTaskButton from "./AddTaskButton";
 import TaskCard from "./TaskCard";
 
-export default async function dashboardColumn({ id, title }: DashboardColumn) {
+export default async function Column({ id, title }: DashboardColumn) {
   const { cards, totalCount, cursorId } = await fetchTaskCardList({
     token: TOKEN_1,
     id: id,
