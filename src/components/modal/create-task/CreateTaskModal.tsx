@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Modal from "@/components/common/modal/Modal";
 import TagInput from "@/components/common/input/TagInput";
-import Input from "@/components/common/input/Input";
 
 export default function CreateDashboardModal() {
   // 해당 폼이 유효성 검사 후 제출 가능해질 때 해당 state 값이 true가 되도록 하기

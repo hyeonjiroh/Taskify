@@ -20,5 +20,3 @@ export default function TagList({ tags }: { tags: string[] }) {
     </div>
   );
 }
-
-const mock = ["feat", "chore", "docs"];
