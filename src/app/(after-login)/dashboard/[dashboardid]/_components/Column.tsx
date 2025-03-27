@@ -35,7 +35,7 @@ export default async function Column({ id, title }: DashboardColumn) {
         <div className="flex flex-col gap-[10px] tablet:gap-4">
           <AddTaskButton />
           {items.map((item) => (
-            <TaskCard key={item.id} {...item} />
+            <TaskCard key={item.id} {...item} columnTitle={title} />
           ))}
         </div>
       </div>
