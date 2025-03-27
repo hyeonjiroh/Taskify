@@ -12,6 +12,8 @@ export default function TaskDetail() {
   if (!selectedTaskId) return;
 
   useEffect(() => {
+    if (!selectedTaskId) return;
+
     const getData = async () => {
       const res = await fetchTaskCardDetail({
         token: TOKEN_1,
@@ -23,7 +25,8 @@ export default function TaskDetail() {
     getData();
   }, [selectedTaskId]);
 
-  if (!data) return;
+  if (!selectedTaskId) return null;
+  if (!data) return null;
 
   return (
     <Modal>
