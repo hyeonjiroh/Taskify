@@ -5,7 +5,7 @@ import Button from "@/components/common/button/Button";
 
 export default function Page() {
   return (
-    <main className="w-full h-screen flex justify-center items-center bg-gray-200 p-3">
+    <main className="w-full min-h-screen flex justify-center items-center bg-gray-200 p-3">
       <section className="w-[520px] flex flex-col justify-center items-center">
         <Link href="/">
           <Image
