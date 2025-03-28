@@ -42,7 +42,7 @@ export default function Modal({
   if (!currentModal) return null;
 
   return createPortal(
-    <div className="flex justify-center items-center fixed top-0 left-0 w-full h-full p-6 bg-black/70">
+    <div className="flex justify-center items-center fixed top-0 left-0 w-full h-full p-6 bg-black/70 z-50">
       <div
         className={clsx(
           "flex flex-col max-h-[80vh] px-4 rounded border-none bg-white",
