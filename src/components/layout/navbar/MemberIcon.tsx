@@ -4,9 +4,15 @@ import UserIcon from "@/components/common/user-icon/UserIcon";
 
 export default function MemberIcon({
   nickname,
-  //   profileImageUrl,
+  profileImageUrl,
 }: DashboardMember) {
   const isMobile = useIsMobile();
 
-  return <UserIcon name={nickname} size={isMobile ? "md" : "lg"} />;
+  return (
+    <UserIcon
+      name={nickname}
+      img={profileImageUrl}
+      size={isMobile ? "md" : "lg"}
+    />
+  );
 }

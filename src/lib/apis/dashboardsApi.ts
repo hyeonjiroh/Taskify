@@ -32,3 +32,28 @@ export async function fetchDashboard({
 
   return res.json();
 }
+
+export async function postDashboard({
+  token,
+  title,
+  color,
+}: {
+  token: string;
+  title: string;
+  color: string;
+}) {
+  const res = await fetch(`${BASE_URL}/dashboards`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      title,
+      color,
+    }),
+  });
+
+  return res.json();
+}

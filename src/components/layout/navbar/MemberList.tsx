@@ -26,8 +26,10 @@ export default function MemberList({ data }: MemberListProps) {
 
   return (
     <div className="flex -space-x-[10px]">
-      {visibleItems.map((item) => (
-        <MemberIcon key={item.id} {...item} />
+      {visibleItems.map((item, index) => (
+        <div key={item.id} className="relative" style={{ zIndex: index }}>
+          <MemberIcon {...item} />
+        </div>
       ))}
       {hiddenCount > 0 && (
         <div className="flex items-center justify-center w-[34px] h-[34px] rounded-full font-semibold text-md bg-[#F4D7DA] text-[#D25B68] border-2 border-white tablet:w-[38px] tablet:h-[38px] tablet:text-lg">

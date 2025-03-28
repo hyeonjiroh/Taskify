@@ -86,3 +86,12 @@ export interface TaskCardDetail {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface UserInfo {
+  id: number;
+  email: string;
+  nickname: string;
+  profileImageUrl: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
