@@ -32,14 +32,20 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
         <h2 className="text-xl font-medium text-gray-800 pb-8">
           오늘도 만나서 반가워요!
         </h2>
-        <form className="w-full">
+        <div className="w-full">
           {children}
           <div className="pb-6">
-            <Button variant="purple" size="lg" className="w-full">
+            <Button
+              variant="purple"
+              size="lg"
+              className="w-full"
+              form="auth-form"
+              type="submit"
+            >
               {buttonText}
             </Button>
           </div>
-        </form>
+        </div>
         <p className="text-lg text-gray-800">
           {linkText}{" "}
           <Link href={linkPath} className="text-violet underline">
