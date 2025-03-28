@@ -27,8 +27,8 @@ export default function MemberList({ data }: MemberListProps) {
   return (
     <div className="flex -space-x-[10px]">
       {visibleItems.map((item, index) => (
-        <div className="relative" style={{ zIndex: index }}>
-          <MemberIcon key={item.id} {...item} />
+        <div key={item.id} className="relative" style={{ zIndex: index }}>
+          <MemberIcon {...item} />
         </div>
       ))}
       {hiddenCount > 0 && (
