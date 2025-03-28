@@ -1,7 +1,6 @@
-interface TextareaProps {
-  value: string;
-  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  placeholder: string;
+import { ComponentPropsWithoutRef } from "react";
+
+interface TextareaProps extends ComponentPropsWithoutRef<"textarea"> {
   label: string;
   containerClassName: string;
   labelClassName: string;
@@ -9,23 +8,16 @@ interface TextareaProps {
 }
 
 const Textarea = ({
-  value,
-  onChange,
-  placeholder,
   label,
   containerClassName,
   labelClassName,
   textareaClassName,
+  ...props
 }: TextareaProps) => {
   return (
     <div className={`flex flex-col ${containerClassName}`}>
       <label className={labelClassName}>{label}</label>
-      <textarea
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        className={`resize-none ${textareaClassName}`}
-      ></textarea>
+      <textarea className={`resize-none ${textareaClassName}`} {...props} />
     </div>
   );
 };
