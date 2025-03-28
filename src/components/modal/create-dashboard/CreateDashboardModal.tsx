@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { postDashboard } from "@/lib/apis/dashboardsApi";
+import { TOKEN_1 } from "@/lib/constants/tokens";
 import Modal from "@/components/common/modal/Modal";
 import Input from "@/components/common/input/Input";
 import ColorPalette, {
@@ -9,29 +12,34 @@ export default function CreateDashboardModal() {
   const [dashboardName, setDashboardName] = useState("");
   const [selectedColor, setSelectedColor] = useState<ColorCode | "">("");
   const [isFormValid, setIsFormValid] = useState(false);
-
-  const validateForm = (name: string, color: ColorCode | "") => {
-    setIsFormValid(Boolean(name.trim()) && Boolean(color?.trim()));
-  };
-
-  const onDashboardNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setDashboardName(value);
-    validateForm(value, selectedColor);
-  };
+  const router = useRouter();
 
   const onColorSelect = (color: ColorCode | "") => {
     setSelectedColor(() => {
-      validateForm(dashboardName, color);
       return color;
     });
   };
 
-  const createDashboard = () => {
-    alert(`대시보드 생성됨: 이름 - ${dashboardName}, 색상 - ${selectedColor}`);
-    setDashboardName("");
-    setSelectedColor("");
-    setIsFormValid(false);
+  useEffect(() => {
+    const trimmedValue = dashboardName.trim();
+    const isValid = trimmedValue !== "" && selectedColor !== "";
+    setIsFormValid(isValid);
+  }, [dashboardName, selectedColor]);
+
+  const onDashboardNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDashboardName(e.target.value);
+  };
+
+  const createDashboard = async () => {
+    const res = await postDashboard({
+      token: TOKEN_1,
+      title: dashboardName,
+      color: selectedColor,
+    });
+
+    const newDashboardId = res.id;
+
+    router.push(`/dashboard/${newDashboardId}`);
   };
 
   return (
@@ -41,28 +49,14 @@ export default function CreateDashboardModal() {
         disabled: !isFormValid,
       }}
     >
-      <div className="w-[520px] p-6 bg-white rounded-lg shadow-lg">
-        <div className="mb-6">
-          <h2 className="text-xl font-bold text-gray-900">새로운 대시보드</h2>
-        </div>
-
-        <div className="mb-4">
-          <Input
-            label="대시보드 이름"
-            value={dashboardName}
-            placeholder="대시보드 이름을 입력하세요"
-            onChange={onDashboardNameChange}
-            width="100%"
-          />
-        </div>
-
-        <div className="mb-6">
-          <p className="text-md font-medium text-gray-700 mb-2">색상 선택</p>
-          <ColorPalette
-            onSelect={onColorSelect}
-            selectedColor={selectedColor}
-          />
-        </div>
+      <div className="flex flex-col gap-4 tablet:w-[584px]">
+        <Input
+          label="대시보드 이름"
+          value={dashboardName}
+          placeholder="대시보드 이름을 입력하세요"
+          onChange={onDashboardNameChange}
+        />
+        <ColorPalette onSelect={onColorSelect} selectedColor={selectedColor} />
       </div>
     </Modal>
   );
