@@ -12,7 +12,7 @@ export default async function Column({ id, title }: DashboardColumn) {
   });
   const items: TaskCardList[] = cards;
 
-  // 해당 값 사용하게 되면 지울 테스트 코드들
+  // 해당 값 사용하게 되면(페이지네이션) 지울 테스트 코드
   console.log(cursorId);
 
   return (
@@ -30,7 +30,7 @@ export default async function Column({ id, title }: DashboardColumn) {
               </div>
             </div>
           </div>
-          <EditColumnButton />
+          <EditColumnButton columnId={id} />
         </div>
         <div className="flex flex-col gap-[10px] tablet:gap-4">
           <AddTaskButton />
