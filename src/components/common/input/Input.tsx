@@ -29,6 +29,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       alt,
       error = false,
       errorMessage,
+      required,
       ...props
     },
     ref
@@ -57,6 +58,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       <div className="flex flex-col">
         <label className={inputStyles.label} htmlFor={label}>
           {label}
+          {required && <span className="ml-0.5 text-violet">*</span>}
         </label>
         <div
           className="relative"
