@@ -42,3 +42,27 @@ export async function postColumn({
 
   return res.json();
 }
+
+export async function putColumn({
+  token,
+  title,
+  columnId,
+}: {
+  token: string;
+  title: string;
+  columnId: number;
+}) {
+  const res = await fetch(`${BASE_URL}/columns/${columnId}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      title,
+    }),
+  });
+
+  return res.json();
+}

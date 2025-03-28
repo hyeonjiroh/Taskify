@@ -16,9 +16,6 @@ export default function AlertProvider() {
       {currentAlert === "signupSuccess" && (
         <Alert onConfirm={() => router.push(ROUTE.LOGIN)} />
       )}
-      {currentAlert === "deleteColumn" && (
-        <Alert onConfirm={() => alert("삭제 성공!")} /> // 컬럼 삭제 API 함수 추가
-      )}
     </>
   );
 }
