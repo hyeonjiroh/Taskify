@@ -9,7 +9,7 @@ export default function TaskInfoSection({
   dueDate: string;
   assignee: {
     nickname: string;
-    profileImageUrl?: string | null;
+    profileImageUrl: string | null;
   };
 }) {
   const isMobile = useIsMobile();
@@ -20,7 +20,11 @@ export default function TaskInfoSection({
       <div className="flex flex-col tablet:gap-[6px]">
         <div className="font-semibold text-xs">담당자</div>
         <div className="flex gap-2 items-center">
-          <UserIcon name={assignee.nickname} size={isMobile ? "sm" : "md"} />
+          <UserIcon
+            name={assignee.nickname}
+            img={assignee.profileImageUrl}
+            size={isMobile ? "sm" : "md"}
+          />
           <div className="font-normal text-xs text-gray-800 tablet:text-md">
             {assignee.nickname}
           </div>
