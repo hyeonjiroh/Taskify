@@ -74,7 +74,7 @@ export async function deleteColumn({
   token: string;
   columnId: number;
 }) {
-  const res = await fetch(`${BASE_URL}/columns/${columnId}`, {
+  await fetch(`${BASE_URL}/columns/${columnId}`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",

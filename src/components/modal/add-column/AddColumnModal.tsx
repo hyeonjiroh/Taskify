@@ -18,9 +18,9 @@ export default function CreateDashboardModal() {
   const [isFormValid, setIsFormValid] = useState(false);
   const { dashboardId } = useDashboardStore();
 
-  if (!dashboardId) return;
-
   useEffect(() => {
+    if (!dashboardId) return;
+
     const getData = async () => {
       const res = await fetchColumnList({
         token: TOKEN_1,
@@ -50,12 +50,16 @@ export default function CreateDashboardModal() {
   };
 
   const buttonClick = async () => {
+    if (!dashboardId) return;
+
     postColumn({
       token: TOKEN_1,
       title: inputValue,
       dashboardId: Number(dashboardId),
     });
   };
+
+  if (!dashboardId) return;
 
   return (
     <Modal

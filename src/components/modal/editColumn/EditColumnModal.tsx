@@ -20,9 +20,9 @@ export default function CreateDashboardModal() {
   const { dashboardId } = useDashboardStore();
   const { selectedColumnId } = useColumnStore();
 
-  if (!dashboardId) return;
-
   useEffect(() => {
+    if (!dashboardId) return;
+
     const getData = async () => {
       const res = await fetchColumnList({
         token: TOKEN_1,
@@ -33,8 +33,6 @@ export default function CreateDashboardModal() {
 
     getData();
   }, [dashboardId]);
-
-  console.log(columnList);
 
   useEffect(() => {
     const trimmedValue = inputValue.trim();
@@ -54,12 +52,16 @@ export default function CreateDashboardModal() {
   };
 
   const handleEditClick = async () => {
+    if (!selectedColumnId) return;
+
     putColumn({
       token: TOKEN_1,
       title: inputValue,
       columnId: Number(selectedColumnId),
     });
   };
+
+  if (!dashboardId) return;
 
   return (
     <Modal
