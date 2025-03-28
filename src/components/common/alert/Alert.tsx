@@ -15,7 +15,7 @@ export default function Alert({ onConfirm }: { onConfirm?: () => void }) {
   if (!currentAlert) return null;
 
   return createPortal(
-    <div className="flex justify-center items-center fixed top-0 left-0 w-full h-full p-6 bg-black/70">
+    <div className="flex justify-center items-center fixed top-0 left-0 w-full h-full p-6 bg-black/70 z-50">
       <div
         className={clsx(
           "flex flex-col gap-8 rounded-2xl border-none bg-white tablet:gap-10",

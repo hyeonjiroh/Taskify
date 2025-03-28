@@ -70,7 +70,11 @@ export default function TaskCard({
                 />
                 <div className="font-medium text-xs text-gray-600">{date}</div>
               </div>
-              <UserIcon name={assignee.nickname} size="sm" />
+              <UserIcon
+                name={assignee.nickname}
+                img={assignee.profileImageUrl}
+                size="sm"
+              />
             </div>
           </div>
         </div>
