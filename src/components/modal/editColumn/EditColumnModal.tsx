@@ -14,12 +14,12 @@ export interface ColumnListResponse {
 }
 
 export default function CreateDashboardModal() {
+  const { selectedColumnId, selectedColumnTitle } = useColumnStore();
   const [columnList, setColumnList] = useState<DashboardColumn[]>([]);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(selectedColumnTitle ?? "");
   const [isDuplicate, setIsDuplicate] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
   const { dashboardId } = useDashboardStore();
-  const { selectedColumnId } = useColumnStore();
   const router = useRouter();
 
   useEffect(() => {
@@ -40,7 +40,9 @@ export default function CreateDashboardModal() {
     const trimmedValue = inputValue.trim();
 
     // 중복된 컬럼 이름이 입력되었는지 체크
-    const duplicate = columnList.some((col) => col.title === trimmedValue);
+    const duplicate = columnList.some(
+      (col) => col.title === trimmedValue && col.id !== selectedColumnId
+    );
     setIsDuplicate(duplicate);
 
     const isValid = trimmedValue !== "" && !duplicate;

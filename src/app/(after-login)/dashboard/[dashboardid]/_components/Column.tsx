@@ -30,7 +30,7 @@ export default async function Column({ id, title }: DashboardColumn) {
               </div>
             </div>
           </div>
-          <EditColumnButton columnId={id} />
+          <EditColumnButton columnId={id} columnTitle={title} />
         </div>
         <div className="flex flex-col gap-[10px] tablet:gap-4">
           <AddTaskButton />
