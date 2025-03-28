@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import Sidebar from "@/components/layout/sidebar";
 
 import ModalProvider from "@/components/common/modal/ModalProvider";
+import AlertProvider from "@/components/common/alert/AlertProvider";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
@@ -13,6 +14,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         {children}
       </div>
       <ModalProvider />
+      <AlertProvider />
     </div>
   );
 }

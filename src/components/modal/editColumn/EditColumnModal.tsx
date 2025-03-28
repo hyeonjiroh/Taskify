@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
-import { useAlertStore } from "@/lib/store/useAlertStore";
 import { DashboardColumn } from "@/lib/types";
 import { useDashboardStore } from "@/lib/store/useDashboardStore";
 import { useColumnStore } from "@/lib/store/useColumnStore";
 import { fetchColumnList, putColumn } from "@/lib/apis/columnsApi";
 import { TOKEN_1 } from "@/lib/constants/tokens";
 import Modal from "@/components/common/modal/Modal";
-import Alert from "@/components/common/alert/Alert";
 import Input from "@/components/common/input/Input";
 
 export interface ColumnListResponse {
@@ -20,7 +18,6 @@ export default function CreateDashboardModal() {
   const [isDuplicate, setIsDuplicate] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
   const { dashboardId } = useDashboardStore();
-  const { currentAlert } = useAlertStore();
   const { selectedColumnId } = useColumnStore();
 
   if (!dashboardId) return;
@@ -36,6 +33,8 @@ export default function CreateDashboardModal() {
 
     getData();
   }, [dashboardId]);
+
+  console.log(columnList);
 
   useEffect(() => {
     const trimmedValue = inputValue.trim();
@@ -54,7 +53,7 @@ export default function CreateDashboardModal() {
     setInputValue(e.target.value);
   };
 
-  const buttonClick = async () => {
+  const handleEditClick = async () => {
     putColumn({
       token: TOKEN_1,
       title: inputValue,
@@ -63,27 +62,22 @@ export default function CreateDashboardModal() {
   };
 
   return (
-    <>
-      <Modal
-        button={{
-          onConfirm: buttonClick,
-          disabled: !isFormValid,
-        }}
-      >
-        <div className="tablet:w-[520px]">
-          <Input
-            label="이름"
-            placeholder="이름을 입력해 주세요"
-            value={inputValue}
-            onChange={handleChange}
-            error={isDuplicate}
-            errorMessage={isDuplicate ? "중복된 컬럼 이름입니다." : ""}
-          />
-        </div>
-      </Modal>
-      {currentAlert === "deleteColumn" && (
-        <Alert onConfirm={() => alert("삭제 성공!")} /> // 컬럼 삭제 API 함수 추가
-      )}
-    </>
+    <Modal
+      button={{
+        onConfirm: handleEditClick,
+        disabled: !isFormValid,
+      }}
+    >
+      <div className="tablet:w-[520px]">
+        <Input
+          label="이름"
+          placeholder="이름을 입력해 주세요"
+          value={inputValue}
+          onChange={handleChange}
+          error={isDuplicate}
+          errorMessage={isDuplicate ? "중복된 컬럼 이름입니다." : ""}
+        />
+      </div>
+    </Modal>
   );
 }

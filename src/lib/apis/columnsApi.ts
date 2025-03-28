@@ -66,3 +66,21 @@ export async function putColumn({
 
   return res.json();
 }
+
+export async function deleteColumn({
+  token,
+  columnId,
+}: {
+  token: string;
+  columnId: number;
+}) {
+  const res = await fetch(`${BASE_URL}/columns/${columnId}`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return null;
+}
