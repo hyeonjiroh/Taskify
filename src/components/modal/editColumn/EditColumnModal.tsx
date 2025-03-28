@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { DashboardColumn } from "@/lib/types";
 import { useDashboardStore } from "@/lib/store/useDashboardStore";
 import { useColumnStore } from "@/lib/store/useColumnStore";
@@ -19,6 +20,7 @@ export default function CreateDashboardModal() {
   const [isFormValid, setIsFormValid] = useState(false);
   const { dashboardId } = useDashboardStore();
   const { selectedColumnId } = useColumnStore();
+  const router = useRouter();
 
   useEffect(() => {
     if (!dashboardId) return;
@@ -38,9 +40,7 @@ export default function CreateDashboardModal() {
     const trimmedValue = inputValue.trim();
 
     // 중복된 컬럼 이름이 입력되었는지 체크
-    const duplicate = columnList.some(
-      (col) => col.title.toLowerCase() === trimmedValue.toLowerCase()
-    );
+    const duplicate = columnList.some((col) => col.title === trimmedValue);
     setIsDuplicate(duplicate);
 
     const isValid = trimmedValue !== "" && !duplicate;
@@ -59,6 +59,8 @@ export default function CreateDashboardModal() {
       title: inputValue,
       columnId: Number(selectedColumnId),
     });
+
+    router.refresh();
   };
 
   if (!dashboardId) return;
