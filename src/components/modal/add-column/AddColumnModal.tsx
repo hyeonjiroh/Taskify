@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { DashboardColumn } from "@/lib/types";
 import { useDashboardStore } from "@/lib/store/useDashboardStore";
 import { fetchColumnList, postColumn } from "@/lib/apis/columnsApi";
@@ -17,6 +18,7 @@ export default function CreateDashboardModal() {
   const [isDuplicate, setIsDuplicate] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
   const { dashboardId } = useDashboardStore();
+  const router = useRouter();
 
   useEffect(() => {
     if (!dashboardId) return;
@@ -36,9 +38,7 @@ export default function CreateDashboardModal() {
     const trimmedValue = inputValue.trim();
 
     // 중복된 컬럼 이름이 입력되었는지 체크
-    const duplicate = columnList.some(
-      (col) => col.title.toLowerCase() === trimmedValue.toLowerCase()
-    );
+    const duplicate = columnList.some((col) => col.title === trimmedValue);
     setIsDuplicate(duplicate);
 
     const isValid = trimmedValue !== "" && !duplicate && columnList.length < 10;
@@ -57,6 +57,8 @@ export default function CreateDashboardModal() {
       title: inputValue,
       dashboardId: Number(dashboardId),
     });
+
+    router.refresh();
   };
 
   if (!dashboardId) return;

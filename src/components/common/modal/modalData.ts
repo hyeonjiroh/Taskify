@@ -13,5 +13,5 @@ export const buttonName: Record<string, string> = {
   createTask: "생성",
   addColumn: "생성",
   editColumn: "변경",
-  invite: "생성",
+  invite: "초대",
 };
