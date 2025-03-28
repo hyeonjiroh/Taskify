@@ -18,6 +18,8 @@ export default function AlertProvider() {
       token: TOKEN_1,
       columnId: Number(selectedColumnId),
     });
+
+    router.refresh();
   };
 
   return (

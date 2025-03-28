@@ -40,6 +40,7 @@ export default function CreateDashboardModal() {
     const newDashboardId = res.id;
 
     router.push(`/dashboard/${newDashboardId}`);
+    router.refresh();
   };
 
   return (

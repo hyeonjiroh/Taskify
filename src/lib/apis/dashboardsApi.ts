@@ -57,3 +57,27 @@ export async function postDashboard({
 
   return res.json();
 }
+
+export async function postInvitation({
+  token,
+  id,
+  email,
+}: {
+  token: string;
+  id: number;
+  email: string;
+}) {
+  const res = await fetch(`${BASE_URL}/dashboards/${id}/invitations`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email,
+    }),
+  });
+
+  return res.json();
+}
