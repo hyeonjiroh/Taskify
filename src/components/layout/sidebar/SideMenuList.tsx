@@ -1,21 +1,62 @@
+"use client";
+
+import { useEffect, useState, useRef } from "react";
+import { useIntersection } from "@/lib/hooks/useIntersection";
 import { DashboardList } from "@/lib/types";
 import { fetchDashboardList } from "@/lib/apis/dashboardsApi";
 import { TOKEN_1 } from "@/lib/constants/tokens";
 import SideMenuItem from "./SideMenuItem";
 
-export default async function SideMenuList() {
-  const { dashboards, totalCount, cursorId } =
-    await fetchDashboardList(TOKEN_1);
-  const items: DashboardList[] = dashboards;
+const PAGE_SIZE = 15;
 
-  // 해당 값들 사용하게 되면 지울 테스트 코드들
-  console.log(totalCount);
-  console.log(cursorId);
+export default function SideMenuList() {
+  const [items, setItems] = useState<DashboardList[]>([]);
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLast, setIsLast] = useState(false);
+  const observerRef = useRef<HTMLDivElement | null>(null);
+
+  const handleLoad = async () => {
+    if (isLoading || isLast) return;
+    setIsLoading(true);
+
+    try {
+      const { dashboards: newDashboards } = await fetchDashboardList({
+        token: TOKEN_1,
+        size: PAGE_SIZE,
+        page,
+      });
+
+      if (newDashboards.length === 0) {
+        setIsLast(true);
+      } else {
+        setItems((prev) => [...prev, ...newDashboards]);
+        setPage((prev) => prev + 1);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    handleLoad();
+  }, []);
+
+  useIntersection({
+    target: observerRef,
+    onIntersect: handleLoad,
+    disabled: isLast,
+  });
 
   return (
-    <div className="flex flex-col gap-[14px] tablet:gap-[2px] pc:gap-2">
-      {items.map((item) => (
-        <SideMenuItem key={item.id} {...item} />
+    <div className="flex flex-col gap-[14px] flex-grow min-h-0 overflow-y-auto whitespace-nowrap scrollbar-hide tablet:gap-[2px] pc:gap-2">
+      {items.map((item, index) => (
+        <div
+          key={item.id}
+          ref={index === items.length - 1 ? observerRef : null}
+        >
+          <SideMenuItem {...item} />
+        </div>
       ))}
     </div>
   );

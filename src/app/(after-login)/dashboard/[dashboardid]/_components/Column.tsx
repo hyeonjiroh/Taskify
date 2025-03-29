@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import { useIntersection } from "@/lib/hooks/useIntersection";
 import { DashboardColumn, TaskCardList } from "@/lib/types";
 import { fetchTaskCardList } from "@/lib/apis/cardsApi";
 import { TOKEN_1 } from "@/lib/constants/tokens";
@@ -50,26 +51,11 @@ export default function Column({ id, title }: DashboardColumn) {
     handleLoad();
   }, []);
 
-  useEffect(() => {
-    if (isLast) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          handleLoad();
-        }
-      },
-      { threshold: 0.5 }
-    );
-
-    const current = observerRef.current;
-    if (current) observer.observe(current);
-
-    return () => {
-      if (current) observer.unobserve(current);
-      observer.disconnect();
-    };
-  }, [cursorId, isLoading, isLast]);
+  useIntersection({
+    target: observerRef,
+    onIntersect: handleLoad,
+    disabled: isLast,
+  });
 
   return (
     <div className="h-full py-4 border-b border-gray-300 tablet:px-5 tablet:pt-[22px] tablet:pb-5 pc:border-b-0 pc:border-r">

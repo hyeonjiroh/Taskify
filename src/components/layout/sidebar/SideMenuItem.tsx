@@ -1,5 +1,3 @@
-"use client";
-
 import { useIsMobile } from "@/lib/hooks/useCheckViewport";
 import { useDashboardStore } from "@/lib/store/useDashboardStore";
 import { useRouter } from "next/navigation";
@@ -26,7 +24,7 @@ export default function SideMenuItem({
       onClick={() => {
         router.push(`/dashboard/${id}`);
       }}
-      className="flex items-center p-4 rounded hover:bg-violet-8 tablet:px-[10px] tablet:py-2 pc:p-3"
+      className="flex items-center w-full p-4 rounded hover:bg-violet-8 tablet:px-[10px] tablet:py-2 pc:p-3"
       style={isCurrent ? { background: "#f1effd" } : {}}
       disabled={isCurrent}
     >
