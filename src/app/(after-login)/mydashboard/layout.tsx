@@ -4,13 +4,18 @@ import { TOKEN_1 } from "@/lib/constants/tokens";
 import DashboardMenu from "@/components/layout/navbar/DashboardMenu";
 import UserMenu from "@/components/layout/navbar/UserMenu";
 
+const PAGE_SIZE = 15;
+
 export default async function Layout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  // 가장 첫 번째 페이지 리스트 불러오도록 나중에 수정
-  const { dashboards } = await fetchDashboardList(TOKEN_1);
+  const { dashboards } = await fetchDashboardList({
+    token: TOKEN_1,
+    page: 1,
+    size: PAGE_SIZE,
+  });
 
   const firstDashboardId = dashboards[0]?.id;
 

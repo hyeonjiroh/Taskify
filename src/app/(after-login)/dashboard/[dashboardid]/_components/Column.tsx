@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import { useIntersection } from "@/lib/hooks/useIntersection";
 import { DashboardColumn, TaskCardList } from "@/lib/types";
 import { fetchTaskCardList } from "@/lib/apis/cardsApi";
 import { TOKEN_1 } from "@/lib/constants/tokens";
 import EditColumnButton from "./EditColumnButton";
 import AddTaskButton from "./AddTaskButton";
 import TaskCard from "./TaskCard";
-import { useIntersection } from "@/lib/hooks/useIntersection";
 
 const PAGE_SIZE = 3;
 
