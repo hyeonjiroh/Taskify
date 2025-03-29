@@ -1,5 +1,3 @@
-"use client";
-
 import { useModalStore } from "@/lib/store/useModalStore";
 import Button from "@/components/common/button/Button";
 import Image from "next/image";

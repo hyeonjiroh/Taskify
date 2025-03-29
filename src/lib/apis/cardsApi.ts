@@ -2,12 +2,21 @@ import { BASE_URL } from "@/lib/constants/urls";
 
 export async function fetchTaskCardList({
   token,
-  id,
+  size,
+  cursorId,
+  columnId,
 }: {
   token: string;
-  id: number;
+  size: number;
+  cursorId: number | null;
+  columnId: number;
 }) {
-  const res = await fetch(`${BASE_URL}/cards?size=10&columnId=${id}`, {
+  let query = `size=${size}&columnId=${columnId}`;
+  if (cursorId !== null) {
+    query += `&cursorId=${cursorId}`;
+  }
+
+  const res = await fetch(`${BASE_URL}/cards?${query}`, {
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${token}`,
