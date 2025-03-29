@@ -21,12 +21,11 @@ export default function SideMenuList() {
     setIsLoading(true);
 
     try {
-      const { dashboards: newDashboards, cursorId: nextCursorId } =
-        await fetchDashboardList({
-          token: TOKEN_1,
-          size: PAGE_SIZE,
-          page,
-        });
+      const { dashboards: newDashboards } = await fetchDashboardList({
+        token: TOKEN_1,
+        size: PAGE_SIZE,
+        page,
+      });
 
       if (newDashboards.length === 0) {
         setIsLast(true);
