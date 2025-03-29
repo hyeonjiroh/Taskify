@@ -1,5 +1,3 @@
-"use client";
-
 import { useModalStore } from "@/lib/store/useModalStore";
 import { useColumnStore } from "@/lib/store/useColumnStore";
 import Image from "next/image";

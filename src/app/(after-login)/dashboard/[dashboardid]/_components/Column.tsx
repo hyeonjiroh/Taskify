@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState, useRef } from "react";
 import { DashboardColumn, TaskCardList } from "@/lib/types";
 import { fetchTaskCardList } from "@/lib/apis/cardsApi";
 import { TOKEN_1 } from "@/lib/constants/tokens";
@@ -5,19 +8,72 @@ import EditColumnButton from "./EditColumnButton";
 import AddTaskButton from "./AddTaskButton";
 import TaskCard from "./TaskCard";
 
-export default async function Column({ id, title }: DashboardColumn) {
-  const { cards, totalCount, cursorId } = await fetchTaskCardList({
-    token: TOKEN_1,
-    id: id,
-  });
-  const items: TaskCardList[] = cards;
+const PAGE_SIZE = 3;
 
-  // 해당 값 사용하게 되면(페이지네이션) 지울 테스트 코드
-  console.log(cursorId);
+export default function Column({ id, title }: DashboardColumn) {
+  const [items, setItems] = useState<TaskCardList[]>([]);
+  const [cursorId, setCursorId] = useState<number | null>(null);
+  const [totalCount, setTotalCount] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLast, setIsLast] = useState(false);
+  const observerRef = useRef<HTMLDivElement | null>(null);
+
+  const handleLoad = async () => {
+    if (isLoading || isLast) return;
+    setIsLoading(true);
+
+    try {
+      const {
+        cards: newCards,
+        cursorId: nextCursorId,
+        totalCount,
+      } = await fetchTaskCardList({
+        token: TOKEN_1,
+        size: PAGE_SIZE,
+        cursorId,
+        columnId: id,
+      });
+
+      setItems((prev) => [...prev, ...newCards]);
+      setCursorId(nextCursorId);
+      setTotalCount(totalCount);
+
+      if (newCards.length < PAGE_SIZE || nextCursorId === null) {
+        setIsLast(true);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    handleLoad();
+  }, []);
+
+  useEffect(() => {
+    if (isLast) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          handleLoad();
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    const current = observerRef.current;
+    if (current) observer.observe(current);
+
+    return () => {
+      if (current) observer.unobserve(current);
+      observer.disconnect();
+    };
+  }, [cursorId, isLoading, isLast]);
 
   return (
-    <div className="py-4 border-b border-gray-300 tablet:px-5 tablet:pt-[22px] tablet:pb-5 pc:border-b-0 pc:border-r">
-      <div className="flex flex-col gap-6 tablet:gap-[25px]">
+    <div className="h-full py-4 border-b border-gray-300 tablet:px-5 tablet:pt-[22px] tablet:pb-5 pc:border-b-0 pc:border-r">
+      <div className="flex flex-col gap-6 h-full tablet:gap-[25px]">
         <div className="flex justify-between">
           <div className="flex gap-3 items-center">
             <div className="flex gap-2 items-center">
@@ -32,11 +88,20 @@ export default async function Column({ id, title }: DashboardColumn) {
           </div>
           <EditColumnButton columnId={id} columnTitle={title} />
         </div>
-        <div className="flex flex-col gap-[10px] tablet:gap-4">
-          <AddTaskButton />
-          {items.map((item) => (
-            <TaskCard key={item.id} {...item} columnTitle={title} />
-          ))}
+        <div className="flex flex-col gap-[10px] flex-grow min-h-0 tablet:gap-4">
+          <div>
+            <AddTaskButton />
+          </div>
+          <div className="flex flex-col gap-[10px] flex-grow min-h-0 overflow-y-auto whitespace-nowrap scrollbar-hide tablet:gap-4">
+            {items.map((item, index) => (
+              <div
+                key={item.id}
+                ref={index === items.length - 1 ? observerRef : null}
+              >
+                <TaskCard {...item} columnTitle={title} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
