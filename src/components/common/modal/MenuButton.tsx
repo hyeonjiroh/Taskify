@@ -11,7 +11,6 @@ export default function MenuButton() {
   const [isOpen, setIsOpen] = useState(false);
   const { openModal, closeModal } = useModalStore();
   const { selectedTaskId } = useTaskStore();
-  const router = useRouter();
 
   const openModifyModal = () => {
     closeModal();
