@@ -49,7 +49,7 @@ export default function CommentList({ id }: { id: number }) {
   });
 
   return (
-    <div>
+    <div className="flex flex-col gap-2">
       {items.map((item, index) => (
         <div
           key={item.id}

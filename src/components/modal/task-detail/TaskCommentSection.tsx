@@ -46,7 +46,7 @@ export default function TaskCommentSection({
   if (!dashboardId) return;
 
   return (
-    <div className="flex flex-col gap-4 tablet:gap-6">
+    <div className="flex flex-col gap-4 w-[290px] tablet:gap-6 tablet:w-[420px] pc:w-[445px]">
       <div className="relative">
         <Textarea
           label="댓글"
