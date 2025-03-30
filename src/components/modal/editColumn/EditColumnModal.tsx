@@ -56,7 +56,7 @@ export default function CreateDashboardModal() {
   const handleEditClick = async () => {
     if (!selectedColumnId) return;
 
-    putColumn({
+    await putColumn({
       token: TOKEN_1,
       title: inputValue,
       columnId: Number(selectedColumnId),
