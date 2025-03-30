@@ -6,6 +6,7 @@ import { TOKEN_1 } from "@/lib/constants/tokens";
 import Modal from "@/components/common/modal/Modal";
 import TaskInfoSection from "./TaskInfoSection";
 import TaskContentSection from "./TaskContentSection";
+import TaskCommentSection from "./TaskCommentSection";
 
 export default function TaskDetailModal() {
   const { selectedTaskId } = useTaskStore();
@@ -28,10 +29,16 @@ export default function TaskDetailModal() {
   if (!selectedTaskId) return;
   if (!data) return;
 
-  const { id, title, description, tags, dueDate, assignee, imageUrl } = data;
-
-  // vercel 배포를 위해 임시로 작성한 코드
-  console.log(`${id} 값은 코멘트 api 요청할 때 사용하시면 됩니다!`);
+  const {
+    id,
+    title,
+    description,
+    tags,
+    dueDate,
+    assignee,
+    imageUrl,
+    columnId,
+  } = data;
 
   return (
     <Modal taskTitle={title}>
@@ -44,8 +51,7 @@ export default function TaskDetailModal() {
             tags={tags}
             imageUrl={imageUrl}
           />
-          {/* 코멘트 부분 여기에 추가해주시면 됩니다 */}
-          <div></div>
+          <TaskCommentSection cardId={id} columnId={columnId} />
         </div>
       </div>
     </Modal>
