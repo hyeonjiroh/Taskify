@@ -7,7 +7,13 @@ import CommentCard from "./CommentCard";
 
 const PAGE_SIZE = 3;
 
-export default function CommentList({ id }: { id: number }) {
+export default function CommentList({
+  id,
+  onChange,
+}: {
+  id: number;
+  onChange: () => void;
+}) {
   const [items, setItems] = useState<Comment[]>([]);
   const [cursorId, setCursorId] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -55,7 +61,7 @@ export default function CommentList({ id }: { id: number }) {
           key={item.id}
           ref={index === items.length - 1 ? observerRef : null}
         >
-          <CommentCard {...item} />
+          <CommentCard {...item} onChange={onChange} />
         </div>
       ))}
     </div>

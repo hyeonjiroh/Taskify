@@ -66,7 +66,11 @@ export default function TaskCommentSection({
           등록
         </Button>
       </div>
-      <CommentList id={cardId} key={commentListKey} />
+      <CommentList
+        id={cardId}
+        key={commentListKey}
+        onChange={() => setCommentListKey((prev) => prev + 1)}
+      />
     </div>
   );
 }

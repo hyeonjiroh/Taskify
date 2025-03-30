@@ -1,16 +1,32 @@
 import { Comment } from "@/lib/types";
-import UserIcon from "@/components/common/user-icon/UserIcon";
+import { putComment, deleteComment } from "@/lib/apis/commentsApi";
+import { TOKEN_1 } from "@/lib/constants/tokens";
 import { useIsMobile } from "@/lib/hooks/useCheckViewport";
 import { formatDate } from "@/lib/utils/dateUtils";
+import UserIcon from "@/components/common/user-icon/UserIcon";
+
+type CommentCardProps = Comment & {
+  onChange: () => void;
+};
 
 export default function CommentCard({
   id,
   content,
   author,
   createdAt,
-}: Comment) {
+  onChange,
+}: CommentCardProps) {
   const isMobile = useIsMobile();
   const date = formatDate(createdAt, true);
+
+  const handleDeleteComment = () => {
+    deleteComment({
+      token: TOKEN_1,
+      commentId: id,
+    });
+
+    onChange();
+  };
 
   return (
     <div className=" flex gap-2 pb-2 border-b border-gray-400 tablet:gap-3 tablet:pb-3">
@@ -34,10 +50,13 @@ export default function CommentCard({
           </div>
         </div>
         <div className="flex gap-2 tablet:gap-3 pc:gap-[14px]">
-          <div className="font-normal text-[10px] text-gray-500 underline tablet:text-xs">
+          <div className="font-normal text-[10px] text-gray-500 underline cursor-pointer tablet:text-xs">
             수정
           </div>
-          <div className="font-normal text-[10px] text-gray-500 underline tablet:text-xs">
+          <div
+            onClick={handleDeleteComment}
+            className="font-normal text-[10px] text-gray-500 underline cursor-pointer tablet:text-xs"
+          >
             삭제
           </div>
         </div>
