@@ -1,7 +1,6 @@
 import { DashboardColumn } from "@/lib/types";
 import { fetchColumnList } from "@/lib/apis/columnsApi";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import Column from "./_components/Column";
 import AddColumnButton from "./_components/AddColumnButton";
 
