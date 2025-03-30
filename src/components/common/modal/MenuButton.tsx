@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { deleteCard } from "@/lib/apis/cardsApi";
 import { TOKEN_1 } from "@/lib/constants/tokens";
 import { useModalStore } from "@/lib/store/useModalStore";
