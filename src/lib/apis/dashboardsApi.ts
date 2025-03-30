@@ -1,8 +1,16 @@
 import { BASE_URL } from "@/lib/constants/urls";
 
-export async function fetchDashboardList(token: string) {
+export async function fetchDashboardList({
+  token,
+  page,
+  size,
+}: {
+  token: string;
+  page: number;
+  size: number;
+}) {
   const res = await fetch(
-    `${BASE_URL}/dashboards?navigationMethod=pagination&page=1&size=10`,
+    `${BASE_URL}/dashboards?navigationMethod=pagination&page=${page}&size=${size}`,
     {
       headers: {
         Accept: "application/json",
