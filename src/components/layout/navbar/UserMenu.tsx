@@ -40,7 +40,7 @@ export default function UserMenu() {
   };
 
   const handleLogout = () => {
-    alert("로그아웃"); // 로그아웃 API 요청 넣기
+    localStorage.removeItem("accessToken");
     router.push(ROUTE.HOME);
   };
 
