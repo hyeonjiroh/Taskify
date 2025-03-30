@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { useDashboardStore } from "@/lib/store/useDashboardStore";
 import { postComment } from "@/lib/apis/commentsApi";
 import { TOKEN_1 } from "@/lib/constants/tokens";
@@ -16,8 +15,8 @@ export default function TaskCommentSection({
 }) {
   const [inputValue, setInputValue] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
+  const [commentListKey, setCommentListKey] = useState(0);
   const { dashboardId } = useDashboardStore();
-  const router = useRouter();
 
   useEffect(() => {
     const trimmedValue = inputValue.trim();
@@ -33,14 +32,14 @@ export default function TaskCommentSection({
 
     await postComment({
       token: TOKEN_1,
-      content: inputValue,
+      content: inputValue.trim(),
       cardId: cardId,
       columnId: columnId,
       dashboardId: Number(dashboardId),
     });
 
     setInputValue("");
-    router.refresh();
+    setCommentListKey((prev) => prev + 1); // key 값 변경해서 CommentList 다시 마운트
   };
 
   if (!dashboardId) return;
@@ -53,7 +52,7 @@ export default function TaskCommentSection({
           value={inputValue}
           containerClassName="gap-1"
           labelClassName="font-medium text-md tablet:text-lg"
-          textareaClassName="h-[70px] p-4 rounded-md tablet:h-[110px]"
+          textareaClassName="h-[70px] p-4 rounded-md text-xs tablet:h-[110px] tablet:text-md"
           placeholder="댓글 작성하기"
           onChange={handleChange}
         />
@@ -67,7 +66,7 @@ export default function TaskCommentSection({
           등록
         </Button>
       </div>
-      <CommentList id={cardId} />
+      <CommentList id={cardId} key={commentListKey} />
     </div>
   );
 }
