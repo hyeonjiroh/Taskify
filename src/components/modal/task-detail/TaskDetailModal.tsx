@@ -11,22 +11,28 @@ import TaskCommentSection from "./TaskCommentSection";
 export default function TaskDetailModal() {
   const { selectedTaskId } = useTaskStore();
   const [data, setData] = useState<TaskCardDetail | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    if (!selectedTaskId) return;
+  if (!selectedTaskId) return;
 
-    const getData = async () => {
+  const handleLoad = async () => {
+    if (isLoading) return;
+    setIsLoading(true);
+    try {
       const res = await fetchTaskCardDetail({
         token: TOKEN_1,
         id: selectedTaskId,
       });
       setData(res);
-    };
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-    getData();
-  }, [selectedTaskId]);
+  useEffect(() => {
+    handleLoad();
+  }, []);
 
-  if (!selectedTaskId) return;
   if (!data) return;
 
   const {

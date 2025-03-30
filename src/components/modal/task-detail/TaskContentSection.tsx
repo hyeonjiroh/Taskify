@@ -15,13 +15,13 @@ export default function TaskContentSection({
 }) {
   return (
     <>
-      <div className="flex items-start flex-1 min-w-0 max-h-[26px] tablet:max-h-[28px]">
-        <div className="flex items-center pr-3 tablet:pr-5">
+      <div className="flex items-start w-[290px] tablet:w-[420px] pc:w-[445px] max-h-[26px] tablet:max-h-[28px]">
+        <div className="flex items-center shrink-0">
           <ColumnNameTag />
-          <div className="shrink-0 w-[1px] h-4 bg-gray-400 ml-3 tablet:ml-5" />
+          <div className="shrink-0 w-[1px] h-4 bg-gray-400 mx-3 tablet:mx-5" />
         </div>
-        <div className="flex-nowrap w-full min-w-0 overflow-x-auto scrollbar-hide max-w-[205px] tablet:max-w-[315px] pc:max-w-[340px]">
-          <TagList tags={tags} />
+        <div className="flex-grow min-h-0 overflow-x-auto whitespace-nowrap scrollbar-hide">
+          <TagList tags={mock} />
         </div>
       </div>
       <div className="w-[290px] tablet:w-[420px] pc:w-[445px]">
@@ -43,3 +43,30 @@ export default function TaskContentSection({
     </>
   );
 }
+
+const mock = [
+  "tag",
+  "tag",
+  "tag",
+  "tagtag",
+  "tagtagtag",
+  "tagtagtagtag",
+  "tag",
+  "tag",
+  "tag",
+  "tag",
+  "tag",
+  "tag",
+  "tag",
+  "tag",
+  "tag",
+  "tag",
+  "tag",
+  "tag",
+  "tag",
+  "tag",
+  "tag",
+  "tag",
+  "tag",
+  "tag",
+];
