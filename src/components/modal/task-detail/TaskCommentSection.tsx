@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDashboardStore } from "@/lib/store/useDashboardStore";
 import { postComment } from "@/lib/apis/commentsApi";
-import { TOKEN_1 } from "@/lib/constants/tokens";
 import Button from "@/components/common/button/Button";
 import Textarea from "@/components/common/textarea/Textarea";
 import CommentList from "./CommentList";
@@ -17,6 +16,7 @@ export default function TaskCommentSection({
   const [isFormValid, setIsFormValid] = useState(false);
   const [commentListKey, setCommentListKey] = useState(0);
   const { dashboardId } = useDashboardStore();
+  const accessToken = localStorage.getItem("accessToken") ?? "";
 
   useEffect(() => {
     const trimmedValue = inputValue.trim();
@@ -31,7 +31,7 @@ export default function TaskCommentSection({
     if (!dashboardId) return;
 
     await postComment({
-      token: TOKEN_1,
+      token: accessToken,
       content: inputValue.trim(),
       cardId: cardId,
       columnId: columnId,

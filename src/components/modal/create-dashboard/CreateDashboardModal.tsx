@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { postDashboard } from "@/lib/apis/dashboardsApi";
-import { TOKEN_1 } from "@/lib/constants/tokens";
 import Modal from "@/components/common/modal/Modal";
 import Input from "@/components/common/input/Input";
 import ColorPalette, {
@@ -13,6 +12,7 @@ export default function CreateDashboardModal() {
   const [selectedColor, setSelectedColor] = useState<ColorCode | "">("");
   const [isFormValid, setIsFormValid] = useState(false);
   const router = useRouter();
+  const accessToken = localStorage.getItem("accessToken") ?? "";
 
   const onColorSelect = (color: ColorCode | "") => {
     setSelectedColor(() => {
@@ -32,7 +32,7 @@ export default function CreateDashboardModal() {
 
   const createDashboard = async () => {
     const res = await postDashboard({
-      token: TOKEN_1,
+      token: accessToken,
       title: dashboardName,
       color: selectedColor,
     });

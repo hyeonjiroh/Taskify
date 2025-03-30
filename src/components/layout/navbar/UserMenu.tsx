@@ -5,24 +5,23 @@ import { UserInfo } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import { useDashboardStore } from "@/lib/store/useDashboardStore";
 import { fetchUser } from "@/lib/apis/usersApi";
-import { TOKEN_1 } from "@/lib/constants/tokens";
 import { useIsMobile } from "@/lib/hooks/useCheckViewport";
 import UserIcon from "@/components/common/user-icon/UserIcon";
 import ROUTE from "@/lib/constants/route";
 
 export default function UserMenu() {
   const [data, setData] = useState<UserInfo | null>(null);
-
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useIsMobile();
   const router = useRouter();
+  const accessToken = localStorage.getItem("accessToken") ?? "";
 
   const setDashboardId = useDashboardStore((state) => state.setDashboardId);
 
   useEffect(() => {
     const getData = async () => {
       const res = await fetchUser({
-        token: TOKEN_1,
+        token: accessToken,
       });
       setData(res);
     };

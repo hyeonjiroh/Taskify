@@ -4,7 +4,6 @@ import { useEffect, useState, useRef } from "react";
 import { useIntersection } from "@/lib/hooks/useIntersection";
 import { DashboardList } from "@/lib/types";
 import { fetchDashboardList } from "@/lib/apis/dashboardsApi";
-import { TOKEN_1 } from "@/lib/constants/tokens";
 import SideMenuItem from "./SideMenuItem";
 
 const PAGE_SIZE = 15;
@@ -15,6 +14,7 @@ export default function SideMenuList() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLast, setIsLast] = useState(false);
   const observerRef = useRef<HTMLDivElement | null>(null);
+  const accessToken = localStorage.getItem("accessToken") ?? "";
 
   const handleLoad = async () => {
     if (isLoading || isLast) return;
@@ -22,7 +22,7 @@ export default function SideMenuList() {
 
     try {
       const { dashboards: newDashboards } = await fetchDashboardList({
-        token: TOKEN_1,
+        token: accessToken,
         size: PAGE_SIZE,
         page,
       });

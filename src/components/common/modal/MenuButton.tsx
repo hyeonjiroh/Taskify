@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { deleteCard } from "@/lib/apis/cardsApi";
-import { TOKEN_1 } from "@/lib/constants/tokens";
 import { useModalStore } from "@/lib/store/useModalStore";
 import Image from "next/image";
 import MenuButtonIcon from "../../../../public/icon/menu_icon.svg";
@@ -10,6 +9,7 @@ export default function MenuButton() {
   const [isOpen, setIsOpen] = useState(false);
   const { openModal, closeModal } = useModalStore();
   const { selectedTaskId } = useTaskStore();
+  const accessToken = localStorage.getItem("accessToken") ?? "";
 
   const openModifyModal = () => {
     closeModal();
@@ -20,7 +20,7 @@ export default function MenuButton() {
     if (!selectedTaskId) return;
 
     await deleteCard({
-      token: TOKEN_1,
+      token: accessToken,
       cardId: selectedTaskId,
     });
 

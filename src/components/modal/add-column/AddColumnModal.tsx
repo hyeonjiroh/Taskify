@@ -3,7 +3,6 @@ import { useRouter } from "next/navigation";
 import { DashboardColumn } from "@/lib/types";
 import { useDashboardStore } from "@/lib/store/useDashboardStore";
 import { fetchColumnList, postColumn } from "@/lib/apis/columnsApi";
-import { TOKEN_1 } from "@/lib/constants/tokens";
 import Modal from "@/components/common/modal/Modal";
 import Input from "@/components/common/input/Input";
 
@@ -19,13 +18,14 @@ export default function CreateDashboardModal() {
   const [isFormValid, setIsFormValid] = useState(false);
   const { dashboardId } = useDashboardStore();
   const router = useRouter();
+  const accessToken = localStorage.getItem("accessToken") ?? "";
 
   useEffect(() => {
     if (!dashboardId) return;
 
     const getData = async () => {
       const res = await fetchColumnList({
-        token: TOKEN_1,
+        token: accessToken,
         id: dashboardId,
       });
       setColumnList(res.data);
@@ -53,7 +53,7 @@ export default function CreateDashboardModal() {
     if (!dashboardId) return;
 
     await postColumn({
-      token: TOKEN_1,
+      token: accessToken,
       title: inputValue,
       dashboardId: Number(dashboardId),
     });

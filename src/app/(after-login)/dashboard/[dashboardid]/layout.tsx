@@ -2,7 +2,7 @@ import DashboardIdSetter from "./_components/DashboardIdSetter";
 import { DashboardDetail } from "@/lib/types";
 import { fetchDashboard } from "@/lib/apis/dashboardsApi";
 import { fetchDashboardMember } from "@/lib/apis/membersApi";
-import { TOKEN_1 } from "@/lib/constants/tokens";
+import { cookies } from "next/headers";
 import DashboardMenu from "@/components/layout/navbar/DashboardMenu";
 import MemberList from "@/components/layout/navbar/MemberList";
 import UserMenu from "@/components/layout/navbar/UserMenu";
@@ -15,17 +15,17 @@ export default async function Layout({
   children: React.ReactNode;
   params?: { dashboardid?: string };
 }) {
-  if (!params?.dashboardid) {
-    return;
-  }
+  const accessToken = cookies().get("accessToken")?.value ?? "";
+
+  if (!params?.dashboardid) return;
 
   const dashboardData: DashboardDetail = await fetchDashboard({
-    token: TOKEN_1,
+    token: accessToken,
     id: params.dashboardid,
   });
 
   const memberData = await fetchDashboardMember({
-    token: TOKEN_1,
+    token: accessToken,
     id: params.dashboardid,
   });
 

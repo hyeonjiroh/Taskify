@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Comment } from "@/lib/types";
 import { putComment, deleteComment } from "@/lib/apis/commentsApi";
-import { TOKEN_1 } from "@/lib/constants/tokens";
 import { useIsMobile } from "@/lib/hooks/useCheckViewport";
 import { formatDate } from "@/lib/utils/dateUtils";
 import UserIcon from "@/components/common/user-icon/UserIcon";
@@ -24,6 +23,7 @@ export default function CommentCard({
   const [isFormValid, setIsFormValid] = useState(false);
   const isMobile = useIsMobile();
   const date = formatDate(createdAt, true);
+  const accessToken = localStorage.getItem("accessToken") ?? "";
 
   useEffect(() => {
     const trimmedValue = inputValue.trim();
@@ -40,7 +40,7 @@ export default function CommentCard({
 
   const handleEditComment = async () => {
     await putComment({
-      token: TOKEN_1,
+      token: accessToken,
       content: inputValue.trim(),
       commentId: id,
     });
@@ -51,7 +51,7 @@ export default function CommentCard({
 
   const handleDeleteComment = () => {
     deleteComment({
-      token: TOKEN_1,
+      token: accessToken,
       commentId: id,
     });
 

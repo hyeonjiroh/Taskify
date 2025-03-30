@@ -10,11 +10,7 @@ export default async function Page({
 }: {
   params: { dashboardid: string };
 }) {
-  const accessToken = cookies().get("accessToken")?.value;
-
-  if (!accessToken) {
-    redirect("/");
-  }
+  const accessToken = cookies().get("accessToken")?.value ?? "";
 
   const { data } = await fetchColumnList({
     token: accessToken,
