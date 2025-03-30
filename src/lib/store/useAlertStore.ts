@@ -5,6 +5,9 @@ export type AlertKey =
   | "emailDuplicated"
   | "signupSuccess"
   | "deleteColumn"
+  | "loginSuccess"
+  | "userNotFound"
+  | "wrongPassword"
   | null;
 
 type AlertState = {

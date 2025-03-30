@@ -1,28 +1,59 @@
 "use client";
-import Input from "@/components/common/input/Input";
-import { AuthLayout } from "@/app/(before-login)/(without-navbar)/layout";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Input from "@/components/common/input/Input";
+import { AuthLayout } from "@/app/(before-login)/(without-navbar)/layout";
 import { loginSchema, LoginFormData } from "@/lib/utils/validationSchema";
+import { useAlertStore } from "@/lib/store/useAlertStore";
+import { fetchLogin } from "@/lib/apis/authApi";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+  const { openAlert } = useAlertStore();
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     mode: "onBlur",
   });
 
-  const onSubmit = (data: LoginFormData) => {
-    console.log("로그인 데이터:", data);
+  const onSubmit = async (data: LoginFormData) => {
+    setIsLoading(true);
+    try {
+      const response = await fetchLogin(data);
+      setIsLoading(false);
+      localStorage.setItem("accessToken", response.accessToken);
+      openAlert("loginSuccess");
+      router.push("/mydashboard");
+    } catch (error: unknown) {
+      setIsLoading(false);
+      if (error instanceof Error) {
+        const errorInfo: { status: number; message: string } = JSON.parse(
+          error.message
+        );
+        if (errorInfo.status === 400) {
+          openAlert("wrongPassword");
+        }
+        if (errorInfo.status === 404) {
+          openAlert("userNotFound");
+        }
+      }
+    }
   };
+
   return (
     <AuthLayout
       buttonText="로그인"
       linkText="회원이 아니신가요?"
       linkPath="/signup"
+      isLoading={isLoading}
+      isFormValid={isValid}
     >
       <form id="auth-form" onSubmit={handleSubmit(onSubmit)} className="w-full">
         <div className="pb-4">

@@ -9,6 +9,8 @@ type AuthLayoutProps = {
   buttonText: string;
   linkText: string;
   linkPath: string;
+  isLoading?: boolean;
+  isFormValid?: boolean;
 };
 
 export const AuthLayout: React.FC<AuthLayoutProps> = ({
@@ -16,7 +18,10 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
   buttonText,
   linkText,
   linkPath,
+  isLoading = false,
+  isFormValid = false,
 }) => {
+  const isButtonDisabled = isLoading || !isFormValid;
   return (
     <main className="w-full min-h-screen flex justify-center items-center bg-gray-200 p-3">
       <section className="w-[520px] flex flex-col justify-center items-center">
@@ -41,8 +46,9 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
               className="w-full"
               form="auth-form"
               type="submit"
+              disabled={isButtonDisabled}
             >
-              {buttonText}
+              {isLoading ? "처리 중 입니다." : buttonText}
             </Button>
           </div>
         </div>
