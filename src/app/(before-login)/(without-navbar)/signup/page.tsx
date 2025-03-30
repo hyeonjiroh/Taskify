@@ -4,12 +4,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "@/components/common/input/Input";
 import { AuthLayout } from "@/app/(before-login)/(without-navbar)/layout";
 import { signupSchema, SignupFormData } from "@/lib/utils/validationSchema";
+import { useAlertStore } from "@/lib/store/useAlertStore";
+import { fetchSignup } from "@/lib/apis/authApi";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+  const { openAlert } = useAlertStore();
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema),
     mode: "onBlur",
@@ -17,9 +25,24 @@ export default function Page() {
       terms: false,
     },
   });
-
-  const onSubmit = (data: SignupFormData) => {
-    console.log("회원가입 데이터:", data);
+  const onSubmit = async (data: SignupFormData) => {
+    setIsLoading(true);
+    try {
+      await fetchSignup(data);
+      setIsLoading(false);
+      openAlert("signupSuccess");
+      router.push("/login");
+    } catch (error: unknown) {
+      setIsLoading(false);
+      if (error instanceof Error) {
+        const errorInfo: { status: number; message: string } = JSON.parse(
+          error.message
+        );
+        if (errorInfo.status === 409) {
+          openAlert("emailDuplicated");
+        }
+      }
+    }
   };
 
   return (
@@ -27,12 +50,10 @@ export default function Page() {
       buttonText="가입하기"
       linkText="이미 회원이신가요?"
       linkPath="/login"
+      isLoading={isLoading}
+      isFormValid={isValid}
     >
-      <form
-        id="auth-form" // Button과 연결
-        onSubmit={handleSubmit(onSubmit)}
-        className="w-full"
-      >
+      <form id="auth-form" onSubmit={handleSubmit(onSubmit)} className="w-full">
         <div className="pb-4">
           <Input
             label="이메일"

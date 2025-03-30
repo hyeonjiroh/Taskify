@@ -32,6 +32,11 @@ export default function AlertProvider() {
       {currentAlert === "deleteColumn" && (
         <Alert onConfirm={handleDeleteClick} />
       )}
+      {currentAlert === "loginSuccess" && (
+        <Alert onConfirm={() => router.push(ROUTE.MYDASHBOARD)} />
+      )}
+      {currentAlert === "userNotFound" && <Alert />}
+      {currentAlert === "wrongPassword" && <Alert />}
     </>
   );
 }
