@@ -26,6 +26,8 @@ export default async function Layout({
 
   const memberData = await fetchDashboardMember({
     token: accessToken,
+    page: 1,
+    size: null,
     id: params.dashboardid,
   });
 
