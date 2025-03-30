@@ -3,18 +3,18 @@
 import { useEffect, useState } from "react";
 import { UserInfo } from "@/lib/types";
 import { fetchUser } from "@/lib/apis/usersApi";
-import { TOKEN_1 } from "@/lib/constants/tokens";
 import Button from "@/components/common/button/Button";
 import ImageInput from "@/components/common/input/ImageInput";
 import Input from "@/components/common/input/Input";
 
 export default function ProfileSection() {
   const [data, setData] = useState<UserInfo | null>(null);
+  const accessToken = localStorage.getItem("accessToken") ?? "";
 
   useEffect(() => {
     const getData = async () => {
       const res = await fetchUser({
-        token: TOKEN_1,
+        token: accessToken,
       });
       setData(res);
     };

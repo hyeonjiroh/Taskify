@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { TaskCardDetail } from "@/lib/types";
 import { useTaskStore } from "@/lib/store/useTaskStore";
 import { fetchTaskCardDetail } from "@/lib/apis/cardsApi";
-import { TOKEN_1 } from "@/lib/constants/tokens";
 import Modal from "@/components/common/modal/Modal";
 import TaskInfoSection from "./TaskInfoSection";
 import TaskContentSection from "./TaskContentSection";
@@ -12,6 +11,7 @@ export default function TaskDetailModal() {
   const { selectedTaskId } = useTaskStore();
   const [data, setData] = useState<TaskCardDetail | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const accessToken = localStorage.getItem("accessToken") ?? "";
 
   const handleLoad = async () => {
     if (!selectedTaskId) return;
@@ -20,7 +20,7 @@ export default function TaskDetailModal() {
 
     try {
       const res = await fetchTaskCardDetail({
-        token: TOKEN_1,
+        token: accessToken,
         id: selectedTaskId,
       });
       setData(res);

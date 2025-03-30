@@ -4,7 +4,6 @@ import { useEffect, useState, useRef } from "react";
 import { useIntersection } from "@/lib/hooks/useIntersection";
 import { DashboardColumn, TaskCardList } from "@/lib/types";
 import { fetchTaskCardList } from "@/lib/apis/cardsApi";
-import { TOKEN_1 } from "@/lib/constants/tokens";
 import EditColumnButton from "./EditColumnButton";
 import AddTaskButton from "./AddTaskButton";
 import TaskCard from "./TaskCard";
@@ -18,6 +17,7 @@ export default function Column({ id, title }: DashboardColumn) {
   const [isLoading, setIsLoading] = useState(false);
   const [isLast, setIsLast] = useState(false);
   const observerRef = useRef<HTMLDivElement | null>(null);
+  const accessToken = localStorage.getItem("accessToken") ?? "";
 
   const handleLoad = async () => {
     if (isLoading || isLast) return;
@@ -29,7 +29,7 @@ export default function Column({ id, title }: DashboardColumn) {
         cursorId: nextCursorId,
         totalCount,
       } = await fetchTaskCardList({
-        token: TOKEN_1,
+        token: accessToken,
         size: PAGE_SIZE,
         cursorId,
         columnId: id,

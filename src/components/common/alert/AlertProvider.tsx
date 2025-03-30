@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import { useAlertStore } from "@/lib/store/useAlertStore";
 import { useColumnStore } from "@/lib/store/useColumnStore";
 import { deleteColumn } from "@/lib/apis/columnsApi";
-import { TOKEN_1 } from "@/lib/constants/tokens";
 import Alert from "@/components/common/alert/Alert";
 import ROUTE from "@/lib/constants/route";
 
@@ -12,10 +11,11 @@ export default function AlertProvider() {
   const { currentAlert } = useAlertStore();
   const { selectedColumnId } = useColumnStore();
   const router = useRouter();
+  const accessToken = localStorage.getItem("accessToken") ?? "";
 
   const handleDeleteClick = async () => {
     deleteColumn({
-      token: TOKEN_1,
+      token: accessToken,
       columnId: Number(selectedColumnId),
     });
 

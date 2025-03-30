@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useDashboardStore } from "@/lib/store/useDashboardStore";
 import { postInvitation } from "@/lib/apis/dashboardsApi";
-import { TOKEN_1 } from "@/lib/constants/tokens";
 import { isValidEmail } from "@/lib/utils/validationUtils";
 import Modal from "@/components/common/modal/Modal";
 import Input from "@/components/common/input/Input";
@@ -13,6 +12,7 @@ export default function CreateDashboardModal() {
   const [isFormValid, setIsFormValid] = useState(false);
   const { dashboardId } = useDashboardStore();
   const router = useRouter();
+  const accessToken = localStorage.getItem("accessToken") ?? "";
 
   // 이메일 유효성 검사는 나중에 아름님이 하시는 걸로 수정 예정
   useEffect(() => {
@@ -33,7 +33,7 @@ export default function CreateDashboardModal() {
     if (!dashboardId) return;
 
     postInvitation({
-      token: TOKEN_1,
+      token: accessToken,
       id: Number(dashboardId),
       email: inputValue,
     });

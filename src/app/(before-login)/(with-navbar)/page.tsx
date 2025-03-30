@@ -26,7 +26,6 @@ export default function Home() {
   const isMobile = useIsMobile();
   const isTablet = useIsTablet();
   const isPC = useIsPC();
-
   const router = useRouter();
 
   const pointStyle = twMerge(

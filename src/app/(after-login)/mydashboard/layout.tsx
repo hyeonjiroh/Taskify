@@ -1,6 +1,6 @@
 import { DashboardList } from "@/lib/types";
 import { fetchDashboardList } from "@/lib/apis/dashboardsApi";
-import { TOKEN_1 } from "@/lib/constants/tokens";
+import { cookies } from "next/headers";
 import DashboardMenu from "@/components/layout/navbar/DashboardMenu";
 import UserMenu from "@/components/layout/navbar/UserMenu";
 
@@ -11,8 +11,10 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
+  const accessToken = cookies().get("accessToken")?.value ?? "";
+
   const { dashboards } = await fetchDashboardList({
-    token: TOKEN_1,
+    token: accessToken,
     page: 1,
     size: PAGE_SIZE,
   });

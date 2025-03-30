@@ -29,6 +29,7 @@ export default function Page() {
       const response = await fetchLogin(data);
       setIsLoading(false);
       localStorage.setItem("accessToken", response.accessToken);
+      document.cookie = `accessToken=${response.accessToken}; path=/`;
       openAlert("loginSuccess");
       router.push("/mydashboard");
     } catch (error: unknown) {
