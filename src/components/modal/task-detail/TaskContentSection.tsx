@@ -21,7 +21,7 @@ export default function TaskContentSection({
           <div className="shrink-0 w-[1px] h-4 bg-gray-400 mx-3 tablet:mx-5" />
         </div>
         <div className="flex-grow min-h-0 overflow-x-auto whitespace-nowrap scrollbar-hide">
-          <TagList tags={mock} />
+          <TagList tags={tags} />
         </div>
       </div>
       <div className="w-[290px] tablet:w-[420px] pc:w-[445px]">
@@ -43,30 +43,3 @@ export default function TaskContentSection({
     </>
   );
 }
-
-const mock = [
-  "tag",
-  "tag",
-  "tag",
-  "tagtag",
-  "tagtagtag",
-  "tagtagtagtag",
-  "tag",
-  "tag",
-  "tag",
-  "tag",
-  "tag",
-  "tag",
-  "tag",
-  "tag",
-  "tag",
-  "tag",
-  "tag",
-  "tag",
-  "tag",
-  "tag",
-  "tag",
-  "tag",
-  "tag",
-  "tag",
-];
