@@ -1,6 +1,7 @@
 import { DashboardColumn } from "@/lib/types";
 import { fetchColumnList } from "@/lib/apis/columnsApi";
-import { TOKEN_1 } from "@/lib/constants/tokens";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import Column from "./_components/Column";
 import AddColumnButton from "./_components/AddColumnButton";
 
@@ -9,8 +10,14 @@ export default async function Page({
 }: {
   params: { dashboardid: string };
 }) {
+  const accessToken = cookies().get("accessToken")?.value;
+
+  if (!accessToken) {
+    redirect("/");
+  }
+
   const { data } = await fetchColumnList({
-    token: TOKEN_1,
+    token: accessToken,
     id: params.dashboardid,
   });
   const items: DashboardColumn[] = data;

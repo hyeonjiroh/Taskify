@@ -8,6 +8,7 @@ import {
   useIsTablet,
 } from "@/lib/hooks/useCheckViewport";
 import ROUTE from "@/lib/constants/route";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 import clsx from "clsx";
@@ -27,7 +28,19 @@ export default function Home() {
   const isTablet = useIsTablet();
   const isPC = useIsPC();
 
+  const [isRedirecting, setIsRedirecting] = useState(true);
   const router = useRouter();
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      router.replace(ROUTE.MYDASHBOARD);
+    } else {
+      setIsRedirecting(false);
+    }
+  }, []);
+
+  if (isRedirecting) return;
 
   const pointStyle = twMerge(
     clsx({

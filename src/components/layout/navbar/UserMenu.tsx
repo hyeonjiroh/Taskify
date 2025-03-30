@@ -41,6 +41,7 @@ export default function UserMenu() {
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
+    document.cookie = "accessToken=; path=/; max-age=0";
     router.push(ROUTE.HOME);
   };
 

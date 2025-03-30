@@ -6,12 +6,14 @@ import { AuthLayout } from "@/app/(before-login)/(without-navbar)/layout";
 import { loginSchema, LoginFormData } from "@/lib/utils/validationSchema";
 import { useAlertStore } from "@/lib/store/useAlertStore";
 import { fetchLogin } from "@/lib/apis/authApi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import ROUTE from "@/lib/constants/route";
 
 export default function Page() {
   const { openAlert } = useAlertStore();
   const [isLoading, setIsLoading] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(true);
   const router = useRouter();
 
   const {
@@ -29,6 +31,7 @@ export default function Page() {
       const response = await fetchLogin(data);
       setIsLoading(false);
       localStorage.setItem("accessToken", response.accessToken);
+      document.cookie = `accessToken=${response.accessToken}; path=/`;
       openAlert("loginSuccess");
       router.push("/mydashboard");
     } catch (error: unknown) {
@@ -46,6 +49,17 @@ export default function Page() {
       }
     }
   };
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      router.replace(ROUTE.MYDASHBOARD);
+    } else {
+      setIsRedirecting(false);
+    }
+  }, []);
+
+  if (isRedirecting) return;
 
   return (
     <AuthLayout
