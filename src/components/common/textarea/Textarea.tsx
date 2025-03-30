@@ -5,7 +5,7 @@ interface TextareaProps extends ComponentPropsWithoutRef<"textarea"> {
   containerClassName: string;
   labelClassName: string;
   textareaClassName: string;
-  spanClassName: string;
+  spanClassName?: string;
 }
 
 const Textarea = ({

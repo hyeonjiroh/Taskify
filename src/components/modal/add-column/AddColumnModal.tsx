@@ -52,7 +52,7 @@ export default function CreateDashboardModal() {
   const buttonClick = async () => {
     if (!dashboardId) return;
 
-    postColumn({
+    await postColumn({
       token: TOKEN_1,
       title: inputValue,
       dashboardId: Number(dashboardId),
