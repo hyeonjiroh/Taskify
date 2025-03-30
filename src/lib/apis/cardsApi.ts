@@ -44,3 +44,21 @@ export async function fetchTaskCardDetail({
 
   return res.json();
 }
+
+export async function deleteCard({
+  token,
+  cardId,
+}: {
+  token: string;
+  cardId: number;
+}) {
+  await fetch(`${BASE_URL}/cards/${cardId}`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return null;
+}

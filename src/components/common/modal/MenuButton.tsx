@@ -1,15 +1,33 @@
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { deleteCard } from "@/lib/apis/cardsApi";
+import { TOKEN_1 } from "@/lib/constants/tokens";
 import { useModalStore } from "@/lib/store/useModalStore";
 import Image from "next/image";
 import MenuButtonIcon from "../../../../public/icon/menu_icon.svg";
+import { useTaskStore } from "@/lib/store/useTaskStore";
 
 export default function MenuButton() {
   const [isOpen, setIsOpen] = useState(false);
   const { openModal, closeModal } = useModalStore();
+  const { selectedTaskId } = useTaskStore();
+  const router = useRouter();
 
   const openModifyModal = () => {
     closeModal();
     openModal("editTask");
+  };
+
+  const handleDelete = async () => {
+    if (!selectedTaskId) return;
+
+    await deleteCard({
+      token: TOKEN_1,
+      cardId: selectedTaskId,
+    });
+
+    closeModal();
+    window.location.reload();
   };
 
   return (
@@ -30,7 +48,10 @@ export default function MenuButton() {
           >
             수정하기
           </button>
-          <button className="w-[81px] h-8 rounded font-normal text-md text-gray-800 hover:text-violet hover:bg-violet-8">
+          <button
+            onClick={handleDelete}
+            className="w-[81px] h-8 rounded font-normal text-md text-gray-800 hover:text-violet hover:bg-violet-8"
+          >
             삭제하기
           </button>
         </div>
