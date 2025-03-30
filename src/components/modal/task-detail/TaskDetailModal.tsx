@@ -13,11 +13,11 @@ export default function TaskDetailModal() {
   const [data, setData] = useState<TaskCardDetail | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  if (!selectedTaskId) return;
-
   const handleLoad = async () => {
+    if (!selectedTaskId) return;
     if (isLoading) return;
     setIsLoading(true);
+
     try {
       const res = await fetchTaskCardDetail({
         token: TOKEN_1,
