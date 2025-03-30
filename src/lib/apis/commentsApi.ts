@@ -35,19 +35,19 @@ export async function fetchCommentList({
   token,
   size,
   cursorId,
-  columnId,
+  cardId,
 }: {
   token: string;
   size: number;
   cursorId: number | null;
-  columnId: number;
+  cardId: number;
 }) {
-  let query = `size=${size}&columnId=${columnId}`;
+  let query = `size=${size}&cardId=${cardId}`;
   if (cursorId !== null) {
     query += `&cursorId=${cursorId}`;
   }
 
-  const res = await fetch(`${BASE_URL}/cards?${query}`, {
+  const res = await fetch(`${BASE_URL}/comments?${query}`, {
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${token}`,

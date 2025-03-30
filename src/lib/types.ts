@@ -117,3 +117,16 @@ export interface Invitation {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface Comment {
+  id: number;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  cardId: number;
+  author: {
+    id: number;
+    nickname: string;
+    profileImageUrl: string | null;
+  };
+}

@@ -67,7 +67,7 @@ export default function TaskCommentSection({
           등록
         </Button>
       </div>
-      <CommentList />
+      <CommentList id={cardId} />
     </div>
   );
 }
