@@ -26,3 +26,23 @@ export async function fetchDashboardMember({
 
   return res.json();
 }
+
+export async function deleteDashboardMember({
+  token,
+  dashboardId,
+  memberId,
+}: {
+  token: string;
+  dashboardId: number;
+  memberId: number;
+}) {
+  await fetch(`${BASE_URL}/dashboards/${dashboardId}/members/${memberId}`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return null;
+}
