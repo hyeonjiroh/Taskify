@@ -41,6 +41,7 @@ const PaginationButton = ({
         "w-10 h-10 flex items-center justify-center",
         "border border-[#d9d9d9]",
         "rounded-[4px]",
+        "bg-white",
         !props.disabled && [
           "transition-colors",
           "hover:bg-gray-50 hover:border-gray-400",
