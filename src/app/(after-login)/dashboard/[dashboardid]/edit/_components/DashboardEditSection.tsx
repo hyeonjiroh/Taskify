@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useDashboardStore } from "@/lib/store/useDashboardStore";
 import { DashboardDetail } from "@/lib/types";
 import { fetchDashboard, putDashboard } from "@/lib/apis/dashboardsApi";
 import ColorPalette, {
@@ -20,6 +22,8 @@ export default function DashboardEditSection({
   const [dashboardName, setDashboardName] = useState("");
   const [selectedColor, setSelectedColor] = useState<ColorCode | "">("");
   const [isFormValid, setIsFormValid] = useState(false);
+  const router = useRouter();
+  const setDashboardId = useDashboardStore((state) => state.setDashboardId);
 
   useEffect(() => {
     const getData = async () => {
@@ -59,7 +63,8 @@ export default function DashboardEditSection({
       id,
     });
 
-    window.location.reload();
+    window.location.replace(`/dashboard/${id}`);
+    setDashboardId(String(id));
   };
 
   if (!data) return;
