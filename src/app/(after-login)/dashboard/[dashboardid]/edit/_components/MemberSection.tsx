@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Pagination from "@/components/common/pagenation-button/PagenationButton";
+import Pagination from "@/components/common/pagination-button/PaginationButton";
 import { DashboardMember } from "@/lib/types";
 import Button from "@/components/common/button/Button";
 import UserIcon from "@/components/common/user-icon/UserIcon";
