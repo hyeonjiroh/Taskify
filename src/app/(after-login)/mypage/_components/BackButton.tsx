@@ -18,12 +18,12 @@ export default function BackButton() {
       >
         <Image
           src={BackIcon}
-          className="scale-x-[-1] w-[18px] h-[18px] tablet:w-[18px] tablet:h-[18px]"
+          className="scale-x-[-1] size-[18px] tablet:size-[18px]"
           alt=""
         />
-        <div className="font-medium text-md text-gray-800 tablet:text-lg">
+        <p className="font-medium text-md text-gray-800 tablet:text-lg">
           돌아가기
-        </div>
+        </p>
       </button>
     </div>
   );

@@ -1,5 +1,3 @@
-"use client";
-
 import { useModalStore } from "@/lib/store/useModalStore";
 import Image from "next/image";
 import AddButtonIcon from "../../../../public/icon/add_box_icon.svg";

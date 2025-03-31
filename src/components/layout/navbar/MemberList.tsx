@@ -32,7 +32,7 @@ export default function MemberList({ data }: MemberListProps) {
         </div>
       ))}
       {hiddenCount > 0 && (
-        <div className="flex items-center justify-center w-[34px] h-[34px] rounded-full font-semibold text-md bg-[#F4D7DA] text-[#D25B68] border-2 border-white tablet:w-[38px] tablet:h-[38px] tablet:text-lg">
+        <div className="flex items-center justify-center w-[34px] h-[34px] rounded-full font-semibold text-md bg-[#F4D7DA] text-[#D25B68] border-2 border-white z-10 tablet:w-[38px] tablet:h-[38px] tablet:text-lg">
           +{hiddenCount}
         </div>
       )}

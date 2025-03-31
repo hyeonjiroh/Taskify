@@ -1,7 +1,5 @@
 "use client";
 
-import Pagination from "@/components/common/pagenation-button/PagenationButton";
-
 export default function MemberSection({
   id,
   token,
@@ -16,18 +14,11 @@ export default function MemberSection({
   return (
     <div className="w-full p-4 rounded-lg bg-white tablet:p-6">
       <div className="flex items-center justify-between">
-        <h2 className="font-bold text-2lg text-gray-800 tablet:text-2xl">
+        <h2 className="font-bold text-xl text-gray-800 tablet:text-2xl">
           구성원
         </h2>
         <div className="flex items-center gap-2">
           <span>1 페이지 중 1</span>
-          <Pagination
-            currentPage={1}
-            totalPages={1}
-            onPageChange={(page) => {
-              console.log(`구성원 페이지 ${page}로 변경`);
-            }}
-          />
         </div>
       </div>
     </div>
