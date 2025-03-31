@@ -1,4 +1,3 @@
-import { useRouter } from "next/navigation";
 import { Invitation } from "@/lib/types";
 import { deleteInvitation } from "@/lib/apis/dashboardsApi";
 import Button from "@/components/common/button/Button";
@@ -13,8 +12,6 @@ export default function InvitationCard({
   invitee,
   token,
 }: InvitationCardProps) {
-  const router = useRouter();
-
   const handleDeleteClick = async () => {
     await deleteInvitation({
       token,
