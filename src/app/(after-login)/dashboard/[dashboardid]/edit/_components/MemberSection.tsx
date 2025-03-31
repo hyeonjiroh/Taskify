@@ -125,7 +125,7 @@ export default function MemberSection({
                 img={item.profileImageUrl}
                 size="md"
               />
-              <span>{item.email}</span>
+              <span>{item.nickname}</span>
             </div>
             <Button
               variant="whiteViolet"
