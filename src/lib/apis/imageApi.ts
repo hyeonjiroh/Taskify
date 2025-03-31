@@ -3,7 +3,8 @@ import { BASE_URL } from "@/lib/constants/urls";
 export const postImage = async (
   variant: "task" | "profile",
   columnId?: number,
-  file?: File
+  file?: File,
+  token?: string
 ): Promise<string> => {
   if (!file) throw new Error("파일이 없습니다.");
   if (variant === "task" && columnId === undefined) {
@@ -21,7 +22,7 @@ export const postImage = async (
   const response = await fetch(url, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
+      Authorization: `Bearer ${token || process.env.NEXT_PUBLIC_API_TOKEN}`,
     },
     body: formData,
   });

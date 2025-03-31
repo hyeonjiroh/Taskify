@@ -8,6 +8,8 @@ export type AlertKey =
   | "loginSuccess"
   | "userNotFound"
   | "wrongPassword"
+  | "profileUpdateSuccess"
+  | "profileUpdateFailed"
   | null;
 
 type AlertState = {
