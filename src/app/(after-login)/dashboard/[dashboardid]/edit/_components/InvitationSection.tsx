@@ -74,7 +74,7 @@ export default function InvitationSection({
       </div>
       <div>
         {items.map((item) => (
-          <InvitationCard key={item.id} {...item} />
+          <InvitationCard key={item.id} {...item} token={token} />
         ))}
       </div>
     </div>

@@ -111,6 +111,31 @@ export async function deleteDashboard({
   return null;
 }
 
+export async function fetchInvitationList({
+  token,
+  id,
+  page,
+  size,
+}: {
+  token: string;
+  id: number;
+  page: number;
+  size: number;
+}) {
+  const res = await fetch(
+    `${BASE_URL}/dashboards/${id}/invitations?page=${page}&size=${size}`,
+    {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      cache: "no-store",
+    }
+  );
+
+  return res.json();
+}
+
 export async function postInvitation({
   token,
   id,
@@ -135,27 +160,25 @@ export async function postInvitation({
   return res.json();
 }
 
-export async function fetchInvitationList({
+export async function deleteInvitation({
   token,
-  id,
-  page,
-  size,
+  dashboardId,
+  invitationId,
 }: {
   token: string;
-  id: number;
-  page: number;
-  size: number;
+  dashboardId: number;
+  invitationId: number;
 }) {
-  const res = await fetch(
-    `${BASE_URL}/dashboards/${id}/invitations?page=${page}&size=${size}`,
+  await fetch(
+    `${BASE_URL}/dashboards/${dashboardId}/invitations/${invitationId}`,
     {
+      method: "DELETE",
       headers: {
         Accept: "application/json",
         Authorization: `Bearer ${token}`,
       },
-      cache: "no-store",
     }
   );
 
-  return res.json();
+  return null;
 }
