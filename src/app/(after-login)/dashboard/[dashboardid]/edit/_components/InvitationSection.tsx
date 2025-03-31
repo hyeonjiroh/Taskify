@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Invitation } from "@/lib/types";
 import { fetchInvitationList } from "@/lib/apis/dashboardsApi";
-import Pagination from "@/components/common/pagenation-button/PagenationButton";
+import Pagination from "@/components/common/pagination-button/PaginationButton";
 import InvitationCard from "./InvitationCard";
 import InviteModalButton from "./InviteModalButton";
 

@@ -49,8 +49,8 @@ export default function CommentCard({
     onChange();
   };
 
-  const handleDeleteComment = () => {
-    deleteComment({
+  const handleDeleteComment = async () => {
+    await deleteComment({
       token: accessToken,
       commentId: id,
     });

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Pagination from "@/components/common/pagenation-button/PagenationButton";
+import Pagination from "@/components/common/pagination-button/PaginationButton";
 import { DashboardMember } from "@/lib/types";
 import Button from "@/components/common/button/Button";
 import UserIcon from "@/components/common/user-icon/UserIcon";
@@ -64,7 +64,6 @@ export default function MemberSection({
       setIsLoading(true);
       await deleteDashboardMember({
         token,
-        dashboardId: id,
         memberId,
       });
 
@@ -126,7 +125,7 @@ export default function MemberSection({
                 img={item.profileImageUrl}
                 size="md"
               />
-              <span>{item.email}</span>
+              <span>{item.nickname}</span>
             </div>
             <Button
               variant="whiteViolet"

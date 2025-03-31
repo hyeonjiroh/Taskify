@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useIntersection } from "@/lib/hooks/useIntersection";
 import { DashboardColumn, TaskCardList } from "@/lib/types";
 import { fetchTaskCardList } from "@/lib/apis/cardsApi";
@@ -19,7 +19,7 @@ export default function Column({ id, title }: DashboardColumn) {
   const observerRef = useRef<HTMLDivElement | null>(null);
   const accessToken = localStorage.getItem("accessToken") ?? "";
 
-  const handleLoad = useCallback(async () => {
+  const handleLoad = async () => {
     if (isLoading || isLast) return;
     setIsLoading(true);
 
@@ -45,11 +45,11 @@ export default function Column({ id, title }: DashboardColumn) {
     } finally {
       setIsLoading(false);
     }
-  }, [accessToken, isLoading, isLast, cursorId, id]);
+  };
 
   useEffect(() => {
     handleLoad();
-  }, [handleLoad]);
+  }, []);
 
   useIntersection({
     target: observerRef,
