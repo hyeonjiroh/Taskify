@@ -1,5 +1,5 @@
 "use client";
-
+import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { UserInfo } from "@/lib/types";
 import { useRouter } from "next/navigation";
@@ -14,22 +14,23 @@ export default function UserMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useIsMobile();
   const router = useRouter();
-  const accessToken = localStorage.getItem("accessToken") ?? "";
+  const accessToken = Cookies.get("accessToken") ?? "";
 
   const setDashboardId = useDashboardStore((state) => state.setDashboardId);
 
   useEffect(() => {
     const getData = async () => {
-      const res = await fetchUser({
-        token: accessToken,
-      });
-      setData(res);
+      if (accessToken) {
+        const res = await fetchUser({
+          token: accessToken,
+        });
+        setData(res);
+      }
     };
-
     getData();
-  }, []);
+  }, [accessToken]);
 
-  if (!data) return;
+  if (!data) return null;
 
   const { nickname, profileImageUrl } = data;
 
@@ -39,6 +40,7 @@ export default function UserMenu() {
   };
 
   const handleLogout = () => {
+    Cookies.remove("accessToken");
     localStorage.removeItem("accessToken");
     document.cookie = "accessToken=; path=/; max-age=0";
     router.push(ROUTE.HOME);

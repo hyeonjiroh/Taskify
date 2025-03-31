@@ -6,4 +6,6 @@ export const alertMessages: Record<string, string> = {
   loginSuccess: "로그인 되었습니다.",
   userNotFound: "존재하지 않는 유저입니다.",
   wrongPassword: "현재 비밀번호가 틀렸습니다.",
+  profileUpdateSuccess: "내 정보가 정상적으로 수정되었습니다.",
+  profileUpdateFailed: "정보 수정에 실패했습니다.",
 };
