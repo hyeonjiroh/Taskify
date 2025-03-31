@@ -64,7 +64,6 @@ export default function MemberSection({
       setIsLoading(true);
       await deleteDashboardMember({
         token,
-        dashboardId: id,
         memberId,
       });
 

@@ -29,14 +29,12 @@ export async function fetchDashboardMember({
 
 export async function deleteDashboardMember({
   token,
-  dashboardId,
   memberId,
 }: {
   token: string;
-  dashboardId: number;
   memberId: number;
 }) {
-  await fetch(`${BASE_URL}/dashboards/${dashboardId}/members/${memberId}`, {
+  await fetch(`${BASE_URL}/members/${memberId}`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",
