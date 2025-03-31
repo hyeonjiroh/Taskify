@@ -12,6 +12,7 @@ const PAGE_SIZE = 6;
 
 export default function InvitationSection({ token }: { token: string }) {
   const [inputValue, setInputValue] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [items, setItems] = useState<Invitation[]>([]);
   const [cursorId, setCursorId] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +29,7 @@ export default function InvitationSection({ token }: { token: string }) {
           token: token,
           size: PAGE_SIZE,
           cursorId,
-          title: inputValue,
+          title: searchQuery,
         });
 
       setItems((prev) => [...prev, ...newInvitations]);
@@ -43,14 +44,30 @@ export default function InvitationSection({ token }: { token: string }) {
   };
 
   useEffect(() => {
+    setItems([]);
+    setCursorId(null);
+    setIsLast(false);
+  }, [searchQuery]);
+
+  useEffect(() => {
     handleLoad();
-  }, []);
+  }, [items, cursorId]);
 
   useIntersection({
     target: observerRef,
     onIntersect: handleLoad,
     disabled: isLast,
   });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      setSearchQuery(inputValue);
+    }
+  };
 
   return (
     <div className="flex flex-col gap-[13px] max-w-[1022px] px-4 py-6 rounded-lg bg-white tablet:gap-6 tablet:px-[28px] tablet:py-[18px] pc:py-8">
@@ -60,6 +77,9 @@ export default function InvitationSection({ token }: { token: string }) {
         </h2>
         <Input
           label=""
+          value={inputValue}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
           height="sm"
           hasIcon="left"
           iconSrc={SearchIcon}
