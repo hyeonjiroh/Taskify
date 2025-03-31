@@ -19,7 +19,7 @@ export default function InvitationSection({
   const [items, setItems] = useState<Invitation[]>([]);
   const [page, setPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
-  const totalPage = Math.floor(totalCount / PAGE_SIZE);
+  const totalPage = Math.ceil(totalCount / PAGE_SIZE);
 
   const handleLoad = async () => {
     const { invitations, totalCount } = await fetchInvitationList({
@@ -34,7 +34,19 @@ export default function InvitationSection({
 
   useEffect(() => {
     handleLoad();
-  }, []);
+  }, [page]);
+
+  const handlePrevPage = () => {
+    if (page > 1) {
+      setPage((prev) => prev - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (page < totalPage) {
+      setPage((prev) => prev + 1);
+    }
+  };
 
   return (
     <div className="flex flex-col gap-[26px] w-full p-4 rounded-lg bg-white tablet:gap-[17px] tablet:p-6">
@@ -51,9 +63,10 @@ export default function InvitationSection({
               {totalPage} 페이지 중 {page}
             </p>
             <Pagination
-              currentPage={1}
-              totalPages={1}
-              onPageChange={() => {}}
+              currentPage={page}
+              totalPages={totalPage}
+              onPrevClick={handlePrevPage}
+              onNextClick={handleNextPage}
             />
           </div>
           <InviteModalButton />

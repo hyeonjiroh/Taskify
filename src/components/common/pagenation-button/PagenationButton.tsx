@@ -59,38 +59,28 @@ const PaginationButton = ({
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
-  onPageChange: (page: number) => void;
+  onPrevClick: () => void;
+  onNextClick: () => void;
   className?: string;
 }
 
 export default function Pagination({
   currentPage,
   totalPages,
-  onPageChange,
+  onPrevClick,
+  onNextClick,
   className = "",
 }: PaginationProps) {
-  const handlePrevClick = () => {
-    if (currentPage > 1) {
-      onPageChange(currentPage - 1);
-    }
-  };
-
-  const handleNextClick = () => {
-    if (currentPage < totalPages) {
-      onPageChange(currentPage + 1);
-    }
-  };
-
   return (
     <div className={clsx("flex items-center", className)}>
       <PaginationButton
         direction="prev"
-        onClick={handlePrevClick}
+        onClick={onPrevClick}
         disabled={currentPage <= 1}
       />
       <PaginationButton
         direction="next"
-        onClick={handleNextClick}
+        onClick={onNextClick}
         disabled={currentPage >= totalPages}
       />
     </div>
