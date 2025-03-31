@@ -10,8 +10,6 @@ export default function DashboardListSection({ token }: { token: string }) {
   const [myDashboards, setMyDashboards] = useState<DashboardList[]>([]);
   const [page, setPage] = useState(1);
 
-  setPage(1); // vercel 배포 때문에 임시로 넣은 코드라 삭제하시면 됩니다.
-
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -37,7 +35,7 @@ export default function DashboardListSection({ token }: { token: string }) {
   }, []);
 
   return (
-    <>
+    <div className="max-w-[1022px]">
       <button className="px-4 py-2 bg-blue-500 text-white rounded-lg flex items-center">
         새로운 대시보드 +
       </button>
@@ -60,6 +58,6 @@ export default function DashboardListSection({ token }: { token: string }) {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }
