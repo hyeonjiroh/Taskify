@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState, useRef } from "react";
 import { useIntersection } from "@/lib/hooks/useIntersection";
 import { DashboardList } from "@/lib/types";

@@ -1,9 +1,14 @@
+"use client";
+
+import { useDashboardStore } from "@/lib/store/useDashboardStore";
 import LogoButton from "@/components/common/logo-button/LogoButton";
 import AddButton from "./AddButton";
 import SideMenuHeader from "./SideMenuHeader";
 import SideMenuList from "./SideMenuList";
 
 export default function Sidebar() {
+  const dashboardId = useDashboardStore((state) => state.dashboardId);
+
   return (
     <div className="flex flex-col gap-[39px] h-full tablet:gap-[57px] pc:gap-14">
       <div className="flex justify-center items-center tablet:justify-start">
@@ -14,7 +19,7 @@ export default function Sidebar() {
           <SideMenuHeader />
           <AddButton />
         </div>
-        <SideMenuList />
+        <SideMenuList key={dashboardId} />
       </div>
     </div>
   );

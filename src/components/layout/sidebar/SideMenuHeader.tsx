@@ -1,5 +1,3 @@
-"use client";
-
 import { useIsMobile } from "@/lib/hooks/useCheckViewport";
 
 export default function SideMenuHeader() {

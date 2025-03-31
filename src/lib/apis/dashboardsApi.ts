@@ -66,6 +66,24 @@ export async function postDashboard({
   return res.json();
 }
 
+export async function deleteDashboard({
+  token,
+  id,
+}: {
+  token: string;
+  id: number;
+}) {
+  await fetch(`${BASE_URL}/dashboards/${id}`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return null;
+}
+
 export async function postInvitation({
   token,
   id,
