@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation";
 import Button from "@/components/common/button/Button";
 import Image from "next/image";
 import CrownIcon from "../../../../../public/icon/crown_icon.svg";
@@ -14,9 +15,14 @@ export default function DashboardCard({
   color: string;
   createdByMe: boolean;
 }) {
+  const router = useRouter();
+
   return (
     <Button
       variant="whiteGray"
+      onClick={() => {
+        router.push(`/dashboard/${id}`);
+      }}
       className="flex justify-between items-center gap-3 w-full min-h-[58px] px-5 rounded-lg tablet:h-[68px] pc:h-[70px]"
     >
       <div className="flex gap-3 pc:gap-4">
