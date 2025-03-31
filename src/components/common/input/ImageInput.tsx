@@ -1,13 +1,15 @@
 "use client";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 import clsx from "clsx";
 import { postImage } from "@/lib/apis/imageApi";
 
-interface BaseImageInputProps {
+interface BaseImageInputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   variant: "task" | "profile";
+  initialImageUrl?: string | null;
 }
 
 interface TaskImageInputProps extends BaseImageInputProps {
@@ -21,9 +23,20 @@ interface ProfileImageInputProps extends BaseImageInputProps {
 
 type ImageInputProps = TaskImageInputProps | ProfileImageInputProps;
 
-const ImageInput = ({ label, variant, ...props }: ImageInputProps) => {
-  const [uploadImgUrl, setUploadImgUrl] = useState<string>("");
+const ImageInput = ({
+  label,
+  variant,
+  initialImageUrl,
+  ...props
+}: ImageInputProps) => {
+  const [uploadImgUrl, setUploadImgUrl] = useState<string>(
+    initialImageUrl || ""
+  );
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setUploadImgUrl(initialImageUrl || "");
+  }, [initialImageUrl]);
 
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -38,6 +51,11 @@ const ImageInput = ({ label, variant, ...props }: ImageInputProps) => {
     const localUrl = URL.createObjectURL(file);
     setUploadImgUrl(localUrl);
     setError(null);
+
+    if (props.onChange) {
+      props.onChange(e);
+      return;
+    }
 
     try {
       const columnId =
@@ -88,6 +106,7 @@ const ImageInput = ({ label, variant, ...props }: ImageInputProps) => {
             fill
             sizes={sizesValue}
             className="object-cover rounded-md"
+            priority
           />
         ) : (
           <div className="relative w-6 h-6">
@@ -97,6 +116,7 @@ const ImageInput = ({ label, variant, ...props }: ImageInputProps) => {
               fill
               sizes="24px"
               className="object-contain"
+              priority
             />
           </div>
         )}
@@ -108,6 +128,7 @@ const ImageInput = ({ label, variant, ...props }: ImageInputProps) => {
         accept="image/*"
         onChange={handleFileChange}
         className="hidden"
+        {...props}
       />
       {error && <p className="text-red text-md mt-1">{error}</p>}
     </div>

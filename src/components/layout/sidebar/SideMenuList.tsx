@@ -1,4 +1,6 @@
+"use client";
 import { useEffect, useState, useRef } from "react";
+import Cookies from "js-cookie";
 import { useIntersection } from "@/lib/hooks/useIntersection";
 import { DashboardList } from "@/lib/types";
 import { fetchDashboardList } from "@/lib/apis/dashboardsApi";
@@ -11,20 +13,18 @@ export default function SideMenuList() {
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [isLast, setIsLast] = useState(false);
+  const accessToken = Cookies.get("accessToken") ?? "";
   const observerRef = useRef<HTMLDivElement | null>(null);
-  const accessToken = localStorage.getItem("accessToken") ?? "";
 
   const handleLoad = async () => {
-    if (isLoading || isLast) return;
+    if (isLoading || isLast || !accessToken) return;
     setIsLoading(true);
-
     try {
       const { dashboards: newDashboards } = await fetchDashboardList({
         token: accessToken,
         size: PAGE_SIZE,
         page,
       });
-
       if (newDashboards.length === 0) {
         setIsLast(true);
       } else {
@@ -37,8 +37,8 @@ export default function SideMenuList() {
   };
 
   useEffect(() => {
-    handleLoad();
-  }, []);
+    if (accessToken) handleLoad();
+  }, [accessToken]);
 
   useIntersection({
     target: observerRef,

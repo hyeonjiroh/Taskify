@@ -1,5 +1,5 @@
 "use client";
-
+import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { useAlertStore } from "@/lib/store/useAlertStore";
 import { useColumnStore } from "@/lib/store/useColumnStore";
@@ -11,14 +11,14 @@ export default function AlertProvider() {
   const { currentAlert } = useAlertStore();
   const { selectedColumnId } = useColumnStore();
   const router = useRouter();
-  const accessToken = localStorage.getItem("accessToken") ?? "";
+  const accessToken = Cookies.get("accessToken") ?? "";
 
   const handleDeleteClick = async () => {
-    deleteColumn({
+    if (!accessToken || !selectedColumnId) return;
+    await deleteColumn({
       token: accessToken,
       columnId: Number(selectedColumnId),
     });
-
     router.refresh();
   };
 
@@ -37,6 +37,10 @@ export default function AlertProvider() {
       )}
       {currentAlert === "userNotFound" && <Alert />}
       {currentAlert === "wrongPassword" && <Alert />}
+      {currentAlert === "profileUpdateSuccess" && (
+        <Alert onConfirm={() => window.location.reload()} />
+      )}
+      {currentAlert === "profileUpdateFailed" && <Alert />}
     </>
   );
 }
