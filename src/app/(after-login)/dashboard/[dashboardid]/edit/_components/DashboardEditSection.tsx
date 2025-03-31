@@ -72,7 +72,7 @@ export default function DashboardEditSection({
   return (
     <div className="w-full p-4 rounded-lg bg-white tablet:p-6">
       <div className="flex flex-col gap-10 tablet:gap-6">
-        <div className="font-bold text-2lg text-gray-800 tablet:text-2xl">
+        <div className="font-bold text-xl text-gray-800 tablet:text-2xl">
           {data.title}
         </div>
         <div className="flex flex-col gap-8 tablet:gap-10">

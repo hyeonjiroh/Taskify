@@ -16,7 +16,7 @@ export default function MemberSection({
   return (
     <div className="w-full p-4 rounded-lg bg-white tablet:p-6">
       <div className="flex items-center justify-between">
-        <h2 className="font-bold text-2lg text-gray-800 tablet:text-2xl">
+        <h2 className="font-bold text-xl text-gray-800 tablet:text-2xl">
           구성원
         </h2>
         <div className="flex items-center gap-2">

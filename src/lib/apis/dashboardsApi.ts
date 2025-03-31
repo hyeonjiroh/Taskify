@@ -134,3 +134,28 @@ export async function postInvitation({
 
   return res.json();
 }
+
+export async function fetchInvitationList({
+  token,
+  id,
+  page,
+  size,
+}: {
+  token: string;
+  id: number;
+  page: number;
+  size: number;
+}) {
+  const res = await fetch(
+    `${BASE_URL}/dashboards/${id}/invitations?page=${page}&size=${size}`,
+    {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      cache: "no-store",
+    }
+  );
+
+  return res.json();
+}
