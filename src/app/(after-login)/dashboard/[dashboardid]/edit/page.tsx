@@ -15,7 +15,7 @@ export default function Page({ params }: { params: { dashboardid: string } }) {
         <div className="flex flex-col gap-[10px] tablet:gap-[19px] pc:gap-[34px]">
           <BackButton />
           <div className="flex flex-col gap-4 max-w-[620px]">
-            <DashboardEditSection />
+            <DashboardEditSection id={dashboardId} token={accessToken} />
             <MemberSection id={dashboardId} token={accessToken} />
             <InvitationSection id={dashboardId} token={accessToken} />
           </div>
