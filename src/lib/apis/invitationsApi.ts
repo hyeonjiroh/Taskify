@@ -28,3 +28,27 @@ export async function fetchInvitationList({
 
   return res.json();
 }
+
+export async function putInvitation({
+  token,
+  invitationId,
+  inviteAccepted,
+}: {
+  token: string;
+  invitationId: number;
+  inviteAccepted: boolean;
+}) {
+  const res = await fetch(`${BASE_URL}/invitations/${invitationId}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      inviteAccepted,
+    }),
+  });
+
+  return res.json();
+}
