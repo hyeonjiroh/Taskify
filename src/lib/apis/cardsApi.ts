@@ -45,6 +45,48 @@ export async function fetchTaskCardDetail({
   return res.json();
 }
 
+export async function putCard({
+  token,
+  cardId,
+  columnId,
+  assigneeUserId,
+  title,
+  description,
+  dueDate,
+  tags,
+  imageUrl,
+}: {
+  token: string;
+  cardId: number;
+  columnId: number;
+  assigneeUserId: number;
+  title: string;
+  description: string;
+  dueDate: string;
+  tags: string[];
+  imageUrl: string | null;
+}) {
+  const res = await fetch(`${BASE_URL}/cards/${cardId}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      columnId,
+      assigneeUserId,
+      title,
+      description,
+      dueDate,
+      tags,
+      imageUrl,
+    }),
+  });
+
+  return res.json();
+}
+
 export async function deleteCard({
   token,
   cardId,
