@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent, KeyboardEvent } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 import { useTaskStore } from "@/lib/store/useTaskStore";
 import { useModalStore } from "@/lib/store/useModalStore";
 import { fetchTaskCardDetail, putCard } from "@/lib/apis/cardsApi";
