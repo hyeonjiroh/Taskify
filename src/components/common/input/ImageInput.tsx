@@ -11,6 +11,7 @@ interface BaseImageInputProps
   variant: "task" | "profile";
   initialImageUrl?: string | null;
   onImageUrlChange?: (url: string) => void;
+  token?: string;
 }
 
 interface TaskImageInputProps extends BaseImageInputProps {
@@ -63,7 +64,7 @@ const ImageInput = ({
         variant === "task"
           ? (props as TaskImageInputProps).columnId
           : undefined;
-      const imageUrl = await postImage(variant, columnId, file);
+      const imageUrl = await postImage(variant, columnId, file, props.token);
       setUploadImgUrl(imageUrl);
 
       if (props.onImageUrlChange) {
