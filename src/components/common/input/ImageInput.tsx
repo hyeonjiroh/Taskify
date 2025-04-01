@@ -10,6 +10,7 @@ interface BaseImageInputProps
   label?: string;
   variant: "task" | "profile";
   initialImageUrl?: string | null;
+  onImageUrlChange?: (url: string) => void;
 }
 
 interface TaskImageInputProps extends BaseImageInputProps {
@@ -64,6 +65,10 @@ const ImageInput = ({
           : undefined;
       const imageUrl = await postImage(variant, columnId, file);
       setUploadImgUrl(imageUrl);
+
+      if (props.onImageUrlChange) {
+        props.onImageUrlChange(imageUrl);
+      }
     } catch (error: unknown) {
       if (error instanceof Error) {
         setError(error.message || "이미지 업로드에 실패했습니다.");

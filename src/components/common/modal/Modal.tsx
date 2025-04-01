@@ -45,7 +45,7 @@ export default function Modal({
     <div className="flex justify-center items-center fixed top-0 left-0 w-full h-full p-6 bg-black/70 z-50">
       <div
         className={clsx(
-          "flex flex-col max-h-[92vh] px-4 rounded border-none bg-white",
+          "flex flex-col max-h-[80vh] px-4 rounded border-none bg-white",
           isPage
             ? "gap-2 max-w-[327px] py-4 tablet:px-8 tablet:gap-6 tablet:max-w-[1200px] tablet:py-6"
             : "gap-8 max-w-[327px] py-6 tablet:max-w-[1200px] tablet:p-8"

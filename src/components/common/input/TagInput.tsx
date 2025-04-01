@@ -1,17 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { ChangeEvent, KeyboardEvent, useState } from "react";
 import TagList from "../tag/TagList";
+
+interface TagInputProps {
+  label: string;
+  tags: string[];
+  setTags: (tags: string[]) => void;
+  value?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
+}
 
 export default function TagInput({
   label,
   tags,
   setTags,
-}: {
-  label: string;
-  tags: string[];
-  setTags: (tags: string[]) => void;
-}) {
+  value,
+  onChange,
+  onKeyDown,
+}: TagInputProps) {
   const [inputValue, setInputValue] = useState("");
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
