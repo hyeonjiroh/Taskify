@@ -4,13 +4,15 @@ import { useEffect, useState } from "react";
 import { fetchDashboardList } from "@/lib/apis/dashboardsApi";
 import { DashboardList } from "@/lib/types";
 import Pagination from "@/components/common/pagination-button/PaginationButton";
+import AddDashboardButton from "./AddDashboardButton";
+import DashboardCard from "./DashboardCard";
 
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 5;
 
 export default function DashboardListSection({ token }: { token: string }) {
   const [myDashboards, setMyDashboards] = useState<DashboardList[]>([]);
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -19,8 +21,8 @@ export default function DashboardListSection({ token }: { token: string }) {
       try {
         const {
           dashboards,
-          total,
-        }: { dashboards: DashboardList[]; total: number } =
+          totalCount,
+        }: { dashboards: DashboardList[]; totalCount: number } =
           await fetchDashboardList({
             token,
             page,
@@ -28,7 +30,7 @@ export default function DashboardListSection({ token }: { token: string }) {
           });
 
         setMyDashboards(dashboards.filter((d) => d.createdByMe));
-        setTotalPages(Math.ceil(total / PAGE_SIZE));
+        setTotalPages(Math.floor(totalCount / 6));
       } catch (error) {
         console.error("대시보드를 불러오는 중 오류 발생:", error);
       } finally {
@@ -39,36 +41,30 @@ export default function DashboardListSection({ token }: { token: string }) {
   }, [page, token]);
 
   return (
-    <div className="max-w-[1022px]">
-      <button className="px-4 py-2 bg-blue-500 text-white rounded-lg flex items-center">
-        새로운 대시보드 +
-      </button>
-
-      <div>
-        <h2 className="text-lg font-semibold">내 대시보드</h2>
-        {myDashboards.length > 0 ? (
-          <ul className="mt-4 space-y-2">
-            {myDashboards.map((dashboard) => (
-              <li key={dashboard.id} className="p-4 bg-white shadow rounded-lg">
-                {dashboard.title}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          !loading && (
-            <div className="p-6 bg-gray-100 text-center rounded-lg">
-              <p className="text-gray-500">아직 생성한 대시보드가 없어요.</p>
-            </div>
-          )
-        )}
+    <div className="flex flex-col max-w-[1022px] gap-4 pc:gap-3">
+      <div className="grid grid-cols-1 gap-2 items-stretch tablet:grid-cols-2 tablet:gap-[10px] pc:grid-cols-3 pc:gap-3">
+        <AddDashboardButton />
+        {myDashboards.map((dashboard) => (
+          <DashboardCard
+            key={dashboard.id}
+            id={dashboard.id}
+            title={dashboard.title}
+            color={dashboard.color}
+            createdByMe={dashboard.createdByMe}
+          />
+        ))}
 
         {loading && (
           <div className="flex justify-center mt-4">
-            <div className="w-6 h-6 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+            <div className="w-6 h-6 border-4 border-gray-500 border-t-transparent rounded-full animate-spin"></div>
           </div>
         )}
-
-        <div className="flex justify-center mt-4">
+      </div>
+      <div className="flex justify-end">
+        <div className="flex items-center gap-3 tablet:gap-4">
+          <p className="font-normal text-xs text-gray-800 tablet:text-md">
+            {totalPages} 페이지 중 {page}
+          </p>
           <Pagination
             currentPage={page}
             totalPages={totalPages}
