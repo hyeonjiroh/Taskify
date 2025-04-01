@@ -74,7 +74,6 @@ export default function CreateDashboardModal() {
           labelClassName="font-medium text-lg tablet:text-2lg"
           textareaClassName="font-normal placeholder:text-gray-500 rounded-md text-md  h-[84px] px-4 py-[13px] tablet:rounded-lg tablet:h-[126px] tablet:py-[15px] tablet:text-lg"
         />
-        <DateInput />
         <TagInput label="태그" tags={tags} setTags={setTags} />
         <ImageInput label="이미지" variant="task" columnId={46355} />
       </div>
