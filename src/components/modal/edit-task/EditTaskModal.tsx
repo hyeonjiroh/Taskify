@@ -189,14 +189,7 @@ export default function EditTaskModal() {
           placeholder="댓글 작성하기"
         />
         <DateInput value={dueDate} onChange={(date) => setDueDate(date)} />
-        <TagInput
-          label="태그"
-          tags={tagValues}
-          setTags={setTagValues}
-          value={formData.tag}
-          onChange={handleChange}
-          onKeyDown={handleAddTag}
-        />
+        <TagInput label="태그" tags={tagValues} setTags={setTagValues} />
         <ImageInput
           label="이미지"
           variant="task"

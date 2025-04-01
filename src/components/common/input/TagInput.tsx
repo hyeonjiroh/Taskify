@@ -7,19 +7,9 @@ interface TagInputProps {
   label: string;
   tags: string[];
   setTags: (tags: string[]) => void;
-  value?: string;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-  onKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
 }
 
-export default function TagInput({
-  label,
-  tags,
-  setTags,
-  value,
-  onChange,
-  onKeyDown,
-}: TagInputProps) {
+export default function TagInput({ label, tags, setTags }: TagInputProps) {
   const [inputValue, setInputValue] = useState("");
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
