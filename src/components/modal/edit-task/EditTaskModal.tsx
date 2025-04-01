@@ -186,6 +186,7 @@ export default function EditTaskModal() {
           columnId={selectedColumn}
           initialImageUrl={cardImg}
           onImageUrlChange={(url) => setItemImg(url)}
+          token={accessToken}
         />
       </div>
     </Modal>
