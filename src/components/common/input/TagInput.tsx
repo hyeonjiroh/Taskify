@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, KeyboardEvent, useState } from "react";
+import { useState } from "react";
 import TagList from "../tag/TagList";
 
 interface TagInputProps {

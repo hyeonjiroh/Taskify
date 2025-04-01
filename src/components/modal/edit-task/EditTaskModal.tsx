@@ -69,16 +69,6 @@ export default function EditTaskModal() {
     }));
   };
 
-  const handleAddTag = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter" && formData.tag !== "") {
-      setTagValues((prev) => [...prev, formData.tag]);
-      setFormData((prev) => ({
-        ...prev,
-        tag: "",
-      }));
-    }
-  };
-
   const handleLoad = async () => {
     if (!selectedTaskId || isLoading) return;
     setIsLoading(true);
