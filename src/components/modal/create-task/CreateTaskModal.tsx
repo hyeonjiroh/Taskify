@@ -3,7 +3,6 @@ import Image from "next/image";
 import Modal from "@/components/common/modal/Modal";
 import TagInput from "@/components/common/input/TagInput";
 import Input from "@/components/common/input/Input";
-import DateInput from "@/components/common/input/DateInput";
 import ImageInput from "@/components/common/input/ImageInput";
 import Textarea from "@/components/common/textarea/Textarea";
 import dropdownIcon from "../../../../public/icon/dropdown_icon.svg";
