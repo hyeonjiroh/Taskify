@@ -272,7 +272,7 @@ export default function Home() {
           })
         )}
       >
-        <div>©codeit - 2023</div>
+        <div>©codeit - 2025</div>
         <div
           className={`flex ${isMobile ? "gap-[20px] mt-[12px]" : "gap-[32px]"}`}
         >

@@ -28,9 +28,7 @@ export default function CreateDashboardModal() {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [items, setItems] = useState<DashboardMember[]>([]);
 
-  // 해당 폼이 유효성 검사 후 제출 가능해질 때 해당 state 값이 true가 되도록 하기
   const [isFormValid, setIsFormValid] = useState(false);
-  // const [selectedColumn, setSelectedColumn] = useState(0);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const accessToken = localStorage.getItem("accessToken") ?? "";
@@ -45,7 +43,6 @@ export default function CreateDashboardModal() {
         page: 1,
         size: 20,
       });
-      console.log("Fetched members:", res.members); // 데이터 확인용
 
       setItems(res.members);
     } catch (error) {
@@ -59,14 +56,12 @@ export default function CreateDashboardModal() {
     }
   }, [dashboardId]);
 
-  // useEffect(() => {}, [items]);
-
   const handleAssigneeSelect = (selectedAssignee: DashboardMember) => {
     if (!selectedAssignee) {
       console.error("선택된 담당자가 없습니다.");
       return;
     }
-    setAssignees(selectedAssignee); // 선택된 담당자 정보를 assignee 상태로 업데이트
+    setAssignees(selectedAssignee);
     setIsDropdownOpen(false);
   };
 
@@ -76,7 +71,7 @@ export default function CreateDashboardModal() {
     const { name, value } = e.target;
     setForm((prev) => ({
       ...prev,
-      [name]: value, // 변경된 값만 업데이트
+      [name]: value,
     }));
   };
 
@@ -94,22 +89,9 @@ export default function CreateDashboardModal() {
     setIsFormValid(isNotEmpty);
   }, [form.title, form.description, assignees, dueDate, tags]);
 
-  // 활성화된 모달 버튼 클릭 시 실행할 함수
   const buttonClick = async () => {
     if (!dashboardId) return;
     if (!selectedColumnId) return;
-
-    // 생성된 데이터 값 확인용 입니당
-    console.log("카드 생성 데이터:", {
-      dashboardId,
-      selectedColumnId,
-      assigneeUserId: assignees?.userId,
-      title: form.title,
-      description: form.description,
-      dueDate,
-      tags,
-      imageUrl,
-    });
 
     try {
       await createCard({
@@ -129,12 +111,6 @@ export default function CreateDashboardModal() {
 
     window.location.reload();
   };
-
-  // dashboardId가 number로 잘나오는지 확인하려고 작성한 코드입니당
-  useEffect(() => {
-    console.log("🔍 dashboardId 값:", dashboardId);
-    console.log("🔍 dashboardId 타입:", typeof dashboardId);
-  }, [dashboardId]);
 
   if (!selectedColumnId) return;
 
