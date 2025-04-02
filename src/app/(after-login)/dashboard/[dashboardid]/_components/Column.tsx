@@ -76,7 +76,7 @@ export default function Column({ id, title }: DashboardColumn) {
         </div>
         <div className="flex flex-col gap-[10px] flex-grow min-h-0 tablet:gap-4">
           <div>
-            <AddTaskButton />
+            <AddTaskButton columnId={id} />
           </div>
           <div className="flex flex-col gap-[10px] flex-grow min-h-0 overflow-y-auto whitespace-nowrap scrollbar-hide tablet:gap-4">
             {items.map((item, index) => (
