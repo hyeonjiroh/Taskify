@@ -126,7 +126,18 @@ export async function createCard({
   tags: string[];
   imageUrl: string | null;
 }) {
-  const payload: Record<string, any> = {
+  type CreateCardPayload = {
+    assigneeUserId: number;
+    dashboardId: number;
+    columnId: number;
+    title: string;
+    description: string;
+    dueDate: string;
+    tags: string[];
+    imageUrl?: string;
+  };
+
+  const payload: CreateCardPayload = {
     assigneeUserId,
     dashboardId,
     columnId,
