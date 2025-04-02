@@ -104,3 +104,62 @@ export async function deleteCard({
 
   return null;
 }
+
+export async function createCard({
+  token,
+  assigneeUserId,
+  dashboardId,
+  columnId,
+  title,
+  description,
+  dueDate,
+  tags,
+  imageUrl,
+}: {
+  token: string;
+  assigneeUserId: number;
+  dashboardId: number;
+  columnId: number;
+  title: string;
+  description: string;
+  dueDate: string;
+  tags: string[];
+  imageUrl: string | null;
+}) {
+  type CreateCardPayload = {
+    assigneeUserId: number;
+    dashboardId: number;
+    columnId: number;
+    title: string;
+    description: string;
+    dueDate: string;
+    tags: string[];
+    imageUrl?: string;
+  };
+
+  const payload: CreateCardPayload = {
+    assigneeUserId,
+    dashboardId,
+    columnId,
+    title,
+    description,
+    dueDate,
+    tags,
+  };
+
+  if (imageUrl) {
+    payload.imageUrl = imageUrl;
+  }
+
+  const res = await fetch(`${BASE_URL}/cards`, {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  return await res.json();
+}
