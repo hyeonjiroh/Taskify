@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useDashboardStore } from "@/lib/store/useDashboardStore";
 import { Invitation } from "@/lib/types";
@@ -14,29 +15,47 @@ export default function InvitationCard({
   dashboard,
   token,
 }: InvitationCardProps) {
+  const [loading, setLoading] = useState(false);
+
   const newDashboardId = String(dashboard.id);
   const router = useRouter();
   const setDashboardId = useDashboardStore((state) => state.setDashboardId);
 
   const handleApproveInvite = async () => {
-    await putInvitation({
-      token,
-      invitationId: id,
-      inviteAccepted: true,
-    });
+    setLoading(true);
 
-    router.push(`/dashboard/${newDashboardId}`);
-    setDashboardId(newDashboardId);
+    try {
+      await putInvitation({
+        token,
+        invitationId: id,
+        inviteAccepted: true,
+      });
+
+      router.push(`/dashboard/${newDashboardId}`);
+      setDashboardId(newDashboardId);
+    } catch (error) {
+      console.error("Failed to approve invitation :", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleRejectInvite = async () => {
-    await putInvitation({
-      token,
-      invitationId: id,
-      inviteAccepted: false,
-    });
+    setLoading(true);
 
-    window.location.reload();
+    try {
+      await putInvitation({
+        token,
+        invitationId: id,
+        inviteAccepted: false,
+      });
+
+      window.location.reload();
+    } catch (error) {
+      console.error("Failed to reject invitation :", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -66,7 +85,9 @@ export default function InvitationCard({
           radius="sm"
           className="flex-1 max-h-[32px] tablet:max-w-[72px] pc:max-w-[84px]"
         >
-          <div className="font-medium text-xs tablet:text-md">수락</div>
+          <div className="font-medium text-xs tablet:text-md">
+            {!loading && "수락"}
+          </div>
         </Button>
         <Button
           variant="whiteViolet"
@@ -74,7 +95,9 @@ export default function InvitationCard({
           radius="sm"
           className="flex-1 max-h-[32px] tablet:max-w-[72px] pc:max-w-[84px]"
         >
-          <div className="font-medium text-xs tablet:text-md">거절</div>
+          <div className="font-medium text-xs tablet:text-md">
+            {!loading && "거절"}
+          </div>
         </Button>
       </div>
     </div>

@@ -24,6 +24,8 @@ export default function TaskDetailModal() {
         id: selectedTaskId,
       });
       setData(res);
+    } catch (error) {
+      console.error("Failed to load card detail :", error);
     } finally {
       setIsLoading(false);
     }

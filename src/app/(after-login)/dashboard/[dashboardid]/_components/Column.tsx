@@ -42,6 +42,8 @@ export default function Column({ id, title }: DashboardColumn) {
       if (newCards.length < PAGE_SIZE || nextCursorId === null) {
         setIsLast(true);
       }
+    } catch (error) {
+      console.error("Failed to load card list :", error);
     } finally {
       setIsLoading(false);
     }

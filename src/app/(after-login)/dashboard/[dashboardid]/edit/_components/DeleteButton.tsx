@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useDashboardStore } from "@/lib/store/useDashboardStore";
 import { deleteDashboard } from "@/lib/apis/dashboardsApi";
@@ -12,17 +13,27 @@ export default function DeleteButton({
   id: number;
   token: string;
 }) {
+  const [loading, setLoading] = useState(false);
+
   const router = useRouter();
   const setDashboardId = useDashboardStore((state) => state.setDashboardId);
 
   const handleDeleteClick = async () => {
-    await deleteDashboard({
-      token,
-      id,
-    });
+    setLoading(true);
 
-    router.push(ROUTE.MYDASHBOARD);
-    setDashboardId(null);
+    try {
+      await deleteDashboard({
+        token,
+        id,
+      });
+
+      router.push(ROUTE.MYDASHBOARD);
+      setDashboardId(null);
+    } catch (error) {
+      console.error("Failed to delete dashboard :", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -31,7 +42,7 @@ export default function DeleteButton({
       onClick={handleDeleteClick}
       className="max-w-[320px] h-[52px] rounded-lg border border-gray-400 bg-gray-200 font-medium text-lg text-gray-800 tablet:h-[62px] tablet:text-2lg hover:bg-gray-300"
     >
-      대시보드 삭제하기
+      {!loading && "대시보드 삭제하기"}
     </button>
   );
 }

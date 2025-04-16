@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Invitation } from "@/lib/types";
 import { deleteInvitation } from "@/lib/apis/dashboardsApi";
 import Button from "@/components/common/button/Button";
@@ -12,14 +13,24 @@ export default function InvitationCard({
   invitee,
   token,
 }: InvitationCardProps) {
-  const handleDeleteClick = async () => {
-    await deleteInvitation({
-      token,
-      dashboardId: dashboard.id,
-      invitationId: id,
-    });
+  const [loading, setLoading] = useState(false);
 
-    window.location.reload();
+  const handleDeleteClick = async () => {
+    setLoading(true);
+
+    try {
+      await deleteInvitation({
+        token,
+        dashboardId: dashboard.id,
+        invitationId: id,
+      });
+
+      window.location.reload();
+    } catch (error) {
+      console.error("Failed to delete invitation :", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -31,7 +42,7 @@ export default function InvitationCard({
           onClick={handleDeleteClick}
           className="w-[52px] max-h-[32px] tablet:w-[84px]"
         >
-          취소
+          {!loading && "취소"}
         </Button>
       </div>
     </div>

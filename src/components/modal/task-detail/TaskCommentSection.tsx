@@ -14,6 +14,7 @@ export default function TaskCommentSection({
 }) {
   const [inputValue, setInputValue] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [commentListKey, setCommentListKey] = useState(0);
   const { dashboardId } = useDashboardStore();
   const accessToken = localStorage.getItem("accessToken") ?? "";
@@ -29,20 +30,28 @@ export default function TaskCommentSection({
 
   const buttonClick = async () => {
     if (!dashboardId) return;
+    setLoading(true);
 
-    await postComment({
-      token: accessToken,
-      content: inputValue.trim(),
-      cardId: cardId,
-      columnId: columnId,
-      dashboardId: Number(dashboardId),
-    });
+    try {
+      await postComment({
+        token: accessToken,
+        content: inputValue.trim(),
+        cardId: cardId,
+        columnId: columnId,
+        dashboardId: Number(dashboardId),
+      });
 
-    setInputValue("");
-    setCommentListKey((prev) => prev + 1); // key 값 변경해서 CommentList 다시 마운트
+      setInputValue("");
+      setCommentListKey((prev) => prev + 1); // key 값 변경해서 CommentList 다시 마운트
+    } catch (error) {
+      console.error("Failed to post comment :", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!dashboardId) return;
+  if (loading) return <p>Loading...</p>;
 
   return (
     <div className="flex flex-col gap-4 w-[290px] tablet:gap-6 tablet:w-[420px] pc:w-[445px]">

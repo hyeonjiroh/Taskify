@@ -21,6 +21,7 @@ export default function CommentCard({
   const [isEditMode, setIsEditMode] = useState(false);
   const [inputValue, setInputValue] = useState(content);
   const [isFormValid, setIsFormValid] = useState(false);
+  const [loading, setLoading] = useState(false);
   const isMobile = useIsMobile();
   const date = formatDate(createdAt, true);
   const accessToken = localStorage.getItem("accessToken") ?? "";
@@ -39,23 +40,39 @@ export default function CommentCard({
   };
 
   const handleEditComment = async () => {
-    await putComment({
-      token: accessToken,
-      content: inputValue.trim(),
-      commentId: id,
-    });
+    setLoading(true);
 
-    setInputValue("");
-    onChange();
+    try {
+      await putComment({
+        token: accessToken,
+        content: inputValue.trim(),
+        commentId: id,
+      });
+
+      setInputValue("");
+      onChange();
+    } catch (error) {
+      console.error("Failed to edit comment :", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDeleteComment = async () => {
-    await deleteComment({
-      token: accessToken,
-      commentId: id,
-    });
+    setLoading(true);
 
-    onChange();
+    try {
+      await deleteComment({
+        token: accessToken,
+        commentId: id,
+      });
+
+      onChange();
+    } catch (error) {
+      console.error("Failed to delete comment :", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -95,7 +112,7 @@ export default function CommentCard({
                 className="w-[84px] max-h-[28px] absolute bottom-3 right-3 font-medium text-xs leading-[18px] tablet:w-[78px] tablet:h-[32px]"
                 disabled={!isFormValid}
               >
-                등록
+                {!loading && "등록"}
               </Button>
             </div>
           ) : (
@@ -115,7 +132,7 @@ export default function CommentCard({
             onClick={handleDeleteComment}
             className="font-normal text-[10px] text-gray-500 underline cursor-pointer tablet:text-xs"
           >
-            삭제
+            {!loading && "삭제"}
           </div>
         </div>
       </div>
