@@ -12,6 +12,7 @@ export default function CreateDashboardModal() {
   const [dashboardName, setDashboardName] = useState("");
   const [selectedColor, setSelectedColor] = useState<ColorCode | "">("");
   const [isFormValid, setIsFormValid] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const setDashboardId = useDashboardStore((state) => state.setDashboardId);
   const accessToken = localStorage.getItem("accessToken") ?? "";
@@ -33,16 +34,24 @@ export default function CreateDashboardModal() {
   };
 
   const createDashboard = async () => {
-    const res = await postDashboard({
-      token: accessToken,
-      title: dashboardName,
-      color: selectedColor,
-    });
+    setLoading(true);
 
-    const newDashboardId = res.id;
+    try {
+      const res = await postDashboard({
+        token: accessToken,
+        title: dashboardName,
+        color: selectedColor,
+      });
 
-    router.push(`/dashboard/${newDashboardId}`);
-    setDashboardId(newDashboardId);
+      const newDashboardId = res.id;
+
+      router.push(`/dashboard/${newDashboardId}`);
+      setDashboardId(newDashboardId);
+    } catch (error) {
+      console.error("Failed to create dashboard :", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -52,15 +61,22 @@ export default function CreateDashboardModal() {
         disabled: !isFormValid,
       }}
     >
-      <div className="flex flex-col gap-4 tablet:w-[584px]">
-        <Input
-          label="대시보드 이름"
-          value={dashboardName}
-          placeholder="대시보드 이름을 입력하세요"
-          onChange={onDashboardNameChange}
-        />
-        <ColorPalette onSelect={onColorSelect} selectedColor={selectedColor} />
-      </div>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="flex flex-col gap-4 tablet:w-[584px]">
+          <Input
+            label="대시보드 이름"
+            value={dashboardName}
+            placeholder="대시보드 이름을 입력하세요"
+            onChange={onDashboardNameChange}
+          />
+          <ColorPalette
+            onSelect={onColorSelect}
+            selectedColor={selectedColor}
+          />
+        </div>
+      )}
     </Modal>
   );
 }

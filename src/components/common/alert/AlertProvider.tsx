@@ -15,11 +15,16 @@ export default function AlertProvider() {
 
   const handleDeleteClick = async () => {
     if (!accessToken || !selectedColumnId) return;
-    await deleteColumn({
-      token: accessToken,
-      columnId: Number(selectedColumnId),
-    });
-    router.refresh();
+
+    try {
+      await deleteColumn({
+        token: accessToken,
+        columnId: Number(selectedColumnId),
+      });
+      router.refresh();
+    } catch (error) {
+      console.error("Failed to delete column :", error);
+    }
   };
 
   return (

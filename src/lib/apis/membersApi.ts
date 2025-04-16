@@ -24,6 +24,10 @@ export async function fetchDashboardMember({
     cache: "no-store",
   });
 
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}: ${res.statusText}`);
+  }
+
   return res.json();
 }
 
@@ -34,13 +38,17 @@ export async function deleteDashboardMember({
   token: string;
   memberId: number;
 }) {
-  await fetch(`${BASE_URL}/members/${memberId}`, {
+  const res = await fetch(`${BASE_URL}/members/${memberId}`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
+
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}: ${res.statusText}`);
+  }
 
   return null;
 }

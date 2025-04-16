@@ -17,19 +17,28 @@ export default function InvitationSection({
   token: string;
 }) {
   const [items, setItems] = useState<Invitation[]>([]);
+  const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
   const totalPage = Math.ceil(totalCount / PAGE_SIZE);
 
   const handleLoad = async () => {
-    const { invitations, totalCount } = await fetchInvitationList({
-      token,
-      id,
-      page,
-      size: PAGE_SIZE,
-    });
-    setItems(invitations);
-    setTotalCount(totalCount);
+    setLoading(true);
+
+    try {
+      const { invitations, totalCount } = await fetchInvitationList({
+        token,
+        id,
+        page,
+        size: PAGE_SIZE,
+      });
+      setItems(invitations);
+      setTotalCount(totalCount);
+    } catch (error) {
+      console.error("Failed to load invitation:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -47,6 +56,8 @@ export default function InvitationSection({
       setPage((prev) => prev + 1);
     }
   };
+
+  if (loading) return <p>Loading...</p>;
 
   return (
     <div className="flex flex-col gap-[26px] w-full p-4 rounded-lg bg-white tablet:gap-[17px] tablet:p-6">

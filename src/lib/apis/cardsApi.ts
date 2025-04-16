@@ -24,6 +24,10 @@ export async function fetchTaskCardList({
     cache: "no-store",
   });
 
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}: ${res.statusText}`);
+  }
+
   return res.json();
 }
 
@@ -41,6 +45,10 @@ export async function fetchTaskCardDetail({
     },
     cache: "no-store",
   });
+
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}: ${res.statusText}`);
+  }
 
   return res.json();
 }
@@ -84,6 +92,10 @@ export async function putCard({
     }),
   });
 
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}: ${res.statusText}`);
+  }
+
   return res.json();
 }
 
@@ -94,13 +106,17 @@ export async function deleteCard({
   token: string;
   cardId: number;
 }) {
-  await fetch(`${BASE_URL}/cards/${cardId}`, {
+  const res = await fetch(`${BASE_URL}/cards/${cardId}`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
+
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}: ${res.statusText}`);
+  }
 
   return null;
 }
@@ -160,6 +176,10 @@ export async function createCard({
     },
     body: JSON.stringify(payload),
   });
+
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}: ${res.statusText}`);
+  }
 
   return await res.json();
 }

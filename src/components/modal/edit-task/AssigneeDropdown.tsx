@@ -21,21 +21,32 @@ export default function AssigneeDropdown({
   const [members, setMembers] = useState<
     { userId: number; nickname: string; profileImageUrl: string | null }[]
   >([]);
+  const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
-      const res = await fetchDashboardMember({
-        token,
-        page: 1,
-        size: 20,
-        id: dashboardId,
-      });
-      setMembers(res.members);
+      setLoading(true);
+
+      try {
+        const res = await fetchDashboardMember({
+          token,
+          page: 1,
+          size: 20,
+          id: dashboardId,
+        });
+        setMembers(res.members);
+      } catch (error) {
+        console.error("Failed to load members:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     getData();
   }, []);
+
+  if (loading) return <p>Loading...</p>;
 
   const selected = members.find((member) => member.userId === memberId);
 

@@ -6,10 +6,11 @@ import { isValidEmail } from "@/lib/utils/validationUtils";
 import Modal from "@/components/common/modal/Modal";
 import Input from "@/components/common/input/Input";
 
-export default function CreateDashboardModal() {
+export default function InviteModal() {
   const [inputValue, setInputValue] = useState("");
   const [isInvalidEmail, setIsInvalidEmail] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { dashboardId } = useDashboardStore();
   const router = useRouter();
   const accessToken = localStorage.getItem("accessToken") ?? "";
@@ -31,14 +32,21 @@ export default function CreateDashboardModal() {
 
   const buttonClick = async () => {
     if (!dashboardId) return;
+    setLoading(true);
 
-    postInvitation({
-      token: accessToken,
-      id: Number(dashboardId),
-      email: inputValue,
-    });
+    try {
+      postInvitation({
+        token: accessToken,
+        id: Number(dashboardId),
+        email: inputValue,
+      });
 
-    router.refresh();
+      router.refresh();
+    } catch (error) {
+      console.error("Failed to invite :", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!dashboardId) return;
@@ -50,16 +58,22 @@ export default function CreateDashboardModal() {
         disabled: !isFormValid,
       }}
     >
-      <div className="tablet:w-[520px]">
-        <Input
-          label="이메일"
-          placeholder="이메일을 입력해 주세요"
-          value={inputValue}
-          onChange={handleChange}
-          error={isInvalidEmail}
-          errorMessage={isInvalidEmail ? "이메일 형식으로 작성해 주세요." : ""}
-        />
-      </div>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="tablet:w-[520px]">
+          <Input
+            label="이메일"
+            placeholder="이메일을 입력해 주세요"
+            value={inputValue}
+            onChange={handleChange}
+            error={isInvalidEmail}
+            errorMessage={
+              isInvalidEmail ? "이메일 형식으로 작성해 주세요." : ""
+            }
+          />
+        </div>
+      )}
     </Modal>
   );
 }

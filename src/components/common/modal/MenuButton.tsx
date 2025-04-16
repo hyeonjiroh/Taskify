@@ -6,6 +6,7 @@ import MenuButtonIcon from "../../../../public/icon/menu_icon.svg";
 import { useTaskStore } from "@/lib/store/useTaskStore";
 
 export default function MenuButton() {
+  const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const { openModal, closeModal } = useModalStore();
   const { selectedTaskId } = useTaskStore();
@@ -18,14 +19,21 @@ export default function MenuButton() {
 
   const handleDelete = async () => {
     if (!selectedTaskId) return;
+    setLoading(true);
 
-    await deleteCard({
-      token: accessToken,
-      cardId: selectedTaskId,
-    });
+    try {
+      await deleteCard({
+        token: accessToken,
+        cardId: selectedTaskId,
+      });
 
-    closeModal();
-    window.location.reload();
+      closeModal();
+      window.location.reload();
+    } catch (error) {
+      console.error("Failed to delete card :", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -50,7 +58,7 @@ export default function MenuButton() {
             onClick={handleDelete}
             className="w-[81px] h-8 rounded font-normal text-md text-gray-800 hover:text-violet hover:bg-violet-8"
           >
-            삭제하기
+            {!loading && "삭제하기"}
           </button>
         </div>
       )}

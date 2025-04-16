@@ -18,21 +18,31 @@ export default function ColumnDropdown({
   onChange,
 }: ColumnDropdownProps) {
   const [columns, setColumns] = useState<{ id: number; title: string }[]>([]);
+  const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const getData = async () => {
-      const res = await fetchColumnList({
-        token,
-        id: dashboardId,
-      });
-      setColumns(res.data);
-    };
+    setLoading(true);
 
-    getData();
+    try {
+      const getData = async () => {
+        const res = await fetchColumnList({
+          token,
+          id: dashboardId,
+        });
+        setColumns(res.data);
+      };
+
+      getData();
+    } catch (error) {
+      console.error("Failed to load column list :", error);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   const selected = columns.find((col) => col.id === columnId);
+  if (loading) return <p>Loading...</p>;
 
   return (
     <div className="relative flex flex-col w-full tablet:min-w-[217px]">

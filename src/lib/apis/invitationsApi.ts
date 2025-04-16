@@ -26,6 +26,10 @@ export async function fetchInvitationList({
     cache: "no-store",
   });
 
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}: ${res.statusText}`);
+  }
+
   return res.json();
 }
 
@@ -49,6 +53,10 @@ export async function putInvitation({
       inviteAccepted,
     }),
   });
+
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}: ${res.statusText}`);
+  }
 
   return res.json();
 }
