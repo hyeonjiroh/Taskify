@@ -20,6 +20,10 @@ export async function fetchDashboardList({
     }
   );
 
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}: ${res.statusText}`);
+  }
+
   return res.json();
 }
 
@@ -37,6 +41,10 @@ export async function fetchDashboard({
     },
     cache: "no-store",
   });
+
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}: ${res.statusText}`);
+  }
 
   return res.json();
 }
@@ -62,6 +70,10 @@ export async function postDashboard({
       color,
     }),
   });
+
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}: ${res.statusText}`);
+  }
 
   return res.json();
 }
@@ -90,6 +102,10 @@ export async function putDashboard({
     }),
   });
 
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}: ${res.statusText}`);
+  }
+
   return res.json();
 }
 
@@ -100,13 +116,17 @@ export async function deleteDashboard({
   token: string;
   id: number;
 }) {
-  await fetch(`${BASE_URL}/dashboards/${id}`, {
+  const res = await fetch(`${BASE_URL}/dashboards/${id}`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
+
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}: ${res.statusText}`);
+  }
 
   return null;
 }
@@ -133,6 +153,10 @@ export async function fetchInvitationList({
     }
   );
 
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}: ${res.statusText}`);
+  }
+
   return res.json();
 }
 
@@ -157,6 +181,10 @@ export async function postInvitation({
     }),
   });
 
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}: ${res.statusText}`);
+  }
+
   return res.json();
 }
 
@@ -169,7 +197,7 @@ export async function deleteInvitation({
   dashboardId: number;
   invitationId: number;
 }) {
-  await fetch(
+  const res = await fetch(
     `${BASE_URL}/dashboards/${dashboardId}/invitations/${invitationId}`,
     {
       method: "DELETE",
@@ -179,6 +207,10 @@ export async function deleteInvitation({
       },
     }
   );
+
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}: ${res.statusText}`);
+  }
 
   return null;
 }
