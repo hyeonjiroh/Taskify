@@ -15,6 +15,10 @@ export async function fetchColumnList({
     cache: "no-store",
   });
 
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}: ${res.statusText}`);
+  }
+
   return res.json();
 }
 
@@ -40,6 +44,10 @@ export async function postColumn({
     }),
   });
 
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}: ${res.statusText}`);
+  }
+
   return res.json();
 }
 
@@ -64,6 +72,10 @@ export async function putColumn({
     }),
   });
 
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}: ${res.statusText}`);
+  }
+
   return res.json();
 }
 
@@ -74,13 +86,17 @@ export async function deleteColumn({
   token: string;
   columnId: number;
 }) {
-  await fetch(`${BASE_URL}/columns/${columnId}`, {
+  const res = await fetch(`${BASE_URL}/columns/${columnId}`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
+
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}: ${res.statusText}`);
+  }
 
   return null;
 }

@@ -13,6 +13,7 @@ export interface ColumnListResponse {
 
 export default function CreateDashboardModal() {
   const [columnList, setColumnList] = useState<DashboardColumn[]>([]);
+  const [loading, setLoading] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [isDuplicate, setIsDuplicate] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
@@ -22,16 +23,23 @@ export default function CreateDashboardModal() {
 
   useEffect(() => {
     if (!dashboardId) return;
+    setLoading(true);
 
-    const getData = async () => {
-      const res = await fetchColumnList({
-        token: accessToken,
-        id: dashboardId,
-      });
-      setColumnList(res.data);
-    };
+    try {
+      const getData = async () => {
+        const res = await fetchColumnList({
+          token: accessToken,
+          id: dashboardId,
+        });
+        setColumnList(res.data);
+      };
 
-    getData();
+      getData();
+    } catch (error) {
+      console.error("Failed to load column list :", error);
+    } finally {
+      setLoading(false);
+    }
   }, [dashboardId]);
 
   useEffect(() => {
@@ -51,17 +59,25 @@ export default function CreateDashboardModal() {
 
   const buttonClick = async () => {
     if (!dashboardId) return;
+    setLoading(true);
 
-    await postColumn({
-      token: accessToken,
-      title: inputValue,
-      dashboardId: Number(dashboardId),
-    });
+    try {
+      await postColumn({
+        token: accessToken,
+        title: inputValue,
+        dashboardId: Number(dashboardId),
+      });
 
-    router.refresh();
+      router.refresh();
+    } catch (error) {
+      console.error("Failed to post column :", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!dashboardId) return;
+  if (loading) return <p>Loading...</p>;
 
   return (
     <Modal

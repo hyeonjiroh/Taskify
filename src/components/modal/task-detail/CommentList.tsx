@@ -39,6 +39,8 @@ export default function CommentList({
       if (newComments.length < PAGE_SIZE || nextCursorId === null) {
         setIsLast(true);
       }
+    } catch (error) {
+      console.error("Failed to load comments:", error);
     } finally {
       setIsLoading(false);
     }

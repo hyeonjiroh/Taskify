@@ -24,6 +24,10 @@ export async function fetchCommentList({
     cache: "no-store",
   });
 
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}: ${res.statusText}`);
+  }
+
   return res.json();
 }
 
@@ -55,6 +59,10 @@ export async function postComment({
     }),
   });
 
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}: ${res.statusText}`);
+  }
+
   return res.json();
 }
 
@@ -79,6 +87,10 @@ export async function putComment({
     }),
   });
 
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}: ${res.statusText}`);
+  }
+
   return res.json();
 }
 
@@ -89,13 +101,17 @@ export async function deleteComment({
   token: string;
   commentId: number;
 }) {
-  await fetch(`${BASE_URL}/comments/${commentId}`, {
+  const res = await fetch(`${BASE_URL}/comments/${commentId}`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
+
+  if (!res.ok) {
+    throw new Error(`Error ${res.status}: ${res.statusText}`);
+  }
 
   return null;
 }

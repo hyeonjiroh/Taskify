@@ -18,23 +18,32 @@ export default function DashboardEditSection({
   token: string;
 }) {
   const [data, setData] = useState<DashboardDetail | null>(null);
+  const [loading, setLoading] = useState(false);
   const [dashboardName, setDashboardName] = useState("");
   const [selectedColor, setSelectedColor] = useState<ColorCode | "">("");
   const [isFormValid, setIsFormValid] = useState(false);
   const setDashboardId = useDashboardStore((state) => state.setDashboardId);
 
   useEffect(() => {
-    const getData = async () => {
-      const data = await fetchDashboard({
-        token,
-        id: String(id),
-      });
-      setData(data);
-      setDashboardName(data.title);
-      setSelectedColor(data.color);
-    };
+    setLoading(true);
 
-    getData();
+    try {
+      const getData = async () => {
+        const data = await fetchDashboard({
+          token,
+          id: String(id),
+        });
+        setData(data);
+        setDashboardName(data.title);
+        setSelectedColor(data.color);
+      };
+
+      getData();
+    } catch (error) {
+      console.error("Failed to load dashboard:", error);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   const onColorSelect = (color: ColorCode | "") => {
@@ -54,18 +63,27 @@ export default function DashboardEditSection({
   };
 
   const editDashboard = async () => {
-    await putDashboard({
-      token,
-      title: dashboardName,
-      color: selectedColor,
-      id,
-    });
+    setLoading(true);
 
-    window.location.replace(`/dashboard/${id}`);
-    setDashboardId(String(id));
+    try {
+      await putDashboard({
+        token,
+        title: dashboardName,
+        color: selectedColor,
+        id,
+      });
+
+      window.location.replace(`/dashboard/${id}`);
+      setDashboardId(String(id));
+    } catch (error) {
+      console.error("Failed to edit dashboard :", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!data) return;
+  if (loading) return <p>Loading...</p>;
 
   return (
     <div className="w-full p-4 rounded-lg bg-white tablet:p-6">
@@ -91,7 +109,7 @@ export default function DashboardEditSection({
             onClick={editDashboard}
             disabled={!isFormValid}
           >
-            변경
+            {!loading && "변경"}
           </Button>
         </div>
       </div>

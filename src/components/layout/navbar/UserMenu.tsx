@@ -1,4 +1,5 @@
 "use client";
+
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { UserInfo } from "@/lib/types";
@@ -11,6 +12,7 @@ import ROUTE from "@/lib/constants/route";
 
 export default function UserMenu() {
   const [data, setData] = useState<UserInfo | null>(null);
+  const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useIsMobile();
   const router = useRouter();
@@ -20,16 +22,25 @@ export default function UserMenu() {
 
   useEffect(() => {
     const getData = async () => {
-      if (accessToken) {
+      if (!accessToken) return;
+      setLoading(true);
+
+      try {
         const res = await fetchUser({
           token: accessToken,
         });
         setData(res);
+      } catch (error) {
+        console.error("Failed to load user:", error);
+      } finally {
+        setLoading(false);
       }
     };
+
     getData();
   }, [accessToken]);
 
+  if (loading) return <p>Loading...</p>;
   if (!data) return null;
 
   const { nickname, profileImageUrl } = data;
