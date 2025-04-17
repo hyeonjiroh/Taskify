@@ -4,9 +4,10 @@ import { useEffect, useState, useRef } from "react";
 import { useIntersection } from "@/lib/hooks/useIntersection";
 import { DashboardColumn, TaskCardList } from "@/lib/types";
 import { fetchTaskCardList } from "@/lib/apis/cardsApi";
-import EditColumnButton from "./EditColumnButton";
-import AddTaskButton from "./AddTaskButton";
-import TaskCard from "./TaskCard";
+import EditColumnButton from "@/app/(after-login)/dashboard/[dashboardid]/_components/EditColumnButton";
+import AddTaskButton from "@/app/(after-login)/dashboard/[dashboardid]/_components/AddTaskButton";
+import TaskCard from "@/app/(after-login)/dashboard/[dashboardid]/_components/TaskCard";
+import Cookies from "js-cookie";
 
 const PAGE_SIZE = 3;
 
@@ -17,7 +18,8 @@ export default function Column({ id, title }: DashboardColumn) {
   const [isLoading, setIsLoading] = useState(false);
   const [isLast, setIsLast] = useState(false);
   const observerRef = useRef<HTMLDivElement | null>(null);
-  const accessToken = localStorage.getItem("accessToken") ?? "";
+  // const accessToken = localStorage.getItem("accessToken") ?? "";
+  const accessToken = Cookies.get("accessToken") ?? "";
 
   const handleLoad = async () => {
     if (isLoading || isLast) return;

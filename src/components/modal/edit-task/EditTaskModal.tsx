@@ -2,22 +2,24 @@ import { useState, useEffect, ChangeEvent } from "react";
 import { useTaskStore } from "@/lib/store/useTaskStore";
 import { useModalStore } from "@/lib/store/useModalStore";
 import { fetchTaskCardDetail, putCard } from "@/lib/apis/cardsApi";
+import { postImage } from "@/lib/apis/imageApi";
 import Modal from "@/components/common/modal/Modal";
 import Input from "@/components/common/input/Input";
 import DateInput from "@/components/common/input/DateInput";
 import Textarea from "@/components/common/textarea/Textarea";
 import TagInput from "@/components/common/input/TagInput";
 import ImageInput from "@/components/common/input/ImageInput";
-import ColumnDropdown from "./ColumnDropdown";
-import AssigneeDropdown from "./AssigneeDropdown";
+import ColumnDropdown from "@/components/modal/edit-task/ColumnDropdown";
+import AssigneeDropdown from "@/components/modal/edit-task/AssigneeDropdown";
 import { useDashboardStore } from "@/lib/store/useDashboardStore";
+import Cookies from "js-cookie";
 
 export default function EditTaskModal() {
   const { openModal } = useModalStore();
   const { selectedTaskId } = useTaskStore();
   const { dashboardId } = useDashboardStore();
   const [isLoading, setIsLoading] = useState(false);
-  const accessToken = localStorage.getItem("accessToken") ?? "";
+  const accessToken = Cookies.get("accessToken") ?? "";
 
   const [isFormValid, setIsFormValid] = useState(false);
   const [selectedColumn, setSelectedColumn] = useState(0);
@@ -30,6 +32,7 @@ export default function EditTaskModal() {
   const [tagValues, setTagValues] = useState<string[]>([]);
   const [dueDate, setDueDate] = useState("");
   const [cardImg, setItemImg] = useState<string | null>(null);
+  const [isImageUploading, setIsImageUploading] = useState(false);
 
   const [initialValues, setInitialValues] = useState<{
     title: string;
@@ -101,6 +104,26 @@ export default function EditTaskModal() {
       });
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsImageUploading(true);
+    try {
+      const imageUrl = await postImage(
+        "task",
+        selectedColumn,
+        file,
+        accessToken
+      );
+      setItemImg(imageUrl);
+    } catch (error) {
+      console.error("이미지 업로드 에러:", error);
+    } finally {
+      setIsImageUploading(false);
     }
   };
 
@@ -184,9 +207,11 @@ export default function EditTaskModal() {
           label="이미지"
           variant="task"
           columnId={selectedColumn}
+          token={accessToken}
           initialImageUrl={cardImg}
           onImageUrlChange={(url) => setItemImg(url)}
-          token={accessToken}
+          onChange={handleImageUpload}
+          isLoading={isImageUploading}
         />
       </div>
     </Modal>
