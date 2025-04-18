@@ -22,7 +22,7 @@ export default function CreateDashboardModal() {
   const accessToken = localStorage.getItem("accessToken") ?? "";
 
   useEffect(() => {
-    if (!dashboardId) return;
+    if (!dashboardId || loading) return;
     setLoading(true);
 
     try {
@@ -77,7 +77,6 @@ export default function CreateDashboardModal() {
   };
 
   if (!dashboardId) return;
-  if (loading) return <p>Loading...</p>;
 
   return (
     <Modal
