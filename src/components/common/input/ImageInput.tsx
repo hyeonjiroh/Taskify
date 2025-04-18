@@ -3,7 +3,7 @@ import { ChangeEvent, useState, useEffect } from "react";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 import clsx from "clsx";
-import { postImage } from "@/lib/apis/imageApi";
+import { HashLoader } from "react-spinners";
 
 interface BaseImageInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -12,6 +12,7 @@ interface BaseImageInputProps
   initialImageUrl?: string | null;
   onImageUrlChange?: (url: string) => void;
   token?: string;
+  isLoading?: boolean;
 }
 
 interface TaskImageInputProps extends BaseImageInputProps {
@@ -29,6 +30,7 @@ const ImageInput = ({
   label,
   variant,
   initialImageUrl,
+  isLoading = false,
   ...props
 }: ImageInputProps) => {
   const [uploadImgUrl, setUploadImgUrl] = useState<string>(
@@ -40,7 +42,7 @@ const ImageInput = ({
     setUploadImgUrl(initialImageUrl || "");
   }, [initialImageUrl]);
 
-  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -50,32 +52,9 @@ const ImageInput = ({
       return;
     }
 
-    const localUrl = URL.createObjectURL(file);
-    setUploadImgUrl(localUrl);
     setError(null);
-
     if (props.onChange) {
       props.onChange(e);
-      return;
-    }
-
-    try {
-      const columnId =
-        variant === "task"
-          ? (props as TaskImageInputProps).columnId
-          : undefined;
-      const imageUrl = await postImage(variant, columnId, file, props.token);
-      setUploadImgUrl(imageUrl);
-
-      if (props.onImageUrlChange) {
-        props.onImageUrlChange(imageUrl);
-      }
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        setError(error.message || "이미지 업로드에 실패했습니다.");
-      } else {
-        setError("알 수 없는 오류가 발생했습니다.");
-      }
     }
   };
 
@@ -105,7 +84,15 @@ const ImageInput = ({
         </span>
       )}
       <label htmlFor={label || "file"} className={imageWrapperStyles}>
-        {uploadImgUrl ? (
+        {isLoading ? (
+          <div className="absolute inset-0 flex items-center justify-center bg-gray-100 bg-opacity-75 rounded-md">
+            <HashLoader
+              color="#5534DA"
+              size={variant === "task" ? 30 : 50}
+              className="z-20"
+            />
+          </div>
+        ) : uploadImgUrl ? (
           <Image
             src={uploadImgUrl}
             alt="업로드 이미지 미리보기"

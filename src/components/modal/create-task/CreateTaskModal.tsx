@@ -7,13 +7,15 @@ import DateInput from "@/components/common/input/DateInput";
 import ImageInput from "@/components/common/input/ImageInput";
 import Textarea from "@/components/common/textarea/Textarea";
 import UserIcon from "@/components/common/user-icon/UserIcon";
-import dropdownIcon from "../../../../public/icon/dropdown_icon.svg";
+import dropdownIcon from "public/icon/dropdown_icon.svg";
 import { fetchDashboardMember } from "@/lib/apis/membersApi";
 import { DashboardMember } from "@/lib/types";
 import { useDashboardStore } from "@/lib/store/useDashboardStore";
 import { useColumnStore } from "@/lib/store/useColumnStore";
-import checkItem from "../../../../public/icon/check_icon.svg";
+import checkItem from "public/icon/check_icon.svg";
 import { createCard } from "@/lib/apis/cardsApi";
+import { postImage } from "@/lib/apis/imageApi";
+import Cookies from "js-cookie";
 
 export default function CreateDashboardModal() {
   const { dashboardId } = useDashboardStore();
@@ -26,12 +28,13 @@ export default function CreateDashboardModal() {
   const [dueDate, setDueDate] = useState<string>("");
   const [tags, setTags] = useState<string[]>([]);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [isImageUploading, setIsImageUploading] = useState(false);
   const [items, setItems] = useState<DashboardMember[]>([]);
 
   const [isFormValid, setIsFormValid] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const accessToken = localStorage.getItem("accessToken") ?? "";
+  const accessToken = Cookies.get("accessToken") ?? "";
 
   const fetchMembers = async () => {
     if (!dashboardId) return;
@@ -110,6 +113,26 @@ export default function CreateDashboardModal() {
     }
 
     window.location.reload();
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !selectedColumnId) return;
+
+    setIsImageUploading(true);
+    try {
+      const imageUrl = await postImage(
+        "task",
+        selectedColumnId,
+        file,
+        accessToken
+      );
+      setImageUrl(imageUrl);
+    } catch (error) {
+      console.error("이미지 업로드 에러:", error);
+    } finally {
+      setIsImageUploading(false);
+    }
   };
 
   if (!selectedColumnId) return;
@@ -211,7 +234,10 @@ export default function CreateDashboardModal() {
           variant="task"
           columnId={selectedColumnId}
           token={accessToken}
+          initialImageUrl={imageUrl}
           onImageUrlChange={(url) => setImageUrl(url)}
+          onChange={handleImageUpload}
+          isLoading={isImageUploading}
         />
       </div>
     </Modal>

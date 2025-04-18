@@ -30,6 +30,7 @@ export default function ProfileSection() {
   const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null);
   const [imageError, setImageError] = useState<string | null>(null);
   const [initialData, setInitialData] = useState<UserInfo | null>(null);
+  const [isImageUploading, setIsImageUploading] = useState(false);
   const accessToken = Cookies.get("accessToken") ?? "";
   const { openAlert } = useAlertStore();
 
@@ -73,6 +74,7 @@ export default function ProfileSection() {
     if (!file) return;
 
     setImageError(null);
+    setIsImageUploading(true);
     try {
       const res = await uploadProfileImage({ token: accessToken, image: file });
       setProfileImageUrl(res.profileImageUrl);
@@ -86,6 +88,8 @@ export default function ProfileSection() {
       } else {
         setImageError("이미지 업로드에 실패했습니다.");
       }
+    } finally {
+      setIsImageUploading(false);
     }
   };
 
@@ -125,6 +129,7 @@ export default function ProfileSection() {
               variant="profile"
               initialImageUrl={profileImageUrl}
               onChange={handleImageUpload}
+              isLoading={isImageUploading}
             />
             {imageError && <p className="text-red text-sm">{imageError}</p>}
           </div>
