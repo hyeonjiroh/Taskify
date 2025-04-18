@@ -29,7 +29,7 @@ export default function TaskCommentSection({
   };
 
   const buttonClick = async () => {
-    if (!dashboardId) return;
+    if (!dashboardId || loading) return;
     setLoading(true);
 
     try {
@@ -51,7 +51,6 @@ export default function TaskCommentSection({
   };
 
   if (!dashboardId) return;
-  if (loading) return <p>Loading...</p>;
 
   return (
     <div className="flex flex-col gap-4 w-[290px] tablet:gap-6 tablet:w-[420px] pc:w-[445px]">

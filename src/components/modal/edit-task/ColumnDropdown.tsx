@@ -22,6 +22,7 @@ export default function ColumnDropdown({
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
+    if (loading) return;
     setLoading(true);
 
     try {
@@ -42,7 +43,6 @@ export default function ColumnDropdown({
   }, []);
 
   const selected = columns.find((col) => col.id === columnId);
-  if (loading) return <p>Loading...</p>;
 
   return (
     <div className="relative flex flex-col w-full tablet:min-w-[217px]">

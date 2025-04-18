@@ -12,7 +12,7 @@ export interface ColumnListResponse {
   data: DashboardColumn[];
 }
 
-export default function CreateDashboardModal() {
+export default function EditColumnModal() {
   const { selectedColumnId, selectedColumnTitle } = useColumnStore();
   const [columnList, setColumnList] = useState<DashboardColumn[]>([]);
   const [loading, setLoading] = useState(false);
@@ -24,7 +24,7 @@ export default function CreateDashboardModal() {
   const accessToken = localStorage.getItem("accessToken") ?? "";
 
   useEffect(() => {
-    if (!dashboardId) return;
+    if (!dashboardId || loading) return;
     setLoading(true);
 
     try {
@@ -81,7 +81,6 @@ export default function CreateDashboardModal() {
   };
 
   if (!dashboardId) return;
-  if (loading) return <p>Loading...</p>;
 
   return (
     <Modal

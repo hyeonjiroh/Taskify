@@ -26,6 +26,7 @@ export default function AssigneeDropdown({
 
   useEffect(() => {
     const getData = async () => {
+      if (loading) return;
       setLoading(true);
 
       try {
@@ -45,8 +46,6 @@ export default function AssigneeDropdown({
 
     getData();
   }, []);
-
-  if (loading) return <p>Loading...</p>;
 
   const selected = members.find((member) => member.userId === memberId);
 

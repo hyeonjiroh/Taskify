@@ -31,7 +31,7 @@ export default function InviteModal() {
   };
 
   const buttonClick = async () => {
-    if (!dashboardId) return;
+    if (!dashboardId || loading) return;
     setLoading(true);
 
     try {
@@ -58,22 +58,16 @@ export default function InviteModal() {
         disabled: !isFormValid,
       }}
     >
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <div className="tablet:w-[520px]">
-          <Input
-            label="이메일"
-            placeholder="이메일을 입력해 주세요"
-            value={inputValue}
-            onChange={handleChange}
-            error={isInvalidEmail}
-            errorMessage={
-              isInvalidEmail ? "이메일 형식으로 작성해 주세요." : ""
-            }
-          />
-        </div>
-      )}
+      <div className="tablet:w-[520px]">
+        <Input
+          label="이메일"
+          placeholder="이메일을 입력해 주세요"
+          value={inputValue}
+          onChange={handleChange}
+          error={isInvalidEmail}
+          errorMessage={isInvalidEmail ? "이메일 형식으로 작성해 주세요." : ""}
+        />
+      </div>
     </Modal>
   );
 }

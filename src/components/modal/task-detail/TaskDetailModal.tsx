@@ -14,8 +14,7 @@ export default function TaskDetailModal() {
   const accessToken = localStorage.getItem("accessToken") ?? "";
 
   const handleLoad = async () => {
-    if (!selectedTaskId) return;
-    if (isLoading) return;
+    if (!selectedTaskId || isLoading) return;
     setIsLoading(true);
 
     try {
