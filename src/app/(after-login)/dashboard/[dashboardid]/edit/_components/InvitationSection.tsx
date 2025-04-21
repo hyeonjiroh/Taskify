@@ -23,6 +23,7 @@ export default function InvitationSection({
   const totalPage = Math.ceil(totalCount / PAGE_SIZE);
 
   const handleLoad = async () => {
+    if (loading) return;
     setLoading(true);
 
     try {
@@ -56,8 +57,6 @@ export default function InvitationSection({
       setPage((prev) => prev + 1);
     }
   };
-
-  if (loading) return <p>Loading...</p>;
 
   return (
     <div className="flex flex-col gap-[26px] w-full p-4 rounded-lg bg-white tablet:gap-[17px] tablet:p-6">

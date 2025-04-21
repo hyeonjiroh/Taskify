@@ -22,7 +22,7 @@ export default function UserMenu() {
 
   useEffect(() => {
     const getData = async () => {
-      if (!accessToken) return;
+      if (!accessToken || loading) return;
       setLoading(true);
 
       try {
@@ -40,7 +40,6 @@ export default function UserMenu() {
     getData();
   }, [accessToken]);
 
-  if (loading) return <p>Loading...</p>;
   if (!data) return null;
 
   const { nickname, profileImageUrl } = data;

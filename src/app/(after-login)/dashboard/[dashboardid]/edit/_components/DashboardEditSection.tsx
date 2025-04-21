@@ -25,6 +25,7 @@ export default function DashboardEditSection({
   const setDashboardId = useDashboardStore((state) => state.setDashboardId);
 
   useEffect(() => {
+    if (loading) return;
     setLoading(true);
 
     try {
@@ -83,7 +84,6 @@ export default function DashboardEditSection({
   };
 
   if (!data) return;
-  if (loading) return <p>Loading...</p>;
 
   return (
     <div className="w-full p-4 rounded-lg bg-white tablet:p-6">
@@ -109,7 +109,7 @@ export default function DashboardEditSection({
             onClick={editDashboard}
             disabled={!isFormValid}
           >
-            {!loading && "변경"}
+            변경
           </Button>
         </div>
       </div>
